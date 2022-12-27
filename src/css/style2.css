@@ -1,0 +1,347 @@
+/* -----------------------------------                      -------------------------------- */
+/* ----------------------------------- Interchangable parts -------------------------------- */
+/* -----------------------------------                      -------------------------------- */
+
+.right-div {
+    min-width: fit-content;
+}
+
+.right-div .member-section p {
+    margin-left: 3rem;
+    color: grey;
+}
+
+/* =============================================================== */
+/* 訂單紀錄 */
+/* =============================================================== */
+
+.order-status {
+    margin-top: 30px;
+    margin-left: 3rem;
+    width: 89%;
+    /* outline: auto; */
+}
+
+.order-status a {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px 5px;
+    /* background-color: blue; */
+}
+
+.bolded {
+    font-weight: bold;
+    border-bottom: 3px solid black;
+}
+
+.order-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* outline: auto; */
+}
+
+.order-item:nth-of-type(1) {
+    margin-top: 5px;
+}
+
+.order-item {
+    width: 90%;
+    height: 150px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.order-item-pic {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-item-pic>div {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    overflow: hidden;
+    left: 10px;
+    top: 20px;
+}
+
+.order-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 2;
+    font-size: small;
+    margin-left: 10px;
+}
+
+.order-item-info div {
+    margin-top: 5px;
+}
+
+.order-item-info div:nth-of-type(1) {
+    padding: 5px;
+    background-color: orange;
+    border-radius: 5px;
+    font-size: small;
+    text-decoration: none;
+    color: white;
+    width: max-content;
+}
+
+.order-item-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.order-item-details>a {
+    padding: 5px 30px;
+    background-color: orange;
+    border-radius: 5px;
+    font-size: small;
+    text-decoration: none;
+    color: white;
+}
+
+/* =============================================================== */
+/* 訂單明細 */
+/* =============================================================== */
+.order-details {
+    width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 25px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.order-details h6 {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+#detail1 {
+    display: flex;
+    /* outline: auto; */
+}
+
+#detail1 img {
+    width: 150px;
+    margin: 0 20px;
+    border-radius: 5px;
+}
+
+#detail1 p:nth-of-type(1) {
+    color: black;
+    font-weight: bold;
+    font-size: larger;
+
+}
+
+#detail1 div {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#qtyPrice div {
+    margin: 10px;
+}
+
+#detail1-info {
+    /* outline: auto; */
+    width: 95%;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    margin: auto;
+    padding: 0 5px;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#detail1-info>div {
+    /* outline: auto; */
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+#order-total {
+    font-weight: bold;
+    color: black;
+}
+
+#detail2,
+#detail3,
+#detail4,
+#detail5 {
+    padding: 0 20px;
+    padding-bottom: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#detail3 span,
+#detail4 span {
+    background-color: rgb(236, 240, 241);
+    border-radius: 5px;
+    padding: 2px;
+}
+
+
+/* =============================================================== */
+/* 許願紀錄 */
+/* =============================================================== */
+.wish-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.wish-item {
+    width: 90%;
+    height: 130px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.wish-item .wish-item-user {
+    /* outline: auto; */
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+
+.wish-item .wish-item-user div:nth-of-type(1) {
+    width: 28px;
+    height: 28px;
+    background-color: #F38243;
+    border-radius: 50%;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.wish-item .wish-item-product {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+}
+
+.wish-item .wish-item-popularity {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.wish-item .wish-item-popularity div {
+    width: 60px;
+    height: 25px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    /* margin-right: 10px; */
+}
+
+.wish-item .wish-item-popularity span {
+    margin-left: 10px;
+}
+
+.wish-item-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+
+
+/* =============================================================== */
+/* 帳戶資訊 */
+/* =============================================================== */
+.right-div .member-section form {
+    padding: 1rem 3rem 3rem 3rem;
+}
+
+.submit-button {
+    margin-top: 20px;
+}
+
+/* =============================================================== */
+/* 我的折價卷 */
+/* =============================================================== */
+.right-div h5 {
+    margin-left: 3rem;
+    margin-top: 1.5rem;
+}
+
+.coupon-section {
+    display: flex;
+    justify-content: center;
+}
+
+.coupons {
+    background-color: rgb(236, 240, 241);
+    min-width: 87%;
+    margin-top: 30px;
+    padding-bottom: 40px;
+}
+
+.coupon {
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+    background-color: white;
+    position: relative;
+}
+
+.coupon .coupon-type {
+    border-radius: 12px 0 0 12px;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    background-color: tomato;
+}
+
+.code:hover {
+    background-color: rgb(255, 38, 0);
+    color: #fff;
+    cursor: pointer;
+}
+
+.cover {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    position: absolute;
+    z-index: 2;
+}
