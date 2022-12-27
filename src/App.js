@@ -1,35 +1,42 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Component } from 'react';
+import './App.js';
+import './css/style.css';
+import './css/style2.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Home from "./pages/Home/Index";
-import Wish from "./pages/Wish/Index";
-import Cart from "./pages/Cart/Index";
-import Member from "./pages/Member/Index";
-import Backend from "./pages/Backend/Index";
-import Error from "./components/Error";
-import Header from "./components/Header";
+import Navbar from './components/Navbar.jsx';
+import Info from './components/Info.jsx';
+import Wish from './components/Wish.jsx';
+import Order from './components/Order.jsx';
+import OrderFinished from './components/OrderFinished.jsx';
+import OrderDetails from './components/OrderDetails.jsx';
+import Coupon from './components/Coupon.jsx'
+import Error from './components/Error.jsx';
+import Footer from './components/Footer.jsx';
+// import { faRandom } from '@fortawesome/free-solid-svg-icons';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <Header />
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/selectgo/" component={Home} exact />
-            <Route path="/selectgo/Wish" component={Wish} />
-            <Route path="/selectgo/Wish/:id" component={Wish} />
-            <Route path="/selectgo/Cart" component={Cart} />
-            <Route path="/selectgo/Member" component={Member} />
-            <Route path="/selectgo/Backend" component={Backend} />
-            <Route component={Error} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+
+      <div>
+        <Switch>
+          <Route exact path="/" component={Order} />
+          <Route exact path="/member" component={Order}/>
+          <Route path="/member/Order" component={Order}/>
+          <Route path="/member/OrderDetails" component={OrderDetails}/>
+          <Route path="/member/OrderFinished" component={OrderFinished}/>
+          <Route path="/member/Wish" component={Wish} />
+          <Route path="/member/Info" component={Info} />
+          <Route path="/member/Coupon" component={Coupon} />
+          <Route component={Error} />
+        </Switch>
+      </div>
+
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;
