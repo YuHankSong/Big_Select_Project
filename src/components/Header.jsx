@@ -16,15 +16,15 @@ class Header extends Component {
             <div className="nav_bar_container">
               {/*  #region LOGO  */}
               <div className="nav_bar1">
-                <a href="">
+                <Link to="/selectgo/">
                   <img src={require("../Imgs/select go_logo.png")} alt="" />
-                </a>
+                </Link>
               </div>
               {/* #endregion  */}
               {/* #region 導覽頁 */}
               <div className="nav_bar2">
-                <Link to="../pages/Home/index">熱門動態</Link>
-                <Link to="">限時發售</Link>
+                <Link to="/selectgo/">熱門動態</Link>
+                <Link to="/selectgo/Wish/wishlist">限時發售</Link>
                 <Link to="/selectgo/Wish">許願池</Link>
                 <Link to="">百貨商場</Link>
               </div>
