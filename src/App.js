@@ -9,6 +9,7 @@ import Member from "./pages/Member/Index";
 import Backend from "./pages/Backend/Index";
 import Error from "./components/Error";
 import Header from "./components/Header";
+import WishList from "./pages/Wish/WishList";
 
 class App extends Component {
   render() {
@@ -20,7 +21,8 @@ class App extends Component {
             <Route path="/" component={Home} exact />
             <Route path="/selectgo/" component={Home} exact />
             <Route path="/selectgo/Wish" component={Wish} />
-            <Route path="/selectgo/Wish/:id" component={Wish} />
+            {/* <Route path="/selectgo/Wish/:id" component={Wish} /> */}
+            <Route path="/selectgo/wishlist" component={WishList} />
             <Route path="/selectgo/Cart" component={Cart} />
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />
