@@ -20,9 +20,9 @@ class App extends Component {
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/selectgo/" component={Home} exact />
+            <Route path="/selectgo/wishlist" component={WishList} />
             <Route path="/selectgo/Wish" component={Wish} />
             {/* <Route path="/selectgo/Wish/:id" component={Wish} /> */}
-            <Route path="/selectgo/wishlist" component={WishList} />
             <Route path="/selectgo/Cart" component={Cart} />
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />

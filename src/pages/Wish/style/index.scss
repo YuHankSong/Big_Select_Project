@@ -1,0 +1,146 @@
+#wish-wrap {
+  background-color: rgb(97, 92, 92);
+  margin-top: 2em;
+  justify-content: center;
+  display: flex;
+
+  .wish-container {
+    background-color: #ffd5be;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+
+    .wish-chat {
+      width: 75%;
+      background-color: aqua;
+
+      .wish-bar {
+        width: 90%;
+        padding: 0.5em 1em;
+        border: 1px solid rgb(167, 165, 165);
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+        a {
+          text-decoration: none;
+          margin-right: 1em;
+          color: black;
+        }
+      }
+
+      .wish-a {
+        text-decoration: none;
+        color: rgb(200, 17, 17);
+
+        // width: 90%;
+        // padding: 10rem;
+        // margin: -10rem;
+        // background-color: #e65e15;
+        // border: 1px solid red;
+        // box-sizing: border-box;
+
+        .wish-chat-container {
+          background-color: rgb(255, 255, 255);
+          width: 90%;
+          /* height: 1000vh; */
+          border-radius: 10px;
+          margin-top: 1em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 1em 1em;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+          .chat-left {
+            .user-container {
+              display: flex;
+              align-items: center;
+
+              .user-icon {
+                width: 3em;
+                height: 3em;
+                border-radius: 100px;
+                overflow: hidden;
+
+                img {
+                  width: 100px;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+            }
+            .chat-title {
+              margin: 0.5em 0;
+            }
+            .chat-txt {
+              border-color: #ffd5be;
+              width: 95%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+              margin-bottom: 0.5em;
+            }
+            .chat-state {
+              display: flex;
+              align-items: center;
+
+              div {
+                background-color: black;
+                color: white;
+                padding: 0.2em 0.5em;
+                border-radius: 10px;
+              }
+            }
+          }
+
+          .chat-right {
+            width: 14em;
+            height: 11em;
+            border-color: rgb(84, 136, 182);
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 10px;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+
+    .wish-list {
+      background-color: rgb(255, 255, 255);
+      width: 35%;
+      height: 14rem;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+      h2 {
+        font-size: 1.3rem;
+        padding: 0.5em 0;
+      }
+
+      p {
+        color: rgb(133, 129, 129);
+      }
+
+      input {
+        background-color: #ffd5be;
+        width: 100%;
+        border: #ffd5be;
+        font-weight: 400;
+        padding: 0.5em 0;
+        margin-top: 0.5em;
+        border-radius: 10px;
+        letter-spacing: 1em;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+    }
+  }
+}

@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Wish() {
   return (
     <>
-      <div className="wish-wrap">
+      <div id="wish-wrap">
         <div className="wish-container">
           <div className="wish-chat">
             <div className="wish-bar">
@@ -13,12 +14,13 @@ function Wish() {
               <a href="">即將截止</a>
               <a href="">許願成真</a>
             </div>
-            <a className="wish-a" href="">
+
+            <Link className="wish-a" to="">
               <div className="wish-chat-container">
                 <div className="chat-left">
                   <div className="user-container">
                     <div className="user-icon">
-                      <img src="./img/馬里歐.webp" alt="" />
+                      <img src={require("../../Imgs/馬里歐.webp")} alt="" />
                     </div>
                     <h3>Fanny Lin</h3>
                     <p>。1天前</p>
@@ -37,10 +39,10 @@ function Wish() {
                   </div>
                 </div>
                 <div className="chat-right">
-                  <img src="./img/馬里歐.webp" alt="" />
+                  <img src={require("../../Imgs/馬里歐.webp")} alt="" />
                 </div>
               </div>
-            </a>
+            </Link>
             <a className="wish-a" href="">
               <div className="wish-chat-container">
                 <div className="chat-left">
