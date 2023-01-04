@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
+import Cartitm from "./checkout/cartitm";
 
 const Cart = () => {
-  const [count, setCount] = useState(1);
   return (
     <>
       <div id="container">
@@ -21,9 +20,8 @@ const Cart = () => {
                   <p>預購品：21~30 個工作天內出貨 現貨：2 個工作天內出貨</p>
                 </div>
 
-
                 {/* 購物車 */}
-                <div className="order">
+                {/* <div className="order">
                   <h1>購物車</h1>
                   <div className="item">
                     <div className="item-pic">
@@ -89,7 +87,8 @@ const Cart = () => {
                     </div>
                   </div>
 
-                </div>
+                </div> */}
+                <Cartitm />
                 {/*--------------------*/}
               </div>
               {/* 購物車右側 */}
@@ -123,11 +122,9 @@ const Cart = () => {
             <div className="cart-bottom" />
           </div>
         </div>
-
-      </div> </>);
-
-
-
-}
+      </div>{" "}
+    </>
+  );
+};
 
 export default Cart;
