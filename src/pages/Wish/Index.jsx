@@ -1,102 +1,67 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
+import WishEnd from "./UI/WishEnd";
+import WishBar from "./WishBar";
+import WishHot from "./UI/WishHot";
+import WishMax from "./UI/WishMax";
+// import WishList from "./WishList";
+import WishNew from "./UI/WishNew";
+import WishTure from "./UI/WishTrue";
+
+const wishArticle = [{}, {}];
 
 function Wish() {
+  const [isPlzShow, setisPlzShow] = useState(false);
+  const togleModal = () => {
+    setisPlzShow(!isPlzShow);
+  };
+  let showPlz = isPlzShow ? "flex" : "none";
+
+  const [pages, setPages] = useState([
+    "熱門許願",
+    "最新許願",
+    "最多集氣",
+    "即將截止",
+    "許願成真",
+  ]);
+  // const randomNumber = useMemo(() => {
+  //   const number = Math.round(Math.random() * 10);
+  //   return number > pages.length ? 1 : number;
+  // }, [pages]);
+
+  const [current, setcurrent] = useState(() => {
+    const number = Math.round(Math.random() * 10);
+    return number > pages.length ? 1 : number;
+  });
+
   return (
     <>
-      <div className="wish-wrap">
+      <div id="wish-wrap">
         <div className="wish-container">
           <div className="wish-chat">
             <div className="wish-bar">
-              <a href="">熱門許願</a>
-              <a href="">最新許願</a>
-              <a href="">最多集氣</a>
-              <a href="">即將截止</a>
-              <a href="">許願成真</a>
+              {pages.map((page, index) => (
+                <Link
+                  onClick={() => {
+                    setcurrent(index);
+                  }}
+                >
+                  {page}
+                </Link>
+              ))}
             </div>
-            <a className="wish-a" href="">
-              <div className="wish-chat-container">
-                <div className="chat-left">
-                  <div className="user-container">
-                    <div className="user-icon">
-                      <img src="./img/馬里歐.webp" alt="" />
-                    </div>
-                    <h3>Fanny Lin</h3>
-                    <p>。1天前</p>
-                  </div>
-                  <h2 className="chat-title">大阪環球影城限量爆米花桶🍿</h2>
-                  <p className="chat-txt">
-                    除了東京迪士尼有超可愛的爆米花桶，
-                    大阪的環球影城也不會輸喔👍
-                    <br />
-                    瑪利歐賽車、無敵星星🌟、小小兵還有期間限定的高
-                    人氣動漫咒術迴戰，每款都想要收集！
-                  </p>
-                  <div className="chat-state">
-                    <div>集資中</div>
-                    <p>。49人集氣。2人留言</p>
-                  </div>
-                </div>
-                <div className="chat-right">
-                  <img src="./img/馬里歐.webp" alt="" />
-                </div>
-              </div>
-            </a>
-            <a className="wish-a" href="">
-              <div className="wish-chat-container">
-                <div className="chat-left">
-                  <div className="user-container">
-                    <div className="user-icon">
-                      <img src="./img/馬里歐.webp" alt="" />
-                    </div>
-                    <h3>Fanny Lin</h3>
-                    <p>。1天前</p>
-                  </div>
-                  <h2 className="chat-title">大阪環球影城限量爆米花桶🍿</h2>
-                  <p className="chat-txt">
-                    除了東京迪士尼有超可愛的爆米花桶，
-                    大阪的環球影城也不會輸喔👍
-                    <br />
-                    瑪利歐賽車、無敵星星🌟、小小兵還有期間限定的高
-                    人氣動漫咒術迴戰，每款都想要收集！
-                  </p>
-                  <div className="chat-state">
-                    <div>集資中</div>
-                    <p>。49人集氣。2人留言</p>
-                  </div>
-                </div>
-                <div className="chat-right">
-                  <img src="./img/馬里歐.webp" alt="" />
-                </div>
-              </div>
-            </a>
-            <a className="wish-a" href="">
-              <div className="wish-chat-container">
-                <div className="chat-left">
-                  <div className="user-container">
-                    <div className="user-icon">
-                      <img src="./img/馬里歐.webp" alt="" />
-                    </div>
-                    <h3>Fanny Lin</h3>
-                    <p>。1天前</p>
-                  </div>
-                  <h2 className="chat-title">大阪環球影城限量爆米花桶🍿</h2>
-                  <p className="chat-txt">
-                    除了東京迪士尼有超可愛的爆米花桶，
-                    大阪的環球影城也不會輸喔👍
-                    <br />
-                    瑪利歐賽車、無敵星星🌟、小小兵還有期間限定的高
-                    人氣動漫咒術迴戰，每款都想要收集！
-                  </p>
-                  <div className="chat-state">
-                    <div>集資中</div>
-                    <p>。49人集氣。2人留言</p>
-                  </div>
-                </div>
-                <div className="chat-right">
-                  <img src="./img/馬里歐.webp" alt="" />
-                </div>
-              </div>
-            </a>
+
+            {/* {pages[current]} */}
+            {/* <WishBar />
+            <Switch>
+              <Route path="/selectgo/Wish/hot" component={WishHot} />
+              <Route path="/selectgo/Wish/New" component={WishNew} />
+              <Route path="/selectgo/Wish/Max" component={WishMax} />
+              <Route path="/selectgo/Wish/End" component={WishEnd} />
+              <Route path="/selectgo/Wish/Ture" component={WishTure} />
+              <Route path="/selectgo/Wish/" component={WishHot} />
+            </Switch> */}
           </div>
 
           <div className="wish-list">
@@ -108,10 +73,11 @@ function Wish() {
               <br />
               正式開賣許願者即享 8 折優惠
             </p>
-            <input type="button" value="發起許願" />
+            <input type="button" onClick={togleModal} value="發起許願" />
           </div>
         </div>
       </div>
+      {/* <div style={{ display: showPlz }}></div> */}
     </>
   );
 }
