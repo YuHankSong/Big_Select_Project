@@ -1,0 +1,117 @@
+#warp-c {
+    * {
+        // outline: 1px solid red;
+    }
+    width: 100vw;
+    max-width: 1200px;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    margin: auto;
+
+    .left {
+        // outline: 1px solid red;
+        width: 50vw;
+        padding: 1rem;
+        .bread-warp {
+            padding: 1rem 0;
+
+            .breadcrumb {
+                width: 90%;
+                margin: auto;
+                display: flex;
+                li {
+                    padding: 0 1rem;
+                    + li {
+                        padding-left: 0;
+                        &::before {
+                            content: ">";
+                            margin-right: 1rem;
+                        }
+                    }
+                }
+                .breadlist {
+                    &:nth-child(2) {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        .info {
+            padding-left: 3rem;
+            div {
+                margin-top: 0.5rem;
+                border: black solid 2px;
+            }
+
+            .filed {
+                display: flex;
+                flex-direction: column;
+                label,
+                input,
+                select {
+                    margin: 0.5rem;
+                }
+                &-name {
+                    display: flex;
+                    justify-content: space-around;
+                    label,
+                    input {
+                        margin: 0.5rem;
+                    }
+                }
+                p {
+                    padding: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .right {
+        width: 50vw;
+        // margin-left: 100px;
+        .item {
+            border-radius: 15px;
+            margin: 1rem 0 1rem 0;
+            padding: 2rem 0 2rem 0rem;
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            // justify-content: space-between;
+            // background-color: rgb(255, 255, 255);
+
+            &-info {
+                width: max-content;
+                // outline: 1px solid green;
+                div {
+                    margin: 1rem;
+                }
+            }
+            // &-title {
+            //     padding: 0 0 1rem 0;
+            //     width: 100%;
+
+            //     // align-items: center;
+            //     // justify-content: space-between;
+            // }
+            &-qty {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .total {
+            display: flex;
+            flex-direction: column;
+
+            div {
+                display: flex;
+                justify-content: space-between;
+                margin: 1rem 0 0 0;
+            }
+        }
+    }
+}
