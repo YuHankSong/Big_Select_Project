@@ -9,11 +9,13 @@ import Member from "./pages/Member/Index";
 import Backend from "./pages/Backend/Index";
 import Error from "./components/Error";
 import Header from "./components/Header";
+
 import Checkout from "./pages/Cart/checkout/Checkout";
 
 import "./styles/Cart.scss";
 // import "./styles/Header.scss";
 import "./styles/Checkout.scss";
+
 
 class App extends Component {
   render() {
