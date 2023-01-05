@@ -160,8 +160,15 @@ header {
     background-color: rgba(221, 221, 221, 0.941);
 }
 
+.dropmenu a:nth-of-type(1):hover {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
 .dropmenu a:nth-last-of-type(1):hover {
     background-color: tomato;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .dropdown:hover .dropmenu {
