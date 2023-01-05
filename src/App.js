@@ -22,6 +22,7 @@ class App extends Component {
             <Route path="/selectgo/" component={Home} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
+            <Route path="/selectgo/Wish-creat" component={WP} />
             {/* <Route path="/selectgo/Wish/:id" component={Wish} /> */}
             <Route path="/selectgo/Cart" component={Cart} />
             <Route path="/selectgo/Member" component={Member} />
