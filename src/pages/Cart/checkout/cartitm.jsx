@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import ItemCount from "./Itemcount";
 
 const Cartitm = () => {
   const [count, setCount] = useState(1);
@@ -50,35 +51,8 @@ const Cartitm = () => {
                   </svg>
                 </div>
                 <div className="item-qty">
-                  <div className="itemcount">
-                    <div
-                      className="lesitm"
-                      onClick={() => setCount(count - 1)}
-                      style={{
-                        visibility: count <= 1 && "hidden",
-                      }}
-                    >
-                      -
-                    </div>
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      min="1"
-                      max="10"
-                      className="getitmcount"
-                      value={count}
-                    />
-                    <div
-                      className="additm"
-                      onClick={() => setCount(count + 1)}
-                      style={{
-                        visibility: count >= 10 && "hidden",
-                      }}
-                    >
-                      +
-                    </div>
-                  </div>
+                  {/* 增減商品數量 */}
+                  <ItemCount />
                   <label htmlFor="">{product.price}</label>
                 </div>
                 <div className="more-info">
@@ -91,65 +65,6 @@ const Cartitm = () => {
               </div>
             </div>
           ))}
-          {/* <div className="item">
-          <div className="item-pic">
-            <img src="https://i.imgur.com/O5mP90e.jpg" />
-          </div>
-          <div className="item-info">
-            <div className="item-title">
-              <h2>札幌農学校牛奶餅乾 12枚入</h2>
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m10.884 10 3.933-3.932a.625.625 0 1 0-.885-.885L10 9.116 6.068 5.183a.625.625 0 1 0-.885.885L9.116 10l-3.933 3.932a.625.625 0 1 0 .885.884L10 10.884l3.932 3.932a.623.623 0 0 0 .885 0 .625.625 0 0 0 0-.884L10.884 10z"
-                  fill="#B3B3B3"
-                ></path>
-              </svg>
-            </div>
-            <div className="item-qty">
-              <div className="itemcount">
-                <div
-                  className="lesitm"
-                  onClick={() => setCount(count - 1)}
-                  style={{
-                    visibility: count <= 1 && "hidden",
-                  }}
-                >
-                  -
-                </div>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  min="1"
-                  max="10"
-                  className="getitmcount"
-                  value={count}
-                />
-                <div
-                  className="additm"
-                  onClick={() => setCount(count + 1)}
-                  style={{
-                    visibility: count >= 10 && "hidden",
-                  }}
-                >
-                  +
-                </div>
-              </div>
-              <label htmlFor="">400元</label>
-            </div>
-            <div className="more-info">
-              <p>此商品包含以下商品</p>
-              <strong>
-                <p>北海道札幌農学校 （12枚） x1</p>
-              </strong>
-              <p>12入</p>
-            </div>
-          </div>
-        </div> */}
         </div>
       </div>
     </>
