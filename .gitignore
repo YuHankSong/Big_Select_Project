@@ -21,6 +21,7 @@
 ### Laravel ###
 /vendor/
 node_modules/
+node_modules/.cache
 npm-debug.log
 yarn-error.log
 
