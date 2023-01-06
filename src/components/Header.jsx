@@ -33,7 +33,7 @@ const Header = () => {
               <Link to="/selectgo/">熱門動態</Link>
               <Link to="/selectgo/wishproduct">限時發售</Link>
               <Link to="/selectgo/Wish">許願池</Link>
-              <Link to="">百貨商場</Link>
+              <Link to="/selectgo/Product">百貨商場</Link>
             </div>
             {/* #endregion  */}
             {/*  #region 搜尋欄  */}
