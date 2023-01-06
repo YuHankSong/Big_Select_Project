@@ -165,7 +165,7 @@
     /* 左邊照片 -------------------------*/
     .chat-left {
       background-color: brown;
-      width: 50%;
+      width: 60%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -183,7 +183,7 @@
     /* 右邊聊天室 --------------------------*/
     .chat-right {
       background-color: aqua;
-      width: 50%;
+      width: 40%;
       height: 100%;
       border-top-right-radius: 15px;
       border-bottom-right-radius: 15px;
@@ -196,7 +196,7 @@
         display: flex;
         align-items: center;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgb(144, 139, 139);
+        // border-bottom: 1px solid rgb(144, 139, 139);
 
         .right-user-icon {
           background-color: beige;
