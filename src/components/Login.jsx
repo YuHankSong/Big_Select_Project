@@ -1,7 +1,19 @@
 import '../css/auth.css';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
+
+    useEffect(() => {
+        if (localStorage.getItem('user-info')) {
+            history.push('/member')
+        }
+    }, [])
+
+    const history = useHistory();
+
+
     return (
         <>
             <div className="login-form">

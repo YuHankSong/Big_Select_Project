@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import OrderDetails from "./OrderDetails";
+import { Route } from "react-router-dom";
 
 const Order = () => {
   return (
@@ -35,9 +37,10 @@ const Order = () => {
               </div>
             </div>
             <div className="order-item-details">
-              <a href="">
+              <Route path='/member/orderdetails' component={OrderDetails} />
+              <Link to="/member/orderdetails">
                 <div>查看明細</div>
-              </a>
+              </Link>
             </div>
           </div>
 
