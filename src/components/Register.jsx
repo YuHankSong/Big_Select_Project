@@ -7,7 +7,7 @@ const Register = () => {
     // runs only once, if localstorage contains user-info, it'll redirect to /member
     useEffect(() => {
         if (localStorage.getItem('user-info')) {
-            history.push('/member')
+            history.push('/login')
         }
     }, [])
     const history = useHistory();

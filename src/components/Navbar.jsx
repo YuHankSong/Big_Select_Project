@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
 
 const Navbar = () => {
+
+  const [isLogin, setisLogin] = useState(false);
+
   return (
     <>
       <div>
@@ -44,20 +49,31 @@ const Navbar = () => {
                   <i className="nav-icon fas fa-shopping-cart"></i>
                 </a>
 
-                <Link to={"/"}>
-                  <div className="dropdown">
-                    <div id="member-icon">
-                      <img src="/imgs/icon.jpg" className="dropbtn" />
-                      <div className="dropmenu">
-                        <Link to={"/member"}>訂單查詢</Link>
-                        <Link to={"/member/Wish"}>許願紀錄</Link>
-                        <Link to={"/member/Info"}>帳戶資料</Link>
-                        <Link to={"/member/Coupon"}>我的折價卷</Link>
-                        <a href="">登出</a>
+                <a href="/">
+                  {localStorage.getItem('user-info') ?
+
+                    <>
+                      <div className="dropdown">
+                        <div id="member-icon">
+                          <img src="/imgs/icon.jpg" className="dropbtn" />
+                          <div className="dropmenu">
+                            <Link to={"/member"}>訂單查詢</Link>
+                            <Link to={"/member/Wish"}>許願紀錄</Link>
+                            <Link to={"/member/Info"}>帳戶資料</Link>
+                            <Link to={"/member/Coupon"}>我的折價卷</Link>
+                            <a href="">登出</a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </Link>
+                    </>
+                    :
+                    <>
+                      <Link to='/login'>登入／註冊</Link>
+                    </>
+                  }
+                </a>
+
+
               </div>
             </div>
           </div>

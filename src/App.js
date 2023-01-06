@@ -9,6 +9,8 @@ import Error from './components/Error.jsx';
 import Footer from './components/Footer.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
+import Protected from './components/Protected.jsx';
+import MainPage from './components/MainPage.jsx';
 
 // import { faRandom } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,7 +21,11 @@ function App() {
 
       <div>
         <Switch>
-          <Route path="/member" component={Content} />
+          <Route exact path="/" component={MainPage} />
+          <Route path="/selectgo" component={MainPage} />
+          <Route path="/member">
+            <Protected Cmp={Content} />
+          </Route>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route component={Error} />

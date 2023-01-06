@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Order from "./interchangable/Order";
 import Wish from "./interchangable/Wish";
@@ -6,8 +6,20 @@ import Info from "./interchangable/Info";
 import Coupon from "./interchangable/Coupon";
 import OrderDetails from "./interchangable/OrderDetails";
 import OrderFinished from "./interchangable/OrderFinished";
+import { useState } from "react";
 
 const Content = () => {
+
+    // access the data inside our local storage
+    let user = JSON.parse(localStorage.getItem('user-info'));
+    console.log(user);
+    const history = useHistory();
+
+    function logOut(){
+        localStorage.clear();
+        history.push('/');
+    }
+
     return (
         <main>
             <div className="main-container">
@@ -47,8 +59,11 @@ const Content = () => {
                             </li>
                         </ul>
                     </div>
+
+                    {/* =============================== Logout from here!!!! ========================================= */}
                     <div className="logout-btn">
-                        <a href="#">登出</a>
+                        {/* we make sure it doesn't show undefined so we add user */}
+                        <button onClick={logOut} >登出 {user && user.name}</button>
                     </div>
                 </div>
 
