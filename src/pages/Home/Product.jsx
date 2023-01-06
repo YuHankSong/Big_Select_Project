@@ -64,7 +64,7 @@ const Frontpage = () => {
               </div>
               <div className="product-text ">
                 <p id="product-name">【日本百貨店】最佳飯友！遠忠食品 佃煮山珍海味</p>
-                <button className="product-check-more"><Link to={"/frontpage/products/productdetail"}>查看更多</Link></button>
+                <button className="product-check-more"><Link to={"/selectgo/product/ProductDetail"}>查看更多</Link></button>
                 
                
 

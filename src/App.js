@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Frontpage from "./pages/Home/Index";
 import Product from "./pages/Home/Product";
+import ProductDetail from "./pages/Home/ProductDetail";
 import Wish from "./pages/Wish/Index";
 import Cart from "./pages/Cart/Index";
 import Member from "./pages/Member/Index";
@@ -31,6 +32,7 @@ class App extends Component {
             <Route path="/" component={Frontpage} exact />
             <Route path="/selectgo/" component={Frontpage} exact />
             <Route path="/selectgo/product" component={Product} exact />
+            <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
             <Route path="/selectgo/Wish/:id" component={Wish} />
