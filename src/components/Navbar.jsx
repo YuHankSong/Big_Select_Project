@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const Navbar = () => {
 
-  const [isLogin, setisLogin] = useState(false);
 
   return (
     <>
@@ -49,9 +48,8 @@ const Navbar = () => {
                   <i className="nav-icon fas fa-shopping-cart"></i>
                 </a>
 
-                <a href="/">
+                <Link to='/'>
                   {localStorage.getItem('user-info') ?
-
                     <>
                       <div className="dropdown">
                         <div id="member-icon">
@@ -71,14 +69,14 @@ const Navbar = () => {
                       <Link to='/login'>登入／註冊</Link>
                     </>
                   }
-                </a>
+                </Link>
 
 
               </div>
             </div>
           </div>
         </nav>
-      </div>
+      </div >
     </>
   );
 };

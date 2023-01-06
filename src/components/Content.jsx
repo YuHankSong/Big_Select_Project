@@ -1,4 +1,4 @@
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Order from "./interchangable/Order";
 import Wish from "./interchangable/Wish";
@@ -15,10 +15,14 @@ const Content = () => {
     console.log(user);
     const history = useHistory();
 
-    function logOut(){
+    function logOut() {
         localStorage.clear();
         history.push('/');
     }
+
+    // function refreshPage() {
+    //     window.location.reload(false);
+    // }
 
     return (
         <main>
@@ -63,7 +67,7 @@ const Content = () => {
                     {/* =============================== Logout from here!!!! ========================================= */}
                     <div className="logout-btn">
                         {/* we make sure it doesn't show undefined so we add user */}
-                        <button onClick={logOut} >登出 {user && user.name}</button>
+                        <button onClick={logOut}>登出 {user && user.name}</button>
                     </div>
                 </div>
 

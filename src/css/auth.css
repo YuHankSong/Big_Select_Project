@@ -104,6 +104,16 @@ img {
     border-radius: 5px;
 }
 
+.login-form form input[type=password] {
+    width: 300px;
+    height: 60px;
+    padding-left: 55px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
 .login-options {
     display: flex;
     flex-direction: column;
@@ -224,6 +234,10 @@ img {
 }
 
 input[type=text]::placeholder {
+    opacity: 0.5;
+}
+
+input[type=password]::placeholder {
     opacity: 0.5;
 }
 
