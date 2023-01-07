@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import ItemCount from "./Itemcount";
 
 const Cartitm = () => {
-  const [count, setCount] = useState(1);
-  let productlist = [
+  const [productlist,setProductList] = useState([]);
+
+
+
+    useEffect(()=>{
+      fetch('http://localhost:8888/testphp/testproduct.php')
+      .then(response=>response.json())
+      .then(data=>setProductList(data))
+    },[])
+
+
+
+  let apple = [
     {
       id: 0,
       name: "海苔",
@@ -33,13 +44,13 @@ const Cartitm = () => {
         <h1>購物車</h1>
         <div>
           {productlist.map((product) => (
-            <div className="item" key={product.id}>
+            <div className="item" key={product.pid}>
               <div className="item-pic">
-                <img src={product.image} alt="" />
+                <img src={product.ppic_main} alt="" />
               </div>
               <div className="item-info">
                 <div className="item-title">
-                  <h2>{product.name}</h2>
+                  <h2>{product.pname}</h2>
                   <svg
                     viewBox="0 0 20 20"
                     fill="none"
@@ -54,12 +65,12 @@ const Cartitm = () => {
                 <div className="item-qty">
                   {/* 增減商品數量 */}
                   <ItemCount />
-                  <label htmlFor="">{product.price}</label>
+                  <label htmlFor="">{product.pprice}</label>
                 </div>
                 <div className="more-info">
                   <p>此商品包含以下商品</p>
                   <strong>
-                    <p>{product.name}</p>
+                    <p>{product.pinfo}</p>
                   </strong>
                   <p>12入</p>
                 </div>
