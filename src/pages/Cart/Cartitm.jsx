@@ -6,7 +6,6 @@ const Cartitm = () => {
   const [productlist,setProductList] = useState([]);
 
 
-
     useEffect(()=>{
       fetch('http://localhost:8888/testphp/testproduct.php')
       .then(response=>response.json())
@@ -38,6 +37,7 @@ const Cartitm = () => {
         "https://citiesocial.s3.amazonaws.com/apps/campaign/campaign/17038/1489_large.jpg",
     },
   ];
+
   return (
     <>
       <div className="order">
@@ -52,6 +52,7 @@ const Cartitm = () => {
                 <div className="item-title">
                   <h2>{product.pname}</h2>
                   <svg
+                   
                     viewBox="0 0 20 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +71,7 @@ const Cartitm = () => {
                 <div className="more-info">
                   <p>此商品包含以下商品</p>
                   <strong>
-                    <p>{product.pinfo}</p>
+                    <p>{product.pname}</p>
                   </strong>
                   <p>12入</p>
                 </div>
