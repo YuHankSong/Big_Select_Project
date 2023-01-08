@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function WishList() {
+function WishList(props) {
   return (
     <>
-      <button className="wish-a">
+      <button className="wish-a" onClick={props.togleModal2}>
         <div className="wish-chat-container">
           <div className="chat-left">
             <div className="user-container">

@@ -1,13 +1,13 @@
 import React from "react";
 
-function WishContent() {
+function WishContent(props) {
   return (
     <>
       <div id="chat-container2">
         <div className="chat-left">
           <button id="prev">&lt;</button>
           <button id="next">&gt;</button>
-          <img id="chat-img" src="./img/馬里歐.webp" alt="" />
+          <img id="chat-img" src={props.imges} alt="" />
         </div>
         {/* <!-- 右邊聊天室框框 --> */}
         <div className="chat-right">
@@ -16,7 +16,7 @@ function WishContent() {
             <div className="right-user-icon">
               <img src="./img/馬里歐.webp" alt="" />
             </div>
-            <h3>Fanny Lin</h3>
+            <h3>{props.author}</h3>
             <h2>發起許願</h2>
             <p>。1天前</p>
           </div>
@@ -41,7 +41,7 @@ function WishContent() {
               </p>
               <button>訂閱開賣通知</button>
             </div>
-            <h2>大阪環球影城限量爆米花桶🍿</h2>
+            <h2>{props.title}</h2>
             <p>
               除了東京迪士尼有超可愛的爆米花桶， 大阪的環球影城也不會輸喔👍
               <br />

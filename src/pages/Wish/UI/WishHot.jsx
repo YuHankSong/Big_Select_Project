@@ -1,7 +1,7 @@
 import React from "react";
 import WishList from "../WishList";
 
-function WishHot() {
+function WishHot(props) {
   return (
     <>
       <WishList />
