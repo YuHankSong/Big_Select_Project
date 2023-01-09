@@ -42,13 +42,7 @@ function WishContent(props) {
               <button>訂閱開賣通知</button>
             </div>
             <h2>{props.title}</h2>
-            <p>
-              除了東京迪士尼有超可愛的爆米花桶， 大阪的環球影城也不會輸喔👍
-              <br />
-              <br />
-              瑪利歐賽車、無敵星星🌟、小小兵還有期間限定的高
-              人氣動漫咒術迴戰，每款都想要收集！
-            </p>
+            <p>{props.content}</p>
             <h4>圖片來源：</h4>
             <h5>
               https://www.usj.co.jp/web/ja/jp/restaurants/winter-2022/popcorn

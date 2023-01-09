@@ -20,7 +20,7 @@ function Wish() {
   useEffect(() => {
     QueryFakeData().then((res) => {
       setFake(res);
-      console.log(res);
+      // console.log(res);
     });
   }, []);
 
@@ -49,7 +49,7 @@ function Wish() {
       // 3
       case 4:
         return fake.filter((i) => i.brand === "Huawei");
-      // 其他的找先全部(我沒時間做太多種)
+      // 其他的找先全部
 
       default:
         return fake;
@@ -81,6 +81,7 @@ function Wish() {
             </div>
             {FilterFunction(fake).map((i, index) => {
               return (
+                // 許願欄位的元件
                 <ChildComponent
                   key={i.id}
                   id={index}
@@ -148,8 +149,9 @@ const param = {
   Img: "",
   Content: "",
 };
+// 許願欄位每一個區塊 再利用map方式去印出每格
 const ChildComponent = (props = param) => {
-  console.log(props);
+  // console.log(props);
   const [isContentShow, setisContentShow] = useState(false);
   const togleModal2 = () => {
     setisContentShow(!isContentShow);
@@ -158,7 +160,7 @@ const ChildComponent = (props = param) => {
   return (
     <>
       <button className="wish-a" onClick={togleModal2}>
-        <div className="wish-chat-container">
+        <divxx className="wish-chat-container">
           <div className="chat-left">
             <div className="user-container">
               <div className="user-icon">
@@ -177,7 +179,7 @@ const ChildComponent = (props = param) => {
           <div className="chat-right">
             <img src={props.Img} alt="" />
           </div>
-        </div>
+        </divxx>
       </button>
       {/* 願望欄位彈窗 還有聊天室還沒做嗚嗚*/}
       <div id="chat-wrap1" style={{ display: showContent }}>
@@ -186,6 +188,7 @@ const ChildComponent = (props = param) => {
           imges={props.Img}
           author={props.Author}
           title={props.Title}
+          content={props.Content}
         />
         <span onClick={togleModal2}>X</span>
       </div>
