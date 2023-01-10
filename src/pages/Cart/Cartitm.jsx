@@ -1,18 +1,16 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import ItemCount from "./Itemcount";
 
-const Cartitm = () => {
-  const [productlist,setProductList] = useState([]);
+const Cartitm = (props) => {
+  const [productlist, setProductList] = useState([]);
 
-
-    useEffect(()=>{
-      fetch('http://localhost:8888/testphp/testproduct.php')
-      .then(response=>response.json())
-      .then(data=>setProductList(data))
-    },[])
-
-
+  // console.log(data);
+  useEffect(() => {
+    fetch("http://localhost:8888/testphp/getproduct.php")
+      .then((response) => response.json())
+      .then((data) => setProductList(data));
+  }, []);
 
   let apple = [
     {
@@ -52,7 +50,6 @@ const Cartitm = () => {
                 <div className="item-title">
                   <h2>{product.pname}</h2>
                   <svg
-                   
                     viewBox="0 0 20 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +62,7 @@ const Cartitm = () => {
                 </div>
                 <div className="item-qty">
                   {/* 增減商品數量 */}
-                  <ItemCount />
-                  <label htmlFor="">{product.pprice}</label>
+                  <ItemCount Price={product.pprice} />
                 </div>
                 <div className="more-info">
                   <p>此商品包含以下商品</p>
