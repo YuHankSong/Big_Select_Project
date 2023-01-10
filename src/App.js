@@ -14,9 +14,9 @@ import Checkout from "./pages/Cart/checkout/Checkout";
 import ProductList from "./pages/Cart/ProductList";
 import Testphp from "./pages/testphp/php";
 
-import "./styles/Cart.scss";
+// import "./styles/Cart.scss";
 // import "./styles/Header.scss";
-import "./styles/Checkout.scss";
+// import "./styles/Checkout.scss";
 
 class App extends Component {
   render() {
@@ -25,7 +25,7 @@ class App extends Component {
         <div>
           <Header />
           <Switch>
-          <Route path="/testphp" component={Testphp} exact />
+            <Route path="/testphp" component={Testphp} exact />
             <Route path="/" component={Home} exact />
             <Route path="/selectgo/" component={Home} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
@@ -33,9 +33,17 @@ class App extends Component {
 
             <Route path="/selectgo/Wish/:id" component={Wish} />
             <Route path="/selectgo/Cart" component={Cart} exact />
-            <Route path="/selectgo/Cart/ProductList" component={ProductList} exact />
-            <Route path="/selectgo/Cart/ProductList/:id" component={ProductList} exact/>
-            <Route path="/selectgo/Cart/checkout" component={Checkout} exact />
+            <Route
+              path="/selectgo/Cart/ProductList"
+              component={ProductList}
+              exact
+            />
+            <Route
+              path="/selectgo/Cart/ProductList/:id"
+              component={ProductList}
+              exact
+            />
+            <Route path="/selectgo/checkout" component={Checkout} exact />
 
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />

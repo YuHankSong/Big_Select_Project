@@ -1,14 +1,10 @@
-* {
-    margin: 0;
-    box-sizing: border-box;
-    outline: 1px red solid;
-}
-
-body {
-    background-color: #f3f3f3;
-}
-
 #container {
+    * {
+        margin: 0;
+        box-sizing: border-box;
+        // outline: 1px red solid;
+    }
+
     //max-width: 1200px;
     width: 60;
     height: 200vh;
