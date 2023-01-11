@@ -7,7 +7,7 @@ import './style/all.css';
 import 'bootstrap';
 let owl_carousel = require('owl.carousel');
 window.fn = owl_carousel;
-const Frontpage = () => {
+const Index = () => {
   return (
     <div>
       <div className="outWrap">
@@ -302,4 +302,4 @@ const Frontpage = () => {
   );
 };
 
-export default Frontpage;
+export default Index;

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Frontpage from "./pages/Home/Index";
+import Index from "./pages/Home/Index";
 import Product from "./pages/Home/Product";
+import ProductUp from "./pages/Home/ProductUp";
 import ProductDetail from "./pages/Home/ProductDetail";
 import Wish from "./pages/Wish/Index";
 import Cart from "./pages/Cart/Index";
@@ -29,9 +30,10 @@ class App extends Component {
         <div>
           <Header />
           <Switch>
-            <Route path="/" component={Frontpage} exact />
-            <Route path="/selectgo/" component={Frontpage} exact />
+            <Route path="/" component={Index} exact />
+            <Route path="/selectgo/" component={Index} exact />
             <Route path="/selectgo/product" component={Product} exact />
+            <Route path="/selectgo/product/Productup" component={ProductUp} exact />
             <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />

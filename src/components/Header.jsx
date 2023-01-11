@@ -7,6 +7,8 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
+import 'jquery';
+
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 

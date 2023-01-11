@@ -7,7 +7,7 @@ import './style/all.css';
 import 'bootstrap';
 let owl_carousel = require('owl.carousel');
 window.fn = owl_carousel;
-const Frontpage = () => {
+const Product = () => {
     return (
         <div>
             {/* products banner */}
@@ -15,6 +15,7 @@ const Frontpage = () => {
                 <img src="/imgs/活動b1.jpg" />
             </div>
 
+            <button><Link to={"/selectgo/product/Productup"}>我是上架按鈕</Link></button>
             {/* events news1 */}
             <div class="container">
             <div class="row hot-post-row">
@@ -240,4 +241,4 @@ const Frontpage = () => {
     );
 };
 
-export default Frontpage;
+export default Product;

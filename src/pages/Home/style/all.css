@@ -11,7 +11,7 @@ body{
   }
   
   .banner-carousel .banneritem {
-    padding: 0.3rem;
+    /* padding: 0.3rem; */
     height: 28rem;
   }
   
@@ -66,7 +66,7 @@ body{
   .owl-carousel .wishpic {
     height: auto;
     background: transparent;
-    padding: 0.1rem;
+    /* padding: 0.1rem; */
   }
   
   .owl-dots{
@@ -85,7 +85,7 @@ body{
   .owl-carousel .wishpic2 {
     height: auto;
     background: transparent;
-    padding: 0.1rem;
+    /* padding: 0.1rem; */
   }
   
   .wishtext{
