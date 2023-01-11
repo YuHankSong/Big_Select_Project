@@ -5,6 +5,9 @@
     // flex-direction: column;
     align-items: center;
     margin: auto;
+    * {
+        // outline: 1px firebrick solid;
+    }
 
     .left {
         // outline: 1px solid red;
@@ -38,29 +41,62 @@
 
         .info {
             padding-left: 3rem;
+
             div {
                 margin-top: 0.5rem;
-                border: black solid 2px;
+                // border: black solid 2px;
             }
 
             .filed {
                 display: flex;
                 flex-direction: column;
-                label,
+                margin: 1rem;
                 input,
                 select {
-                    margin: 0.5rem;
+                    border: 2px solid grey;
+                    border-radius: 10px;
+                    padding: 0.5rem;
+                    // margin: 1rem;
                 }
                 &-name {
                     display: flex;
                     justify-content: space-around;
-                    label,
+                    margin: 1rem;
+                    label {
+                        width: 100%;
+                    }
                     input {
-                        margin: 0.5rem;
+                        width: 100%;
+                        border: 2px solid grey;
+                        border-radius: 5px;
+                        margin: 0.1rem;
+                        padding: 0.1rem;
+                    }
+                    select {
+                        width: 100%;
+                        border: 2px solid grey;
+                        border-radius: 5px;
+                        margin: 0.1rem;
+                        padding: 0.1rem;
                     }
                 }
                 p {
+                    background-color: #f2e1e0;
+                    border-radius: 10px;
                     padding: 0.5rem;
+                }
+            }
+
+            .nextsub {
+                background-color: #333333;
+                color: #ffff;
+                padding: 1rem;
+                cursor: pointer;
+                border-radius: 10px;
+                h1 {
+                    font-size: 1.5rem;
+                    text-align: center;
+                    margin: auto;
                 }
             }
         }

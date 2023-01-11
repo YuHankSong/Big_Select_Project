@@ -29,8 +29,12 @@ function Checkout() {
                   <option>一般宅配</option>
                 </select>
               </div>
+
               <div className={Style["filed-name"]}>
                 <label htmlFor="">姓氏</label>
+                <label htmlFor="">姓名</label>
+              </div>
+              <div className={Style["filed-name"]}>
                 <input
                   type="text"
                   name=""
@@ -38,7 +42,6 @@ function Checkout() {
                   defaultValue=""
                   placeholder="收件人姓氏"
                 />
-                <label htmlFor="">姓名</label>
                 <input
                   type="text"
                   name=""
@@ -47,6 +50,7 @@ function Checkout() {
                   placeholder="收件人姓名"
                 />
               </div>
+
               <div className={Style["filed"]}>
                 <label htmlFor="">手機號碼</label>
                 <input
@@ -59,13 +63,15 @@ function Checkout() {
               </div>
               <div className={Style["filed-name"]}>
                 <label htmlFor="">縣市</label>
-                <select name="" id="">
-                  <option>台北市</option>
-                </select>
                 <label htmlFor="">鄉鎮市區</label>
+              </div>
+              <div className={Style["filed-name"]}>
                 <select name="" id="">
                   <option>信義區</option>
                   <option>天龍區</option>
+                </select>
+                <select name="" id="">
+                  <option>台北市</option>
                 </select>
               </div>
               <div className={Style["filed"]}>
@@ -83,7 +89,7 @@ function Checkout() {
                   為確保日本直送商品順利通關，本國人士請填寫與身分證相同之中文姓名，外籍人士請填寫與護照相符之英文姓名。
                 </p>
               </div>
-              <div className={Style["filed"]}>
+              <div className={Style["nextsub"]}>
                 <h1>下一步：選擇付款方式→</h1>
               </div>
             </form>

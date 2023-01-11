@@ -13,6 +13,7 @@ import WishProduct from "./pages/Wish/WishProduct";
 import Checkout from "./pages/Cart/checkout/Checkout";
 import ProductList from "./pages/Cart/ProductList";
 import Testphp from "./pages/testphp/php";
+import Upload from "./pages/Cart/upload";
 
 // import "./styles/Cart.scss";
 // import "./styles/Header.scss";
@@ -47,6 +48,7 @@ class App extends Component {
 
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />
+            <Route path="/upload" component={Upload} />
             <Route component={Error} />
           </Switch>
         </div>
