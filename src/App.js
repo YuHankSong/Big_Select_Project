@@ -11,7 +11,6 @@ import Error from "./components/Error";
 import Header from "./components/Header";
 import WishProduct from "./pages/Wish/WishProduct";
 import Checkout from "./pages/Cart/checkout/Checkout";
-import ProductList from "./pages/Cart/ProductList";
 import Testphp from "./pages/testphp/php";
 import Upload from "./pages/Cart/upload";
 
@@ -34,16 +33,6 @@ class App extends Component {
 
             <Route path="/selectgo/Wish/:id" component={Wish} />
             <Route path="/selectgo/Cart" component={Cart} exact />
-            <Route
-              path="/selectgo/Cart/ProductList"
-              component={ProductList}
-              exact
-            />
-            <Route
-              path="/selectgo/Cart/ProductList/:id"
-              component={ProductList}
-              exact
-            />
             <Route path="/selectgo/checkout" component={Checkout} exact />
 
             <Route path="/selectgo/Member" component={Member} />

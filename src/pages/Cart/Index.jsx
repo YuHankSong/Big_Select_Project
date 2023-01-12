@@ -5,7 +5,7 @@ const Cart = () => {
   const [count, setCount] = useState(1);
   //總額total price
   const delprice = 80;
-
+  //使用fetch抓取資料庫
   const getalldata = () => {
     fetch("http://localhost:8888/testphp/getproduct.php")
       .then((response) => response.json())
@@ -13,6 +13,11 @@ const Cart = () => {
         setProductList(data);
       });
   };
+
+  // 載入網頁時執行抓取資料庫回傳值
+  useEffect(() => {
+    getalldata();
+  }, []);
 
   const handleAdd = () => {
     fetch("http://localhost:8888/testphp/additem.php").then((response) => {
@@ -33,10 +38,6 @@ const Cart = () => {
       setCount(1);
     }
   }, [count]);
-
-  useEffect(() => {
-    getalldata();
-  }, []);
 
   var ttresault = 0;
   productlist.map((val) => {

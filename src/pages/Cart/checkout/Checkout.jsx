@@ -1,6 +1,30 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Style from "../../../styles/Checkout.module.scss";
 function Checkout() {
+  const [productlist, setProductList] = useState([]);
+  const [count, setCount] = useState(1);
+  //使用fetch抓取資料庫
+  const getalldata = () => {
+    fetch("http://localhost:8888/testphp/getproduct.php")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductList(data);
+      });
+  };
+  // 載入網頁時執行抓取資料庫回傳值
+  useEffect(() => {
+    getalldata();
+  }, []);
+  productlist.map(function (v) {
+    console.log(v.ppic_main);
+  });
+  //取的商品金額
+  var ttresault = 0;
+  productlist.map((val) => {
+    console.log(val.id);
+    ttresault += val.pprice * count;
+  });
+
   return (
     <>
       <div id={Style["warp-c"]}>
@@ -98,34 +122,38 @@ function Checkout() {
         {/* 右邊頁面 */}
         <div className={Style["right"]}>
           {/* 商品資訊 */}
-          <div className={Style["item"]}>
-            <div>
-              <img src="https://fakeimg.pl/100x100/?text=Pic" />
-            </div>
-            <div className={Style["item-info"]}>
-              <div className={Style["item-title"]}>
-                <h2>札幌農学校牛奶餅乾 12枚入</h2>
+          {productlist.map(function (product, index) {
+            return (
+              <div className={Style["item"]} key={index}>
+                <div>
+                  <img src={product.ppic_main} />
+                </div>
+                <div className={Style["item-info"]}>
+                  <div className={Style["item-title"]}>
+                    <h2>{product.pname}</h2>
+                  </div>
+                  <div className={Style["item-qty"]}>
+                    數量：<label htmlFor="">{product.qty}</label>
+                    NT$<label htmlFor="">400元</label>
+                  </div>
+                  <div className={Style["more-info"]}>
+                    <p>此商品包含以下商品</p>
+                    <strong>
+                      <p>{product.pname}</p>
+                    </strong>
+                    <p>12入</p>
+                  </div>
+                </div>
               </div>
-              <div className={Style["item-qty"]}>
-                數量：<label htmlFor="">10</label>
-                NT$<label htmlFor="">400元</label>
-              </div>
-              <div className={Style["more-info"]}>
-                <p>此商品包含以下商品</p>
-                <strong>
-                  <p>北海道札幌農学校 （12枚） x1</p>
-                </strong>
-                <p>12入</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
           {/* ------------------------------ */}
           <hr />
           {/* 商品小計 */}
           <div className={Style["total"]}>
             <div>
               <p>商品小計</p>
-              <p>NT$320</p>
+              <p>NT${ttresault}</p>
             </div>
             <div>
               <p>運費</p>
