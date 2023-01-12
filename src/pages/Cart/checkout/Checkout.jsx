@@ -1,8 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import Style from "../../../styles/Checkout.module.scss";
+import City from "./city.json";
 function Checkout() {
+  Object.values(City);
+
   const [productlist, setProductList] = useState([]);
   const [count, setCount] = useState(1);
+  const [mycity, setCity] = useState("");
+
   //使用fetch抓取資料庫
   const getalldata = () => {
     fetch("http://localhost:8888/testphp/getproduct.php")
@@ -11,20 +16,26 @@ function Checkout() {
         setProductList(data);
       });
   };
+  const handleSetCity = (event) => {
+    setCity(event.target.value);
+    console.log(City.嘉義市);
+  };
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
+    // console.log(Object.values(City));
   }, []);
   productlist.map(function (v) {
-    console.log(v.ppic_main);
+    // console.log(v.ppic_main);
   });
   //取的商品金額
   var ttresault = 0;
   productlist.map((val) => {
-    console.log(val.id);
+    // console.log(val.id);
     ttresault += val.pprice * count;
   });
-
+  // 送出表單
+  function sendbtn() {}
   return (
     <>
       <div id={Style["warp-c"]}>
@@ -46,6 +57,7 @@ function Checkout() {
               <div className={Style["filed"]}>
                 <label htmlFor="">電子信箱</label>
                 <input type="text" name="" id="" defaultValue="abc@gmail.com" />
+                {/* {filedCheck === "filed-fail" && <p>email錯誤</p>} */}
               </div>
               <div className={Style["filed"]}>
                 <label htmlFor="">運送方式</label>
@@ -90,12 +102,20 @@ function Checkout() {
                 <label htmlFor="">鄉鎮市區</label>
               </div>
               <div className={Style["filed-name"]}>
-                <select name="" id="">
-                  <option>信義區</option>
-                  <option>天龍區</option>
+                <select name="" id="" onChange={handleSetCity}>
+                  {Object.keys(City).map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
                 </select>
-                <select name="" id="">
-                  <option>台北市</option>
+                <select>
+                  {City[mycity] &&
+                    City[mycity].map((item) => (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className={Style["filed"]}>
@@ -114,7 +134,7 @@ function Checkout() {
                 </p>
               </div>
               <div className={Style["nextsub"]}>
-                <h1>下一步：選擇付款方式→</h1>
+                <h1 onClick={sendbtn}>下一步：選擇付款方式→</h1>
               </div>
             </form>
           </div>
@@ -125,7 +145,7 @@ function Checkout() {
           {productlist.map(function (product, index) {
             return (
               <div className={Style["item"]} key={index}>
-                <div>
+                <div className={Style["ppic"]}>
                   <img src={product.ppic_main} />
                 </div>
                 <div className={Style["item-info"]}>
@@ -133,8 +153,8 @@ function Checkout() {
                     <h2>{product.pname}</h2>
                   </div>
                   <div className={Style["item-qty"]}>
-                    數量：<label htmlFor="">{product.qty}</label>
-                    NT$<label htmlFor="">400元</label>
+                    <label htmlFor="">數量：{product.qty}</label>
+                    <label htmlFor="">NT$400元</label>
                   </div>
                   <div className={Style["more-info"]}>
                     <p>此商品包含以下商品</p>
