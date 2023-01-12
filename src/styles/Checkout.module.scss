@@ -106,7 +106,7 @@
                     }
                     input {
                         width: 100%;
-                        border: 2px solid grey;
+                        border: 2px solid rgb(240, 18, 18);
                         border-radius: 5px;
                         margin: 0.1rem;
                         padding: 0.1rem;
@@ -118,7 +118,13 @@
                         margin: 0.1rem;
                         padding: 0.1rem;
                     }
+                    p {
+                        background-color: #f2e1e0;
+                        border-radius: 10px;
+                        padding: 0.5rem;
+                    }
                 }
+
                 p {
                     background-color: #f2e1e0;
                     border-radius: 10px;

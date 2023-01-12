@@ -6,7 +6,28 @@ function Checkout() {
 
   const [productlist, setProductList] = useState([]);
   const [count, setCount] = useState(1);
-  const [mycity, setCity] = useState("");
+  const [mycity, setCity] = useState("臺北市");
+  const [mymail, setMail] = useState("filed");
+  const [myname, setName] = useState("filed-name");
+  const [myphone, setPhone] = useState("filed");
+  const [myaddress, setAddress] = useState("filed");
+  //確認電子信箱合法
+  function isEmailValid(email) {
+    //email validation
+    var re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+  // 確認欄位為字串
+  function isString(value) {
+    var re = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+    return re.test(value);
+  }
+  // 確認手機號碼
+  function checkPhone(val) {
+    let re = /^09\d{2}-?\d{3}-?\d{3}$/;
+    return re.test(val);
+  }
 
   //使用fetch抓取資料庫
   const getalldata = () => {
@@ -35,7 +56,39 @@ function Checkout() {
     ttresault += val.pprice * count;
   });
   // 送出表單
-  function sendbtn() {}
+  const handleSubmit = () => {
+    let email = document.getElementById("email").value;
+    let firstname = document.getElementById("firstname").value;
+    let lastname = document.getElementById("lastname").value;
+    let pho = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if (
+      isEmailValid(email) &&
+      isString(firstname) &&
+      isString(lastname) &&
+      checkPhone(pho) &&
+      address
+    ) {
+      // 表單驗證完成後執行的動作
+      setMail("filed");
+      setName("filed-name");
+      setPhone("filed");
+      setAddress("filed");
+      alert("資料都正常我要送出ㄌ");
+    } else if (!isEmailValid(email)) {
+      setMail("filed-fail");
+    }
+    if (!isString(firstname) || !isString(lastname)) {
+      setName("filed-fail-name");
+    }
+    if (!checkPhone(pho)) {
+      setPhone("filed-fail");
+    }
+    if (!address) {
+      setAddress("filed-fail");
+    }
+  };
   return (
     <>
       <div id={Style["warp-c"]}>
@@ -53,11 +106,17 @@ function Checkout() {
 
           <div className={Style.info}>
             <h1 className={Style["indotext"]}>運送與收件資訊</h1>
-            <form action="">
-              <div className={Style["filed"]}>
+            <form>
+              <div className={Style[mymail]}>
                 <label htmlFor="">電子信箱</label>
-                <input type="text" name="" id="" defaultValue="abc@gmail.com" />
-                {/* {filedCheck === "filed-fail" && <p>email錯誤</p>} */}
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  defaultValue="abc@gmail.com"
+                  required
+                />
+                {mymail === "filed-fail" && <p>email錯誤</p>}
               </div>
               <div className={Style["filed"]}>
                 <label htmlFor="">運送方式</label>
@@ -70,46 +129,52 @@ function Checkout() {
                 <label htmlFor="">姓氏</label>
                 <label htmlFor="">姓名</label>
               </div>
-              <div className={Style["filed-name"]}>
+              <div className={Style[myname]}>
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="firstname"
                   defaultValue=""
                   placeholder="收件人姓氏"
                 />
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="lastname"
                   defaultValue=""
                   placeholder="收件人姓名"
                 />
               </div>
-
-              <div className={Style["filed"]}>
+              {myname === "filed-fail-name" && (
+                <div className={Style["filed-fail"]}>
+                  <p>姓名錯誤</p>
+                </div>
+              )}
+              <div className={Style[myphone]}>
                 <label htmlFor="">手機號碼</label>
                 <input
-                  type="text"
+                  type="tel"
                   name=""
-                  id=""
+                  id="phone"
                   defaultValue=""
                   placeholder="範例：0978666111"
                 />
+                {myphone === "filed-fail" && <p>號碼錯誤</p>}
               </div>
+
               <div className={Style["filed-name"]}>
                 <label htmlFor="">縣市</label>
                 <label htmlFor="">鄉鎮市區</label>
               </div>
               <div className={Style["filed-name"]}>
-                <select name="" id="" onChange={handleSetCity}>
+                <select name="" id="city" onChange={handleSetCity}>
                   {Object.keys(City).map((key) => (
                     <option key={key} value={key}>
                       {key}
                     </option>
                   ))}
                 </select>
-                <select>
+                <select id="dist">
                   {City[mycity] &&
                     City[mycity].map((item) => (
                       <option key={item} value={item}>
@@ -118,14 +183,15 @@ function Checkout() {
                     ))}
                 </select>
               </div>
-              <div className={Style["filed"]}>
+              <div className={Style[myaddress]}>
                 <label htmlFor="">地址</label>
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="address"
                   defaultValue=""
                   placeholder="請輸入地址"
+                  required
                 />
               </div>
               <div className={Style["filed"]}>
@@ -133,8 +199,8 @@ function Checkout() {
                   為確保日本直送商品順利通關，本國人士請填寫與身分證相同之中文姓名，外籍人士請填寫與護照相符之英文姓名。
                 </p>
               </div>
-              <div className={Style["nextsub"]}>
-                <h1 onClick={sendbtn}>下一步：選擇付款方式→</h1>
+              <div className={Style["nextsub"]} onClick={handleSubmit}>
+                <h1>下一步：選擇付款方式→</h1>
               </div>
             </form>
           </div>
