@@ -31,12 +31,19 @@ function Upload() {
       redirect: "follow",
     };
     // Making the post request
-    await fetch("https://api.imgur.com/3/image/", requestOptions)
-      .then((response) => response.json()) // Handling success
-      .then((data) => {
-        setImg(data.data.link);
-      })
-      .catch((err) => alert("Failed") && console.log(err)); // Handling error\
+    try {
+      const response = await fetch(
+        "https://api.imgur.com/3/image/",
+        requestOptions
+      );
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+      setImg(data.data.link);
+    } catch (err) {
+      alert("Failed");
+      console.log(err);
+    }
   };
 
   return (
