@@ -23,34 +23,8 @@ function Wish() {
   useEffect(() => {
     QueryFakeData().then((res) => {
       setFake(res);
-      // console.log(res);
     });
   }, []);
-
-  //下滑fixed的狀態
-  // const [isFixed, setIsFixed] = useState(false);
-  // useEffect(() => {
-  //   function handleScroll() {
-  //     if (window.pageYOffset > 200) {
-  //       setIsFixed(true);
-  //     } else {
-  //       setIsFixed(false);
-  //     }
-  //   }
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-  // let scrollFixed = setIsFixed ? "static" : "sticky";
-
-  //輸入進去資料庫  許願欄位
-  // const [wishTable, setWishTable] = useState([]);
-  // useEffect(() => {
-  //   AddWishTable().then((req) => {
-  //     setWishTable(req);
-  //   });
-  // });
 
   // 改變顯示彈窗的狀態 利用true跟false來控制display 這裡有夠難～ 需要理解一下 跟好好運用三元判斷
   const [isPlzShow, setisPlzShow] = useState(false);
@@ -241,26 +215,13 @@ const WishTalk = () => {
   });
 
   //立即預覽圖片 一張
-  // const [files, setFiles] = useState(null);
-  // const [preViewUrls, setPreViewUrls] = useState(null);
+
   //立即預覽圖片 多張
   const [files, setFiles] = useState([]);
 
   const [preViewUrls, setPreViewUrls] = useState([]);
   // 上傳圖片 >1 的時候， 需要可以做換頁的功能
   const [filePage, setFilePage] = useState(0);
-
-  //立即預覽事件 一張
-  // const handlePicView = (e) => {
-  //   const selectedFiles = e.target.files[0];
-  //   setFiles(selectedFiles);
-
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setPreViewUrls(reader.result);
-  //   };
-  //   reader.readAsDataURL(selectedFiles);
-  // };
 
   //立即預覽事件 多張
   const handlePicView = (e) => {
@@ -279,7 +240,6 @@ const WishTalk = () => {
       };
       reader.readAsDataURL(selectedFiles[i]);
     }
-    console.log(preViewUrls);
   };
 
   // 上傳許願資料到資料庫 axios
@@ -287,41 +247,17 @@ const WishTalk = () => {
   async function submit(e) {
     e.preventDefault();
     try {
-      const res = await Axios.post(
-        url,
-        {
-          wname: formValue.wname,
-          winfo: formValue.winfo,
-          wstyle: formValue.wstyle,
-          wweb: formValue.wweb,
-          // wpic_main: file,
-        }
-        // {
-        //   headers: {
-        //     Accept: "application/json",
-        //   },
-        // }
-      );
+      const res = await Axios.post(url, {
+        wname: formValue.wname,
+        winfo: formValue.winfo,
+        wstyle: formValue.wstyle,
+        wweb: formValue.wweb,
+      });
       console.log(res);
     } catch (err) {
       console.log(err);
     }
   }
-
-  // const createWish = async () => {
-  //   let res = await Axios.post(url, {
-  //     wname: formValue.wname,
-  //     winfo: formValue.winfo,
-  //     wstyle: formValue.wstyle,
-  //     wweb: formValue.wweb,
-  //     wpic_main: formValue.wpic_main,
-  //   }).then((res) => {
-  //     setFormValue([res.data, ...formValue]);
-  //   });
-  // .then(() => {
-  //   history.push("/selectgo/Wish");
-  // });
-  // };
 
   //可以讓打出來的字即時改變在前端狀態
   const handleInput = (e) => {
@@ -359,9 +295,6 @@ const WishTalk = () => {
             {preViewUrls.length > 0 && (
               <img src={preViewUrls[filePage]} alt="" />
             )}
-            {/* {preViewUrls.map((preViewUrls, index) => {
-              <img key={index} src={preViewUrls} alt="" />;
-            })} */}
           </div>
           <input
             type="file"
@@ -376,9 +309,6 @@ const WishTalk = () => {
           <div className="right-user">
             <div className="right-user-icon">
               {preViewUrls && <img src={preViewUrls} alt="" />}
-              {/* {preViewUrls.map((preViewUrls, index) => {
-                <img key={index} src={preViewUrls} alt="preview" />;
-              })} */}
             </div>
             <h3>Fanny Lin</h3>
             <h2>發起許願</h2>
@@ -454,9 +384,6 @@ const QueryFakeData = async () => {
 const AddWishTable = async () => {
   const add = await fetch("http://localhost:8000/api/wish/add");
   const data = await add.json();
-  // alert("data");
-  // return data;
-  // console.log(data);
 };
 
 export default Wish;
