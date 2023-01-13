@@ -1,19 +1,21 @@
 #wish-wrap {
-  background-color: rgb(97, 92, 92);
+  // background-color: rgba(97, 92, 92, 0.1);
   margin-top: 2em;
   justify-content: center;
   display: flex;
+  // z-index: 5;
 
   .wish-container {
-    background-color: #ffd5be;
+    // background-color: #ffd5be;
     width: 80%;
     display: flex;
     justify-content: space-between;
+    // z-index: 4;
 
     .wish-chat {
-      width: 75%;
+      width: 80%;
       min-height: 100vh;
-      background-color: aqua;
+      // background-color: aqua;
 
       .wish-bar {
         width: 90%;
@@ -56,6 +58,8 @@
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
           .chat-left {
+            width: 80%;
+
             .user-container {
               display: flex;
               align-items: center;
@@ -72,14 +76,26 @@
                   object-fit: cover;
                 }
               }
+              h3 {
+                font-size: 0.8rem;
+                margin-bottom: 0;
+                margin-bottom: 0;
+              }
+              p {
+                margin-bottom: 0;
+                font-size: 0.8rem;
+              }
             }
             .chat-title {
+              font-size: 1.1rem;
               margin: 0.5em 0;
+              text-align: start;
             }
             .chat-txt {
               border-color: #ffd5be;
               width: 95%;
               overflow: hidden;
+              text-align: start;
               text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-box-orient: vertical;
@@ -96,11 +112,14 @@
                 padding: 0.2em 0.5em;
                 border-radius: 10px;
               }
+              p {
+                margin: 0;
+              }
             }
           }
 
           .chat-right {
-            width: 14em;
+            width: 20%;
             height: 11em;
             border-color: rgb(84, 136, 182);
 
@@ -117,11 +136,15 @@
 
     .wish-list {
       background-color: rgb(255, 255, 255);
+      position: sticky;
+      top: 9rem;
+      right: 2rem;
       width: 35%;
       height: 14rem;
       padding: 1rem;
       border-radius: 15px;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      z-index: 1;
 
       h2 {
         font-size: 1.3rem;
@@ -157,6 +180,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 4;
 
   span {
     color: white;

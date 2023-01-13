@@ -4,7 +4,9 @@
 }
 #page {
   width: 100%;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 
   .top_bar {
     width: 100%;
@@ -22,7 +24,7 @@
     display: flex;
     justify-content: center;
     position: sticky;
-    top: 0px;
+    top: 2rem;
 
     .nav_bar_container {
       // background-color: lightpink;

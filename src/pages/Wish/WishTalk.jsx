@@ -1,6 +1,20 @@
-import React from "react";
+import { React, useState } from "react";
 
-function WishTalk() {
+function WishTalk(props) {
+  const [formValue, setFormValue] = useState({
+    file: "",
+    wname: "",
+    winfo: "",
+    wstyle: "",
+    wweb: "",
+  });
+
+  const handleInput = (e) => {
+    const [name, value] = e.target;
+    setFormValue({ ...formValue, [name]: value });
+    console.log(formValue);
+  };
+
   return (
     <>
       <form action="" id="chat-container1">
@@ -20,10 +34,18 @@ function WishTalk() {
           {/* <!-- #endregion --> */}
           {/* <!-- #region 聊天室可以下滑的內容 輸入資料--> */}
           <div className="right-container">
-            <textarea placeholder="請輸入許願標題" type="text"></textarea>
+            <textarea
+              placeholder="請輸入許願標題"
+              type="text"
+              name="wname"
+              value={formValue.wname}
+              onChange={handleInput}
+            ></textarea>
             <textarea
               placeholder="請輸入內容 : 介紹一下您想許願的商品～集氣的人越多，越容易開團成功喔！小提醒：如果圖片取自網路，記得在下方加上圖片來源並附上原始連結喔！"
-              name=""
+              name="winfo"
+              value={formValue.winfo}
+              onChange={handleInput}
               id=""
             ></textarea>
             <div className="wish-qa">
@@ -37,7 +59,12 @@ function WishTalk() {
           <div className="state-select">
             <div>
               <p>許願類型</p>
-              <select name="" id="">
+              <select
+                name="wstyle"
+                id=""
+                value={formValue.wstyle}
+                onChange={handleInput}
+              >
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
                 <option value="hamster">Hamster</option>
@@ -45,7 +72,11 @@ function WishTalk() {
             </div>
             <div>
               <p>參考網址</p>
-              <input></input>
+              <input
+                name="wweb"
+                value={formValue.wweb}
+                onChange={handleInput}
+              ></input>
             </div>
             <div>
               <button>發起14天集氣之旅</button>
