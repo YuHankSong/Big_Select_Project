@@ -266,6 +266,8 @@ const WishTalk = () => {
     setFormValue(newdata);
     console.log(newdata);
   };
+  // 透過統一管制的方式，可以統一設定所有限制數出現的地方
+  const textLimit = useMemo(() => 18, []);
 
   return (
     <>
@@ -328,14 +330,21 @@ const WishTalk = () => {
               placeholder="請輸入內容 : 介紹一下您想許願的商品～集氣的人越多，越容易開團成功喔！小提醒：如果圖片取自網路，記得在下方加上圖片來源並附上原始連結喔！"
               name="winfo"
               value={formValue.winfo}
-              onChange={(e) => handleInput(e)}
+              onChange={(e) => {
+                // 這樣就可以達到只能刪不能多了
+                if (e.target.value.length <= textLimit) {
+                  handleInput(e);
+                }
+              }}
               id="winfo"
             ></textarea>
             <div className="wish-qa">
               <a href="">
                 <h4>什麼是許願&集氣？</h4>
               </a>
-              <h5>0/1800</h5>
+              <h5>
+                {formValue.winfo.length}/{textLimit}
+              </h5>
             </div>
           </div>
           {/* <!-- 許願類型 參考網址 發起之旅 --> */}
