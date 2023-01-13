@@ -265,7 +265,12 @@ const WishTalk = () => {
   //立即預覽事件 多張
   const handlePicView = (e) => {
     const selectedFiles = e.target.files;
-    setFiles(selectedFiles);
+    // prev = 原先的狀態
+    // 用concat的方式組合起來原來的狀態
+    // 有疑惑的話可以console出prev是啥
+    setFiles((prev) => {
+      return [...prev, selectedFiles];
+    });
 
     const reader = new FileReader();
     for (let i = 0; i < selectedFiles.length; i++) {
