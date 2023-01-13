@@ -240,15 +240,15 @@ const WishTalk = () => {
     // wpic_main: "",
   });
 
-  //圖片上傳狀態
-  const [file, setfile] = useState();
-
   //立即預覽圖片 一張
   // const [files, setFiles] = useState(null);
   // const [preViewUrls, setPreViewUrls] = useState(null);
   //立即預覽圖片 多張
   const [files, setFiles] = useState([]);
+
   const [preViewUrls, setPreViewUrls] = useState([]);
+  // 上傳圖片 >1 的時候， 需要可以做換頁的功能
+  const [filePage, setFilePage] = useState(0);
 
   //立即預覽事件 一張
   // const handlePicView = (e) => {
@@ -285,7 +285,6 @@ const WishTalk = () => {
   // 上傳許願資料到資料庫 axios
 
   async function submit(e) {
-    console.log(file);
     e.preventDefault();
     try {
       const res = await Axios.post(
@@ -295,7 +294,7 @@ const WishTalk = () => {
           winfo: formValue.winfo,
           wstyle: formValue.wstyle,
           wweb: formValue.wweb,
-          wpic_main: file,
+          // wpic_main: file,
         }
         // {
         //   headers: {
@@ -343,7 +342,23 @@ const WishTalk = () => {
       >
         <div className="chat-left">
           <div>
-            {preViewUrls.length != 0 ? <img src={preViewUrls} alt="" /> : null}
+            {preViewUrls.length > 1 && (
+              <>
+                <button
+                  onClick={() => {
+                    // 如果超過檔案上傳的陣列長度，就設定回第一張，不然就 + 1就好
+                    setFilePage((prev) => {
+                      return prev + 1 === files.length ? 0 : prev + 1;
+                    });
+                  }}
+                >
+                  下一頁
+                </button>
+              </>
+            )}
+            {preViewUrls.length > 0 && (
+              <img src={preViewUrls[filePage]} alt="" />
+            )}
             {/* {preViewUrls.map((preViewUrls, index) => {
               <img key={index} src={preViewUrls} alt="" />;
             })} */}
@@ -353,12 +368,6 @@ const WishTalk = () => {
             name="wpic_main"
             id="wpic_main"
             onChange={handlePicView}
-            //   {(e) => {
-            //     // console.log(e.target.files[0]);
-            //     setfile(e.target.files[0]);
-            //   }
-            // }
-            // value={formValue.wpic_main}
           ></input>
         </div>
         {/* <!-- 右邊聊天室框框 --> */}
