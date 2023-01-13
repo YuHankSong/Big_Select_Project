@@ -267,7 +267,7 @@ const WishTalk = () => {
     console.log(newdata);
   };
   // 透過統一管制的方式，可以統一設定所有限制數出現的地方
-  const textLimit = useMemo(() => 18, []);
+  const textLimit = useMemo(() => 1800, []);
 
   return (
     <>
@@ -282,6 +282,16 @@ const WishTalk = () => {
           <div>
             {preViewUrls.length > 1 && (
               <>
+                <button
+                  onClick={() => {
+                    // 如果檔案上傳的陣列長度等於0，就設定回讚後一張，不然就 - 1就好
+                    setFilePage((prev) => {
+                      return prev === 0 ? files.length - 1 : prev - 1;
+                    });
+                  }}
+                >
+                  上一頁
+                </button>
                 <button
                   onClick={() => {
                     // 如果超過檔案上傳的陣列長度，就設定回第一張，不然就 + 1就好
