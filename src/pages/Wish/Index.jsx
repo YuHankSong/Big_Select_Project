@@ -231,14 +231,11 @@ const WishTalk = () => {
       console.log(prev);
       return [...prev, selectedFiles];
     });
-
+    //
     const reader = new FileReader();
     for (let i = 0; i < selectedFiles.length; i++) {
       reader.onload = () => {
-        setPreViewUrls((preViewUrls) => [
-          ...preViewUrls,
-          { url: reader.result, index: i },
-        ]);
+        setPreViewUrls((preViewUrls) => [...preViewUrls, reader.result]);
       };
       reader.readAsDataURL(selectedFiles[i]);
     }
@@ -269,25 +266,19 @@ const WishTalk = () => {
   };
 
   //刪除按鈕 可以讓預覽 上傳 跟被刪除的不會顯示出來
-  const handleDelete = (index) => {
-    // console.log(index);
+  const handleDelete = (param) => {
+    // 用filter來做可以確保原陣列不被影響
+
     setFiles((prev) => {
-      prev.splice(index, 1);
-      return [...prev];
+      return prev.filter((item, index) => index !== param);
     });
+
     setPreViewUrls((prev) => {
-      return prev.filter((item) => item.index !== index);
+      return prev.filter((item, index) => index !== param);
     });
+    // 如果現在不處於第一張(index !== 0)，就把filePage做遞減就好，不然就歸0，免得變成負1
     setFilePage((prev) => {
-      if (prev >= files.length) {
-        console.log(prev);
-        if (prev === 0) {
-          return prev;
-        } else {
-          return prev - 1;
-        }
-      }
-      return prev;
+      return prev !== 0 ? prev - 1 : 0;
     });
   };
 
@@ -331,8 +322,8 @@ const WishTalk = () => {
             )}
             {preViewUrls.length > 0 && (
               <>
-                <button onClick={handleDelete}>刪除</button>
-                <img src={preViewUrls[filePage].url} alt="" />
+                <button onClick={() => handleDelete(filePage)}>刪除</button>
+                <img src={preViewUrls[filePage]} alt="" />
               </>
             )}
           </div>
