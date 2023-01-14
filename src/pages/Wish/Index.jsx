@@ -167,7 +167,7 @@ const ChildComponent = (props = param) => {
   return (
     <>
       <button className="wish-a" onClick={togleModal2}>
-        <divxx className="wish-chat-container">
+        <div className="wish-chat-container">
           <div className="chat-left">
             <div className="user-container">
               <div className="user-icon">
@@ -186,7 +186,7 @@ const ChildComponent = (props = param) => {
           <div className="chat-right">
             <img src={props.Img} alt="" />
           </div>
-        </divxx>
+        </div>
       </button>
       {/* 願望欄位彈窗 還有聊天室還沒做嗚嗚*/}
       <div id="chat-wrap1" style={{ display: showContent }}>
@@ -214,11 +214,9 @@ const WishTalk = () => {
     // wpic_main: "",
   });
 
-  //立即預覽圖片 一張
-
-  //立即預覽圖片 多張
   const [files, setFiles] = useState([]);
 
+  //立即預覽圖片 多張
   const [preViewUrls, setPreViewUrls] = useState([]);
   // 上傳圖片 >1 的時候， 需要可以做換頁的功能
   const [filePage, setFilePage] = useState(0);
@@ -230,6 +228,7 @@ const WishTalk = () => {
     // 用concat的方式組合起來原來的狀態
     // 有疑惑的話可以console出prev是啥
     setFiles((prev) => {
+      console.log(prev);
       return [...prev, selectedFiles];
     });
 
@@ -243,7 +242,6 @@ const WishTalk = () => {
   };
 
   // 上傳許願資料到資料庫 axios
-
   async function submit(e) {
     e.preventDefault();
     try {
@@ -266,6 +264,31 @@ const WishTalk = () => {
     setFormValue(newdata);
     console.log(newdata);
   };
+
+  //刪除按鈕 可以讓預覽 上傳 跟被刪除的不會顯示出來
+  const handleDelete = (index) => {
+    // console.log(index);
+    setFiles((prev) => {
+      prev.splice(index, 1);
+      return [...prev];
+    });
+    setPreViewUrls((prev) => {
+      prev.splice(index, 1);
+      return [...prev];
+    });
+    setFilePage((prev) => {
+      if (prev >= files.length) {
+        console.log(prev);
+        if (prev === 0) {
+          return prev;
+        } else {
+          return prev - 1;
+        }
+      }
+      return prev;
+    });
+  };
+
   // 透過統一管制的方式，可以統一設定所有限制數出現的地方
   const textLimit = useMemo(() => 1800, []);
 
@@ -305,7 +328,10 @@ const WishTalk = () => {
               </>
             )}
             {preViewUrls.length > 0 && (
-              <img src={preViewUrls[filePage]} alt="" />
+              <>
+                <button onClick={handleDelete}>刪除</button>
+                <img src={preViewUrls[filePage]} alt="" />
+              </>
             )}
           </div>
           <input
