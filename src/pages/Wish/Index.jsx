@@ -235,7 +235,10 @@ const WishTalk = () => {
     const reader = new FileReader();
     for (let i = 0; i < selectedFiles.length; i++) {
       reader.onload = () => {
-        setPreViewUrls((preViewUrls) => [...preViewUrls, reader.result]);
+        setPreViewUrls((preViewUrls) => [
+          ...preViewUrls,
+          { url: reader.result, index: i },
+        ]);
       };
       reader.readAsDataURL(selectedFiles[i]);
     }
@@ -273,8 +276,7 @@ const WishTalk = () => {
       return [...prev];
     });
     setPreViewUrls((prev) => {
-      prev.splice(index, 1);
-      return [...prev];
+      return prev.filter((item) => item.index !== index);
     });
     setFilePage((prev) => {
       if (prev >= files.length) {
@@ -330,7 +332,7 @@ const WishTalk = () => {
             {preViewUrls.length > 0 && (
               <>
                 <button onClick={handleDelete}>刪除</button>
-                <img src={preViewUrls[filePage]} alt="" />
+                <img src={preViewUrls[filePage].url} alt="" />
               </>
             )}
           </div>
