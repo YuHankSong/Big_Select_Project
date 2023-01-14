@@ -10,7 +10,7 @@ function Checkout() {
   const [myname, setName] = useState("filed-name");
   const [myphone, setPhone] = useState("filed");
   const [myaddress, setAddress] = useState("filed");
-  const [ttresault, setResult] = useState(0);
+  const [ttresault, setResult] = useState(null);
   //取的商品金額和運費
   let delv = 80;
   async function goform() {
@@ -47,8 +47,13 @@ function Checkout() {
       "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
     form.style.display = "none";
     let itname = [];
-    productlist.map((val) => {
+    let itprice = [];
+    let itqty = [];
+    let icount = productlist.length;
+    productlist.map((val, index) => {
       itname.push(val.pname);
+      itprice.push(val.pprice);
+      itqty.push(val.qty);
     });
 
     itname.forEach((item) => {
@@ -58,17 +63,26 @@ function Checkout() {
       input1.value = item;
       form.appendChild(input1);
     });
+    itprice.forEach((price) => {
+      const input2 = document.createElement("input");
+      input2.type = "hidden";
+      input2.name = "itprice[]";
+      input2.value = price;
+      form.appendChild(input2);
+    });
+    itqty.forEach((qty) => {
+      const input3 = document.createElement("input");
+      input3.type = "hidden";
+      input3.name = "itqty[]";
+      input3.value = qty;
+      form.appendChild(input3);
+    });
 
-    const input2 = document.createElement("input");
-    input2.name = "itprice";
-    input2.value = "100";
-    form.appendChild(input2);
-
-    const input3 = document.createElement("input");
-    input3.name = "itqty";
-    input3.value = "10";
-    form.appendChild(input3);
-
+    const input4 = document.createElement("input");
+    input4.type = "hidden";
+    input4.name = "itcount";
+    input4.value = icount;
+    form.appendChild(input4);
     document.body.appendChild(form);
     form.submit();
   }
@@ -96,15 +110,13 @@ function Checkout() {
     try {
       const response = await fetch("http://localhost:8888/testphp/get.php");
       const data = await response.json();
-      console.log(data);
+      console.log(data.length);
       setProductList(data);
       let mylo = 0;
-      // 設定總額
       productlist.map((val) => {
         mylo += val.pprice * val.qty;
-        console.log(mylo);
-        setResult(mylo);
       });
+      setResult(mylo);
     } catch (error) {
       console.error(error);
     }
@@ -117,7 +129,8 @@ function Checkout() {
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
-  }, []);
+    // 設定總額
+  }, [ttresault]);
   productlist.map(function (v) {
     // console.log(v.ppic_main);
   });
