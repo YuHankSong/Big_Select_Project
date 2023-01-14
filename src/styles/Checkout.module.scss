@@ -1,6 +1,7 @@
 #warp-c {
     width: 100vw;
     max-width: 1200px;
+    // height: ;
     display: flex;
     // flex-direction: column;
     align-items: center;
@@ -100,7 +101,7 @@
                 &-name {
                     display: flex;
                     justify-content: space-around;
-                    margin: 1rem;
+                    margin: 1rem 1rem 0 1rem;
                     label {
                         width: 100%;
                     }
@@ -119,12 +120,12 @@
                         padding: 0.1rem;
                     }
                     p {
+                        width: 100%;
                         background-color: #f2e1e0;
                         border-radius: 10px;
                         padding: 0.5rem;
                     }
                 }
-
                 p {
                     background-color: #f2e1e0;
                     border-radius: 10px;
@@ -148,7 +149,9 @@
     }
 
     .right {
+        // height: min-content;
         width: 40vw;
+        // height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -157,16 +160,21 @@
             border-radius: 15px;
             margin: 1rem 0 1rem 0;
             padding: 2rem 0 2rem 0rem;
-            width: 100%;
+            max-width: 30vw;
             height: auto;
             display: flex;
             align-items: center;
             // justify-content: space-between;
             // background-color: rgb(255, 255, 255);
             .ppic {
-                width: 10rem;
-                height: 10rem;
+                width: 140px;
+                // max-height: 10rem;
+                height: 140px;
+                // min-height: 10vh;
                 object-fit: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 img {
                     width: 100%;
                     height: 100%;
@@ -179,13 +187,11 @@
                     margin: 1rem;
                 }
             }
-            // &-title {
-            //     padding: 0 0 1rem 0;
-            //     width: 100%;
-
-            //     // align-items: center;
-            //     // justify-content: space-between;
-            // }
+            &-title {
+                h2 {
+                    font-size: 16px;
+                }
+            }
             &-qty {
                 display: flex;
                 align-items: center;

@@ -1,9 +1,8 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useReducer } from "react";
 import Style from "../../../styles/Checkout.module.scss";
 import City from "./city.json";
-function Checkout() {
-  Object.values(City);
 
+function Checkout() {
   const [productlist, setProductList] = useState([]);
   const [count, setCount] = useState(1);
   const [mycity, setCity] = useState("臺北市");
@@ -11,6 +10,69 @@ function Checkout() {
   const [myname, setName] = useState("filed-name");
   const [myphone, setPhone] = useState("filed");
   const [myaddress, setAddress] = useState("filed");
+  const [ttresault, setResult] = useState(0);
+  //取的商品金額和運費
+  let delv = 80;
+  async function goform() {
+    // const data = new URLSearchParams();
+    // data.append("itname", "item name");
+    // data.append("itprice", "100");
+    // data.append("itqty", "10");
+    // const head = { credentials: "include" };
+    // const senurl =
+    //   "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
+    // const init = {
+    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   body: data, // must match 'Content-Type' header
+    //   headers: {
+    //     "user-agent": "Mozilla/4.0 MDN Example",
+    //     "content-type": "application/x-www-form-urlencoded",
+    //     Accept: "application/json",
+    //   },
+    //   cache: "no-cache",
+    //   mode: "cors", // no-cors, cors, *same-origin
+    //   redirect: "manual", // *manual, follow, error
+    //   referrer: "no-referrer", // *client, no-referrer
+    // };
+    // const response = await fetch(senurl, init);
+    // console.log(response);
+    // if (response.status == 200) {
+    //   window.location.href =
+    //     "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
+    // }
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action =
+      "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
+    form.style.display = "none";
+    let itname = [];
+    productlist.map((val) => {
+      itname.push(val.pname);
+    });
+
+    itname.forEach((item) => {
+      const input1 = document.createElement("input");
+      input1.type = "hidden";
+      input1.name = "itname[]";
+      input1.value = item;
+      form.appendChild(input1);
+    });
+
+    const input2 = document.createElement("input");
+    input2.name = "itprice";
+    input2.value = "100";
+    form.appendChild(input2);
+
+    const input3 = document.createElement("input");
+    input3.name = "itqty";
+    input3.value = "10";
+    form.appendChild(input3);
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
   //確認電子信箱合法
   function isEmailValid(email) {
     //email validation
@@ -30,13 +92,24 @@ function Checkout() {
   }
 
   //使用fetch抓取資料庫
-  const getalldata = () => {
-    fetch("http://localhost:8888/testphp/getproduct.php")
-      .then((response) => response.json())
-      .then((data) => {
-        setProductList(data);
+  async function getalldata() {
+    try {
+      const response = await fetch("http://localhost:8888/testphp/get.php");
+      const data = await response.json();
+      console.log(data);
+      setProductList(data);
+      let mylo = 0;
+      // 設定總額
+      productlist.map((val) => {
+        mylo += val.pprice * val.qty;
+        console.log(mylo);
+        setResult(mylo);
       });
-  };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const handleSetCity = (event) => {
     setCity(event.target.value);
     console.log(City.嘉義市);
@@ -44,19 +117,13 @@ function Checkout() {
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
-    // console.log(Object.values(City));
   }, []);
   productlist.map(function (v) {
     // console.log(v.ppic_main);
   });
-  //取的商品金額
-  var ttresault = 0;
-  productlist.map((val) => {
-    // console.log(val.id);
-    ttresault += val.pprice * count;
-  });
+
   // 送出表單
-  const handleSubmit = () => {
+  function handleSubmit() {
     let email = document.getElementById("email").value;
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
@@ -75,7 +142,7 @@ function Checkout() {
       setName("filed-name");
       setPhone("filed");
       setAddress("filed");
-      alert("資料都正常我要送出ㄌ");
+      goform();
     } else if (!isEmailValid(email)) {
       setMail("filed-fail");
     }
@@ -88,7 +155,7 @@ function Checkout() {
     if (!address) {
       setAddress("filed-fail");
     }
-  };
+  }
   return (
     <>
       <div id={Style["warp-c"]}>
@@ -134,19 +201,19 @@ function Checkout() {
                   type="text"
                   name=""
                   id="firstname"
-                  defaultValue=""
+                  defaultValue="蕭"
                   placeholder="收件人姓氏"
                 />
                 <input
                   type="text"
                   name=""
                   id="lastname"
-                  defaultValue=""
+                  defaultValue="胖胖"
                   placeholder="收件人姓名"
                 />
               </div>
               {myname === "filed-fail-name" && (
-                <div className={Style["filed-fail"]}>
+                <div className={Style["filed-fail-name"]}>
                   <p>姓名錯誤</p>
                 </div>
               )}
@@ -156,7 +223,7 @@ function Checkout() {
                   type="tel"
                   name=""
                   id="phone"
-                  defaultValue=""
+                  defaultValue="0987654321"
                   placeholder="範例：0978666111"
                 />
                 {myphone === "filed-fail" && <p>號碼錯誤</p>}
@@ -189,7 +256,7 @@ function Checkout() {
                   type="text"
                   name=""
                   id="address"
-                  defaultValue=""
+                  defaultValue="abcdefghijklmnb"
                   placeholder="請輸入地址"
                   required
                 />
@@ -220,7 +287,11 @@ function Checkout() {
                   </div>
                   <div className={Style["item-qty"]}>
                     <label htmlFor="">數量：{product.qty}</label>
-                    <label htmlFor="">NT$400元</label>
+                    {"\u00A0"}
+                    {"\u00A0"}
+                    <label htmlFor="">
+                      NT${product.pprice * product.qty}元
+                    </label>
                   </div>
                   <div className={Style["more-info"]}>
                     <p>此商品包含以下商品</p>
@@ -243,11 +314,11 @@ function Checkout() {
             </div>
             <div>
               <p>運費</p>
-              <p>NT$80</p>
+              <p>NT${delv}</p>
             </div>
             <div>
               <p>結帳總金額</p>
-              <p>NT$400</p>
+              <p>NT${ttresault + delv}</p>
             </div>
           </div>
           {/* -------------------------- */}
