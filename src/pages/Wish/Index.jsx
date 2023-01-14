@@ -299,6 +299,7 @@ const WishTalk = () => {
             {preViewUrls.length > 1 && (
               <>
                 <button
+                  id="prev2"
                   onClick={() => {
                     // 如果檔案上傳的陣列長度等於0，就設定回讚後一張，不然就 - 1就好
                     setFilePage((prev) => {
@@ -306,33 +307,45 @@ const WishTalk = () => {
                     });
                   }}
                 >
-                  上一頁
+                  &lt;
                 </button>
                 <button
+                  id="next2"
                   onClick={() => {
                     // 如果超過檔案上傳的陣列長度，就設定回第一張，不然就 + 1就好
-                    setFilePage((prev) => {
-                      return prev + 1 === files.length ? 0 : prev + 1;
+                    setFilePage((next) => {
+                      return next + 1 === files.length ? 0 : next + 1;
                     });
                   }}
                 >
-                  下一頁
+                  &gt;
                 </button>
               </>
             )}
             {preViewUrls.length > 0 && (
               <>
-                <button onClick={() => handleDelete(filePage)}>刪除</button>
+                <button id="del" onClick={() => handleDelete(filePage)}>
+                  X刪除此照片
+                </button>
                 <img src={preViewUrls[filePage]} alt="" />
               </>
             )}
           </div>
+
+          <label for="wpic_main" class="custom-file-upload">
+            上傳圖片
+          </label>
           <input
             type="file"
             name="wpic_main"
             id="wpic_main"
             onChange={handlePicView}
           ></input>
+          {preViewUrls.length > 0 && (
+            <div className="picNumber">
+              {filePage + 1}/{preViewUrls.length}
+            </div>
+          )}
         </div>
         {/* <!-- 右邊聊天室框框 --> */}
         <div className="chat-right">
