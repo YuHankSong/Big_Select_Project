@@ -113,6 +113,12 @@ function App() {
             <div class="row add-to-cart-div">
               <button class="add-to-cart">加入購物車</button>
             </div>
+
+            <div class="row add-to-cart-div editproduct">
+              <button class="add-to-cart">編輯商品</button>
+            </div>
+
+
             </div>
 
 
