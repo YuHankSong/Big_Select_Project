@@ -46,43 +46,25 @@ function Checkout() {
     form.action =
       "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
     form.style.display = "none";
-    let itname = [];
-    let itprice = [];
-    let itqty = [];
     let icount = productlist.length;
-    productlist.map((val, index) => {
-      itname.push(val.pname);
-      itprice.push(val.pprice);
-      itqty.push(val.qty);
+
+    const inputFields = [];
+    productlist.forEach((val, index) => {
+      inputFields.push({ name: "itname[]", value: val.pname });
+      inputFields.push({ name: "itprice[]", value: val.pprice });
+      inputFields.push({ name: "itqty[]", value: val.qty });
     });
 
-    itname.forEach((item) => {
-      const input1 = document.createElement("input");
-      input1.type = "hidden";
-      input1.name = "itname[]";
-      input1.value = item;
-      form.appendChild(input1);
-    });
-    itprice.forEach((price) => {
-      const input2 = document.createElement("input");
-      input2.type = "hidden";
-      input2.name = "itprice[]";
-      input2.value = price;
-      form.appendChild(input2);
-    });
-    itqty.forEach((qty) => {
-      const input3 = document.createElement("input");
-      input3.type = "hidden";
-      input3.name = "itqty[]";
-      input3.value = qty;
-      form.appendChild(input3);
+    inputFields.push({ name: "itcount", value: icount });
+
+    inputFields.forEach((field) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = field.name;
+      input.value = field.value;
+      form.appendChild(input);
     });
 
-    const input4 = document.createElement("input");
-    input4.type = "hidden";
-    input4.name = "itcount";
-    input4.value = icount;
-    form.appendChild(input4);
     document.body.appendChild(form);
     form.submit();
   }
@@ -311,7 +293,7 @@ function Checkout() {
                     <strong>
                       <p>{product.pname}</p>
                     </strong>
-                    <p>12入</p>
+                    {/* <p>12入</p> */}
                   </div>
                 </div>
               </div>
