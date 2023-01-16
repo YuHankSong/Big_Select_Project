@@ -3,33 +3,62 @@ import Styles from "../../styles/Cart.module.scss";
 const Cart = () => {
   const [productlist, setProductList] = useState([]);
   const [count, setCount] = useState(1);
+  const [ttresault, setResult] = useState(null);
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
-  const getalldata = () => {
-    fetch("http://localhost:8888/testphp/getproduct.php")
-      .then((response) => response.json())
-      .then((data) => {
-        setProductList(data);
-      });
+  const getalldata = async () => {
+    let response = await fetch("http://localhost:8888/myapi/get.php", {
+      method: "POST",
+      body: JSON.stringify({ uid: "4" }),
+    });
+    let data = await response.json();
+    setProductList(data);
+    let mylo = 0;
+    productlist.map((val) => {
+      return (mylo += val.pprice * val.qty);
+    });
+    setResult(mylo);
   };
 
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
-  }, []);
+  }, [ttresault]);
 
-  const handleAdd = () => {
-    fetch("http://localhost:8888/testphp/additem.php").then((response) => {
-      response.json();
-      if (response.status == 200) {
-        getalldata();
+  const handleAdd = async (p) => {
+    try {
+      let response = await fetch("http://localhost:8888/myapi/handleAdd.php", {
+        method: "POST",
+        body: JSON.stringify({ uid: "4", pid: p }),
+      });
+      await response;
+      if (response.status === 200) {
+        await getalldata();
+        console.log("ok");
       }
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleSubtract = () => {
-    setCount(count - 1);
+  const handleSubtract = async (p) => {
+    try {
+      let response = await fetch(
+        "http://localhost:8888/myapi/handleSubtract.php",
+        {
+          method: "POST",
+          body: JSON.stringify({ uid: "4", pid: p }),
+        }
+      );
+      await response;
+      if (response.status === 200) {
+        await getalldata();
+        console.log("ok");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -38,12 +67,6 @@ const Cart = () => {
       setCount(1);
     }
   }, [count]);
-
-  var ttresault = 0;
-  productlist.map((val) => {
-    console.log(val.id);
-    ttresault += val.pprice * count;
-  });
 
   return (
     <>
@@ -95,7 +118,7 @@ const Cart = () => {
                               <div className={Styles["itemcount"]}>
                                 <div
                                   className={Styles["lesitm"]}
-                                  onClick={handleSubtract}
+                                  onClick={() => handleSubtract(product.pid)}
                                 >
                                   -
                                 </div>
@@ -109,7 +132,7 @@ const Cart = () => {
                                 />
                                 <div
                                   className={Styles["additm"]}
-                                  onClick={handleAdd}
+                                  onClick={() => handleAdd(product.pid)}
                                   // style={{
                                   //   visibility: count >= 10 && "hidden",
                                   // }}

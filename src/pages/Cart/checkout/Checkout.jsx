@@ -1,10 +1,10 @@
-import React, { Component, useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Style from "../../../styles/Checkout.module.scss";
 import City from "./city.json";
 
 function Checkout() {
   const [productlist, setProductList] = useState([]);
-  const [count, setCount] = useState(1);
+
   const [mycity, setCity] = useState("臺北市");
   const [mymail, setMail] = useState("filed");
   const [myname, setName] = useState("filed-name");
@@ -73,7 +73,7 @@ function Checkout() {
   function isEmailValid(email) {
     //email validation
     var re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
   // 確認欄位為字串
@@ -88,7 +88,7 @@ function Checkout() {
   }
 
   //使用fetch抓取資料庫
-  async function getalldata() {
+  const getalldata = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:8888/testphp/get.php");
       const data = await response.json();
@@ -96,13 +96,13 @@ function Checkout() {
       setProductList(data);
       let mylo = 0;
       productlist.map((val) => {
-        mylo += val.pprice * val.qty;
+        return (mylo += val.pprice * val.qty);
       });
       setResult(mylo);
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [productlist]);
 
   const handleSetCity = (event) => {
     setCity(event.target.value);
@@ -113,9 +113,6 @@ function Checkout() {
     getalldata();
     // 設定總額
   }, [ttresault]);
-  productlist.map(function (v) {
-    // console.log(v.ppic_main);
-  });
 
   // 送出表單
   function handleSubmit() {
@@ -274,7 +271,7 @@ function Checkout() {
             return (
               <div className={Style["item"]} key={index}>
                 <div className={Style["ppic"]}>
-                  <img src={product.ppic_main} />
+                  <img src={product.ppic_main} alt="商品圖片" />
                 </div>
                 <div className={Style["item-info"]}>
                   <div className={Style["item-title"]}>
