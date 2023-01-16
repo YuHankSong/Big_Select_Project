@@ -172,7 +172,7 @@ function Checkout() {
                   type="email"
                   name="email"
                   id="email"
-                  defaultValue="abc@gmail.com"
+                  defaultValue="Shay787899@gmail.com"
                   required
                 />
                 {mymail === "filed-fail" && <p>email錯誤</p>}
@@ -200,7 +200,7 @@ function Checkout() {
                   type="text"
                   name=""
                   id="lastname"
-                  defaultValue="胖胖"
+                  defaultValue="煌騎"
                   placeholder="收件人姓名"
                 />
               </div>
@@ -248,7 +248,7 @@ function Checkout() {
                   type="text"
                   name=""
                   id="address"
-                  defaultValue="abcdefghijklmnb"
+                  defaultValue="公益路2段51號"
                   placeholder="請輸入地址"
                   required
                 />

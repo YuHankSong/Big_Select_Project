@@ -1,30 +1,40 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Styles from "../../styles/Cart.module.scss";
+import { confirmAlert } from "react-confirm-alert";
 const Cart = () => {
   const [productlist, setProductList] = useState([]);
-  const [count, setCount] = useState(1);
-  const [ttresault, setResult] = useState(null);
+  const [ttresault, setResult] = useState(0);
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
+
   const getalldata = async () => {
     let response = await fetch("http://localhost:8888/myapi/get.php", {
       method: "POST",
       body: JSON.stringify({ uid: "4" }),
     });
     let data = await response.json();
+    let mylo = 0;
+    data.map((val) => {
+      return (mylo += val.pprice * val.qty);
+    });
+    setResult(mylo);
     setProductList(data);
+  };
+
+  function gett() {
     let mylo = 0;
     productlist.map((val) => {
       return (mylo += val.pprice * val.qty);
     });
     setResult(mylo);
-  };
+  }
 
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
-  }, [ttresault]);
+  }, []);
 
   const handleAdd = async (p) => {
     try {
@@ -34,18 +44,42 @@ const Cart = () => {
       });
       await response;
       if (response.status === 200) {
-        await getalldata();
-        console.log("ok");
+        getalldata();
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubtract = async (p) => {
+  const handleSubtract = async (p, pq) => {
+    if (pq > 1) {
+      try {
+        let response = await fetch(
+          "http://localhost:8888/myapi/handleSubtract.php",
+          {
+            method: "POST",
+            body: JSON.stringify({ uid: "4", pid: p }),
+          }
+        );
+        await response;
+        if (response.status === 200) {
+          await getalldata();
+          console.log("ok");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (pq == 1) {
+      if (confirmAlert("移除購物車？")) {
+        handleRemove(p);
+      }
+    }
+  };
+
+  const handleRemove = async (p) => {
     try {
       let response = await fetch(
-        "http://localhost:8888/myapi/handleSubtract.php",
+        "http://localhost:8888/myapi/handleRemove.php",
         {
           method: "POST",
           body: JSON.stringify({ uid: "4", pid: p }),
@@ -60,13 +94,6 @@ const Cart = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (count > 10) {
-      alert("超過數量限制");
-      setCount(1);
-    }
-  }, [count]);
 
   return (
     <>
@@ -99,6 +126,9 @@ const Cart = () => {
                           <div className={Styles["item-title"]}>
                             <p>{product.pname}</p>
                             <svg
+                              onClick={() => {
+                                handleRemove(product.pid);
+                              }}
                               viewBox="0 0 20 20"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -112,43 +142,48 @@ const Cart = () => {
                           <div className={Styles["item-qty"]}>
                             {/* 增減商品數量 */}
                             {/* <ItemCount Price={product.pprice} /> */}
-                            {count === 0 ? (
-                              <div onClick={handleAdd}>加入購物車</div>
-                            ) : (
-                              <div className={Styles["itemcount"]}>
+
+                            <div onChange={handleRemove}></div>
+
+                            <div className={Styles["itemcount"]}>
+                              {product.qty <= 1 ? (
+                                <></>
+                              ) : (
                                 <div
                                   className={Styles["lesitm"]}
-                                  onClick={() => handleSubtract(product.pid)}
+                                  onClick={() =>
+                                    handleSubtract(product.pid, product.qty)
+                                  }
                                 >
                                   -
                                 </div>
-                                <input
-                                  type="text"
-                                  name=""
-                                  id=""
-                                  min="1"
-                                  className={Styles["getitmcount"]}
-                                  value={product.qty}
-                                />
-                                <div
-                                  className={Styles["additm"]}
-                                  onClick={() => handleAdd(product.pid)}
-                                  // style={{
-                                  //   visibility: count >= 10 && "hidden",
-                                  // }}
-                                >
-                                  +
-                                </div>
-                                <label htmlFor="">{product.totalprice}</label>
+                              )}
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                min="1"
+                                className={Styles["getitmcount"]}
+                                value={product.qty}
+                              />
+                              <div
+                                className={Styles["additm"]}
+                                onClick={() => handleAdd(product.pid)}
+                                // style={{
+                                //   visibility: count >= 10 && "hidden",
+                                // }}
+                              >
+                                +
                               </div>
-                            )}
+                            </div>
+                            <label htmlFor="">NT${product.totalprice}</label>
                           </div>
                           <div className={Styles["more-info"]}>
                             <p>此商品包含以下商品</p>
                             <strong>
                               <p>{product.pname}</p>
                             </strong>
-                            <p>12入</p>
+                            <p>{product.pstyle}</p>
                           </div>
                         </div>
                       </div>
@@ -170,7 +205,7 @@ const Cart = () => {
                 <div className={Styles["total"]}>
                   <div>
                     <p>商品小計</p>
-                    <p>{ttresault}</p>
+                    <p>NT${ttresault}</p>
                   </div>
                   <div>
                     <p>運費</p>
@@ -178,25 +213,14 @@ const Cart = () => {
                   </div>
                   <div>
                     <p>結帳總金額</p>
-                    <p>{ttresault + delprice}</p>
+                    <p>NT${ttresault + delprice}</p>
                   </div>
                 </div>
-                {/* <div className="total">
-                  <div>
-                    <p>商品小計</p>
-                    <p>NT$320</p>
-                  </div>
-                  <div>
-                    <p>運費</p>
-                    <p>NT$80</p>
-                  </div>
-                  <div>
-                    <p>結帳總金額</p>
-                    <p>NT$400</p>
-                  </div>
-                </div> */}
+
                 {/*--------------------*/}
-                <button type="submit">送出訂單</button>
+                <Link className={Styles.butn} to="/selectgo/checkout">
+                  <button type="submit">送出訂單</button>
+                </Link>
               </div>
             </div>
             {/* 購物車下半部 */}

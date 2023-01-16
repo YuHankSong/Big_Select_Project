@@ -14,6 +14,7 @@ import Checkout from "./pages/Cart/checkout/Checkout";
 import Testphp from "./pages/testphp/php";
 import Upload from "./pages/Cart/upload";
 import Success from "./pages/Cart/checkout/Success";
+import Fail from "./pages/Cart/checkout/fail";
 // import "./styles/Cart.scss";
 // import "./styles/Header.scss";
 // import "./styles/Checkout.scss";
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path="/selectgo/Cart" component={Cart} exact />
             <Route path="/selectgo/checkout" component={Checkout} exact />
             <Route path="/selectgo/Success" component={Success} exact />
+            <Route path="/selectgo/Fail" component={Fail} exact />
 
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />
