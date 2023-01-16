@@ -49,11 +49,12 @@ const Navbar = () => {
                 </a>
 
                 <Link to='/'>
-                  {localStorage.getItem('user-info') ?
+                  {sessionStorage.getItem('token') ?
                     <>
                       <div className="dropdown">
                         <div id="member-icon">
-                          <img src="/imgs/icon.jpg" className="dropbtn" />
+                          <Link to="/member"> <img src="/imgs/icon.jpg" className="dropbtn" alt="user icon" /></Link>
+
                           <div className="dropmenu">
                             <Link to={"/member"}>訂單查詢</Link>
                             <Link to={"/member/Wish"}>許願紀錄</Link>
@@ -66,7 +67,7 @@ const Navbar = () => {
                     </>
                     :
                     <>
-                      <Link to='/login'>登入／註冊</Link>
+                      <Link to='/login'>登入</Link>
                     </>
                   }
                 </Link>

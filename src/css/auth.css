@@ -63,7 +63,7 @@ img {
     /* margin-top: 5px; */
 }
 
-.login-btn input[type=submit] {
+.login-btn input[type=button] {
     padding: 15px 132px;
     background-color: #F38243;
     color: white;

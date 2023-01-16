@@ -2,38 +2,43 @@ import '../css/auth.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
     const history = useHistory();
-    useEffect(() => {
-        if (localStorage.getItem('user-info')) {
-            history.push('/member')
-        }
-    }, [])
+    // 在 React 中 value 若是 undefined，等同於沒有傳 value
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    async function login(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        let item = { email, password };
-        let result = await fetch('http://localhost:8000/api/login', {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(item)
-        });
-        result = await result.json();
-        if (result.error) {
-            history.push('/login')
-        } else {
-            localStorage.setItem("user-info", JSON.stringify(result))
-            history.push('/member')
-        }
+        // console.log(email, password);
+        axios.post('http://localhost:8000/api/login', {
+            email: email,
+            password: password
+        },
+            {
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }
+        )
+            .then((res) => {
+                // console.log(res.data.user);
+                // console.log(res.data.access_token);
+                localStorage.setItem('token', JSON.stringify(res.data.access_token));
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+                alert('Successfully logged in!');
+                history.push('/member');
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log(err.response);
+                alert(err.response.data.error.message)
+            })
     }
-
 
 
 
@@ -60,12 +65,15 @@ const Login = () => {
 
                     <a href="">忘記密碼？</a>
                     <div className="login-btn">
-                        <input onClick={login} type="submit" value="登入" />
+                        <input onClick={handleSubmit} type="button" value="登入" />
                     </div>
                 </form>
 
+
+
+
                 <div className="login-options">
-                    <a href="">使用其他方式登入</a>
+                    {/* <a href="">使用其他方式登入</a> */}
                     <div>
                         <span>還沒加入嗎？</span><Link to="/register">立即註冊</Link>
                     </div>

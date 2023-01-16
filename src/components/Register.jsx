@@ -2,12 +2,13 @@ import '../css/auth.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import e from 'cors';
 
 const Register = () => {
     // runs only once, if localstorage contains user-info, it'll redirect to /member
     useEffect(() => {
         if (localStorage.getItem('user-info')) {
-            history.push('/login')
+            history.push('/')
         }
     }, [])
     const history = useHistory();
@@ -17,6 +18,11 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    // function clearCache() {
+    //     localStorage.clear();
+    //     history.push('/');
+    // }
+
     async function signUp(e) {
         e.preventDefault();
         let item = { name, email, password }
@@ -25,14 +31,13 @@ const Register = () => {
         // grab data from API I made in Laravel
         let result = await fetch('http://localhost:8000/api/register', {
             method: "POST",
-            body: JSON.stringify(item),
-            headers: { "Content-Type": "application/json" }     // we can find this in postman
+            headers: { "Content-Type": "application/json" },     // we can find this in postman
+            body: JSON.stringify(item)
         })
         result = await result.json();
         // console.warn("result:" , result)
         localStorage.setItem('user-info', JSON.stringify(result));
-        history.push('/login');
-
+        history.push('/');
     }
 
 

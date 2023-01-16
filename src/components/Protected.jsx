@@ -9,7 +9,7 @@ const Protected = (props) => {
     // if nothing is inside localstorage , will redirect to the register page
     useEffect(() => {
         if (!localStorage.getItem('user-info')) {
-            history.push('/register')
+            history.push('/login')
         }
     },[])
 

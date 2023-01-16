@@ -11,7 +11,7 @@ import { useState } from "react";
 const Content = () => {
 
     // access the data inside our local storage
-    let user = JSON.parse(localStorage.getItem('user-info'));
+    let user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
     const history = useHistory();
 
@@ -19,10 +19,6 @@ const Content = () => {
         localStorage.clear();
         history.push('/');
     }
-
-    // function refreshPage() {
-    //     window.location.reload(false);
-    // }
 
     return (
         <main>
@@ -35,7 +31,7 @@ const Content = () => {
                         <a href="">選擇照片</a>
                     </div>
                     <div className="user-name">
-                        <p>Johnny</p>
+                        <p>{user && user.name}</p>
                     </div>
                     <div className="left-nav">
                         <ul>
@@ -67,7 +63,7 @@ const Content = () => {
                     {/* =============================== Logout from here!!!! ========================================= */}
                     <div className="logout-btn">
                         {/* we make sure it doesn't show undefined so we add user */}
-                        <button onClick={logOut}>登出 {user && user.name}</button>
+                        <button onClick={logOut}>登出</button>
                     </div>
                 </div>
 
