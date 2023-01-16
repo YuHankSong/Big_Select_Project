@@ -43,8 +43,7 @@ function Checkout() {
 
     const form = document.createElement("form");
     form.method = "POST";
-    form.action =
-      "http://localhost:8888/ECPayAIO_PHP-master/AioSDK/example/sample_All_CreateOrder.php";
+    form.action = "http://localhost:8888/myapi/sample_All_CreateOrder.php";
     form.style.display = "none";
     let icount = productlist.length;
 
@@ -90,7 +89,10 @@ function Checkout() {
   //使用fetch抓取資料庫
   const getalldata = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:8888/testphp/get.php");
+      const response = await fetch("http://localhost:8888/myapi/get.php", {
+        method: "POST",
+        body: JSON.stringify({ uid: "4" }),
+      });
       const data = await response.json();
       console.log(data.length);
       setProductList(data);
