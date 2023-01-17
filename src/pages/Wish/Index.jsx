@@ -17,16 +17,16 @@ import Axios from "axios";
 const wishArticle = [{}, {}];
 
 function Wish() {
-  const history = useHistory();
   //輸出 許願欄位API 的狀態
   const [fake, setFake] = useState([]);
   useEffect(() => {
     QueryFakeData().then((res) => {
+      console.log(fake);
       setFake(res);
     });
   }, []);
 
-  // 改變顯示彈窗的狀態 利用true跟false來控制display 這裡有夠難～ 需要理解一下 跟好好運用三元判斷
+  // 改變顯示彈窗的狀態 利用true跟false來控制display  需要理解一下 跟好好運用三元判斷
   const [isPlzShow, setisPlzShow] = useState(false);
   const togleModal = () => {
     setisPlzShow(!isPlzShow);
@@ -44,7 +44,11 @@ function Wish() {
         return fake.filter((i) => i.brand === "Samsung");
       // 1 找蘋果
       case 2:
-        return fake.filter((i) => i.brand === "Apple");
+        return fake.sort((rowA, rowB) => {
+          const b = rowA.created_at;
+          const a = rowB.created_at;
+          return a > b ? 1 : b > a ? -1 : 0;
+        });
       // 2
       case 3:
         return fake.filter((i) => i.brand === "OPPO");
@@ -55,8 +59,8 @@ function Wish() {
 
       default:
         return fake.sort((rowA, rowB) => {
-          const a = rowA.price;
-          const b = rowB.price;
+          const a = rowA.winfo.length;
+          const b = rowB.winfo.length;
           return a > b ? 1 : b > a ? -1 : 0;
         });
     }
@@ -95,6 +99,7 @@ function Wish() {
                   Author={i.wname}
                   Content={i.winfo}
                   Title={i.wname}
+                  Wweb={i.wweb}
                 />
               );
             })}
@@ -155,6 +160,9 @@ const param = {
   Title: "",
   Img: "",
   Content: "",
+  Wweb: "",
+  Collect: "",
+  ChatNum: "",
 };
 // 許願欄位每一個區塊 再利用map方式去印出每格
 const ChildComponent = (props = param) => {
@@ -196,6 +204,7 @@ const ChildComponent = (props = param) => {
           author={props.Author}
           title={props.Title}
           content={props.Content}
+          wweb={props.Wweb}
         />
         <span onClick={togleModal2}>X</span>
       </div>
@@ -211,11 +220,11 @@ const WishTalk = () => {
     winfo: "",
     wstyle: "",
     wweb: "",
-    // wpic_main: "",
+    wpic_main: "",
   });
 
+  //準備要送出去照片檔案的狀態
   const [files, setFiles] = useState([]);
-
   //立即預覽圖片 多張
   const [preViewUrls, setPreViewUrls] = useState([]);
   // 上傳圖片 >1 的時候， 需要可以做換頁的功能
@@ -252,6 +261,14 @@ const WishTalk = () => {
         wweb: formValue.wweb,
       });
       console.log(res);
+      // 這邊用for迴圈 來跑一張一張進去資料庫
+      // for (let file of files) {
+      //   const pic = await Axios.post(urlPic, {
+      //     id: res.id,
+      //     wpic_main: file,
+      //   });
+      // }
+      window.location.href = "http://localhost:3000/selectgo/Wish";
     } catch (err) {
       console.log(err);
     }
@@ -332,7 +349,7 @@ const WishTalk = () => {
             )}
           </div>
 
-          <label for="wpic_main" class="custom-file-upload">
+          <label htmlFor="wpic_main" className="custom-file-upload">
             上傳圖片
           </label>
           <input

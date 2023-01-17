@@ -44,9 +44,7 @@ function WishContent(props) {
             <h2>{props.title}</h2>
             <p>{props.content}</p>
             <h4>圖片來源：</h4>
-            <h5>
-              https://www.usj.co.jp/web/ja/jp/restaurants/winter-2022/popcorn
-            </h5>
+            <h5>{props.wweb}</h5>
             {/* <!-- 商品販賣 入口  --> */}
             <div className="p-entrance">
               <div className="p-container">
