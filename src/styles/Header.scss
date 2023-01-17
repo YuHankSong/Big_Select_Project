@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 #page {
   width: 100%;
   position: relative;
@@ -13,6 +14,12 @@
     padding: 0.5em 0px;
     font-weight: 600;
     color: white;
+
+    // position: fixed;
+    // top: 0;
+    // width: 100%;
+    // z-index: 100;
+    // height: 40px;
   }
 
   .nav_bar {
@@ -22,7 +29,7 @@
     display: flex;
     justify-content: center;
     position: sticky;
-    top: 0px;
+
 
     .nav_bar_container {
       // background-color: lightpink;
