@@ -2,9 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/Header.scss";
 import "./pages/Wish/style/index.scss";
+import "./pages/Wish/style/wishtalk.scss";
+import "./pages/Wish/style/wishcontent.scss";
 import App from "./App";
-import 'jquery';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "jquery";
+import "bootstrap/dist/css/bootstrap.min.css";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,3 +15,8 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

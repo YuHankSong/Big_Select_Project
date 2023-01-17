@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function WishList() {
+function WishList(props) {
   return (
     <>
-      <Link className="wish-a" to="">
+      <button className="wish-a" onClick={props.togleModal2}>
         <div className="wish-chat-container">
           <div className="chat-left">
             <div className="user-container">
@@ -30,7 +30,7 @@ function WishList() {
             <img src={require("../../Imgs/馬里歐.webp")} alt="" />
           </div>
         </div>
-      </Link>
+      </button>
     </>
   );
 }

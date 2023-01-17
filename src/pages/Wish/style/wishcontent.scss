@@ -1,0 +1,340 @@
+#chat-container2 {
+  display: flex;
+  background-color: white;
+  border-radius: 15px;
+  width: 80%;
+  height: 90%;
+
+  /* 左邊照片 -------------------------*/
+  .chat-left {
+    background-color: brown;
+    width: 60%;
+    border: none;
+    position: relative;
+    /* border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px; */
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+
+    #prev {
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 100px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      top: 19rem;
+      left: 2rem;
+      cursor: pointer;
+    }
+
+    #next {
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 100px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      top: 19rem;
+      right: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  /* 右邊聊天室 --------------------------*/
+  .chat-right {
+    background-color: aqua;
+    width: 40%;
+    height: 100%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    /* 右邊照片 會員 發起許願 時間 上面那一欄 */
+    .right-user {
+      height: 10%;
+      display: flex;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgb(144, 139, 139);
+
+      .right-user-icon {
+        background-color: beige;
+        width: 3rem;
+        height: 3rem;
+        margin-right: 1rem;
+        /* border-radius: 100px; */
+
+        img {
+          width: 100%;
+          border-radius: 100px;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin-right: 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+        color: rgb(102, 106, 108);
+      }
+
+      h2 {
+        font-size: 1rem;
+        color: rgb(102, 106, 108);
+      }
+    }
+
+    /* 聊天中間下滑視窗 */
+    .right-container {
+      background-color: coral;
+      width: 100%;
+      height: 70%;
+      overflow: scroll;
+
+      /* 集資狀態 --------------------*/
+      .chat-state {
+        background-color: aquamarine;
+        display: flex;
+        height: 10%;
+        margin: 1rem 0;
+        align-items: center;
+        position: relative;
+        * {
+          //   outline: 1px solid red;
+        }
+        // outline: 1px solid red;
+
+        //    justify-content: center;
+
+        div {
+          background-color: black;
+          border-radius: 10px;
+          padding: 0.25rem 0.5rem;
+          margin-right: 1rem;
+          color: white;
+        }
+        h6 {
+          //   background-color: cornflowerblue;
+          margin-top: 0.5rem;
+        }
+
+        a {
+          position: absolute;
+          top: 0.7rem;
+          right: 0;
+          font-size: 0.5rem;
+          color: black;
+        }
+      }
+
+      /* 流標狀態 */
+      .unsold {
+        background-color: rgb(149, 147, 145);
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        color: rgb(228, 224, 224);
+
+        p {
+          margin-bottom: 0;
+          //   background-color: azure;
+        }
+      }
+
+      /* 準備中 */
+      .sold {
+        background-color: rgb(215, 98, 127);
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+
+        button {
+          width: 100%;
+          height: 2rem;
+          border: none;
+          border-radius: 10px;
+          letter-spacing: 1em;
+          font-weight: 400;
+        }
+      }
+
+      h2 {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+      }
+
+      h4,
+      h5 {
+        font-size: 1rem;
+      }
+
+      //   商品販賣 入口 ----------------------
+      .p-entrance {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .p-container {
+          margin: 1rem 0;
+          width: 95%;
+          background-color: black;
+          color: white;
+          padding: 1rem 1.5rem;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          h4 {
+            margin: 0.5rem 0;
+          }
+
+          button {
+            background-color: #ffffff; /* Green */
+            border: none;
+            border-radius: 10px;
+            color: rgb(0, 0, 0);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+          }
+
+          .p-pic {
+            border-radius: 10px;
+            overflow: hidden;
+            width: 6rem;
+            height: 6rem;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+
+      /*  人數及留言數 */
+      .state-count {
+        display: flex;
+        margin-bottom: 1rem;
+      }
+
+      /* 一個聊天室 */
+      .chatroom {
+        width: 100%;
+        display: flex;
+
+        .chatroom-pic {
+          width: 2.8rem;
+          height: 2.5rem;
+          border-radius: 100px;
+          overflow: hidden;
+          margin-right: 0.25rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .chatroom-container {
+          width: 100%;
+
+          .chatroom-container-c {
+            border-radius: 10px;
+            padding: 0.25rem 0.5rem;
+            background-color: rgb(188, 188, 187);
+          }
+
+          h3 {
+            font-size: 0.25rem;
+            color: rgb(95, 92, 92);
+          }
+        }
+      }
+    }
+
+    /* 集氣 留言 分享 */
+    .state-btn {
+      height: 7%;
+      /* padding: 0.5rem 0; */
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      display: flex;
+      justify-content: space-around;
+      background-color: rgb(120, 188, 56);
+
+      .state-btn-container {
+        text-decoration: none;
+        color: black;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: antiquewhite;
+      }
+    }
+
+    /* 最下面會員照片 聊天發送 */
+    .chat-chat {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: rgb(107, 219, 63);
+
+      .chat-chat-pic {
+        width: 10%;
+
+        .chat-chat-img {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 100px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        input {
+          width: 85%;
+          border-radius: 5px;
+          border: none;
+          background-color: #e9dede;
+          height: 2rem;
+          font-size: 1rem;
+          padding-left: 0.5rem;
+        }
+
+        a {
+          position: absolute;
+          right: 1.5rem;
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
+}

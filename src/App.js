@@ -58,7 +58,11 @@ class App extends Component {
             <Route path="/selectgo/checkout" component={Checkout} exact />
             <Route path="/selectgo/Success" component={Success} exact />
             <Route path="/selectgo/Fail" component={Fail} exact />
-
+            {/* <Route path="/selectgo/wishproduct" component={WishProduct} /> */}
+            <Route path="/selectgo/wishproduct" component={Upload} />
+            <Route path="/selectgo/Wish" component={Wish} />
+            {/* <Route path="/selectgo/Wish/:id" component={Wish} /> */}
+            <Route path="/selectgo/Cart" component={Cart} />
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />
             <Route path="/upload" component={Upload} />

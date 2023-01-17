@@ -1,19 +1,21 @@
 #wish-wrap {
-  background-color: rgb(97, 92, 92);
+  // background-color: rgba(97, 92, 92, 0.1);
   margin-top: 2em;
   justify-content: center;
   display: flex;
+  // z-index: 5;
 
   .wish-container {
-    background-color: #ffd5be;
+    // background-color: #ffd5be;
     width: 80%;
     display: flex;
     justify-content: space-between;
+    // z-index: 4;
 
     .wish-chat {
-      width: 75%;
+      width: 80%;
       min-height: 100vh;
-      background-color: aqua;
+      // background-color: aqua;
 
       .wish-bar {
         width: 90%;
@@ -31,10 +33,12 @@
       }
 
       .wish-a {
-        text-decoration: none;
+        // text-decoration: none;
         color: rgb(200, 17, 17);
-
-        // width: 90%;
+        margin-top: 1em;
+        width: 90%;
+        border-radius: 10px;
+        border: none;
         // padding: 10rem;
         // margin: -10rem;
         // background-color: #e65e15;
@@ -43,10 +47,10 @@
 
         .wish-chat-container {
           background-color: rgb(255, 255, 255);
-          width: 90%;
+          width: 100%;
           /* height: 1000vh; */
           border-radius: 10px;
-          margin-top: 1em;
+
           display: flex;
           justify-content: center;
           align-items: center;
@@ -54,6 +58,8 @@
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
           .chat-left {
+            width: 80%;
+
             .user-container {
               display: flex;
               align-items: center;
@@ -70,14 +76,26 @@
                   object-fit: cover;
                 }
               }
+              h3 {
+                font-size: 0.8rem;
+                margin-bottom: 0;
+                margin-bottom: 0;
+              }
+              p {
+                margin-bottom: 0;
+                font-size: 0.8rem;
+              }
             }
             .chat-title {
+              font-size: 1.1rem;
               margin: 0.5em 0;
+              text-align: start;
             }
             .chat-txt {
               border-color: #ffd5be;
               width: 95%;
               overflow: hidden;
+              text-align: start;
               text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-box-orient: vertical;
@@ -94,11 +112,14 @@
                 padding: 0.2em 0.5em;
                 border-radius: 10px;
               }
+              p {
+                margin: 0;
+              }
             }
           }
 
           .chat-right {
-            width: 14em;
+            width: 20%;
             height: 11em;
             border-color: rgb(84, 136, 182);
 
@@ -115,11 +136,15 @@
 
     .wish-list {
       background-color: rgb(255, 255, 255);
+      position: sticky;
+      top: 9rem;
+      right: 2rem;
       width: 35%;
       height: 14rem;
       padding: 1rem;
       border-radius: 15px;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      z-index: 1;
 
       h2 {
         font-size: 1.3rem;
@@ -145,7 +170,7 @@
     }
   }
 }
-#chat-wrap {
+#chat-wrap1 {
   background-color: rgba(99, 95, 95, 0.8);
   width: 100%;
   height: 100vh;
@@ -154,146 +179,28 @@
   justify-content: center;
   position: fixed;
   top: 0;
+  left: 0;
+  z-index: 4;
 
-  .chat-container {
-    display: flex;
-    background-color: white;
-    border-radius: 15px;
-    width: 80%;
-    height: 90%;
-
-    /* 左邊照片 -------------------------*/
-    .chat-left {
-      background-color: brown;
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-top-left-radius: 15px;
-      border-bottom-left-radius: 15px;
-
-      input {
-        background: #d0eeff;
-        border: 1px solid #99d3f5;
-        width: 5rem;
-        color: transparent;
-      }
-    }
-
-    /* 右邊聊天室 --------------------------*/
-    .chat-right {
-      background-color: aqua;
-      width: 50%;
-      height: 100%;
-      border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px;
-      padding: 1rem;
-      box-sizing: border-box;
-
-      /* 右邊照片 會員 發起許願 時間 上面那一欄 */
-      .right-user {
-        // height: 5%;
-        display: flex;
-        align-items: center;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgb(144, 139, 139);
-
-        .right-user-icon {
-          background-color: beige;
-          width: 3rem;
-          height: 3rem;
-          margin-right: 1rem;
-          /* border-radius: 100px; */
-
-          img {
-            width: 100%;
-            border-radius: 100px;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        h3 {
-          font-size: 1rem;
-          margin-right: 1rem;
-        }
-
-        h2 {
-          font-size: 1rem;
-          color: rgb(102, 106, 108);
-        }
-
-        p {
-          font-size: 1rem;
-          color: rgb(102, 106, 108);
-        }
-      }
-
-      /* 聊天中間下滑視窗 */
-      .right-container {
-        background-color: coral;
-        height: 50%;
-        overflow: scroll;
-
-        textarea {
-          width: 100%;
-          resize: none;
-          border: none;
-
-          &:first-child {
-            height: 3rem;
-            font-size: 2rem;
-            margin-top: 1rem;
-          }
-
-          &:nth-last-of-type(1) {
-            height: 12.5rem;
-            font-size: 1rem;
-          }
-        }
-
-        /* 許願ＱＡ */
-        .wish-qa {
-          background-color: beige;
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-        }
-      }
-
-      /* 許願類型 參考網址 發起之旅 */
-      .state-select {
-        height: 43%;
-        /* padding: 0.5rem 0; */
-        border-top: 1px solid gray;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        background-color: rgb(120, 188, 56);
-
-        select {
-          width: 100%;
-          height: 3rem;
-          border-radius: 10px;
-          border: 1px solid gray;
-        }
-
-        input {
-          width: 100%;
-          height: 3rem;
-          border-radius: 10px;
-          border: 1px solid gray;
-        }
-
-        button {
-          width: 100%;
-          height: 3rem;
-          border-radius: 10px;
-          border: 1px solid gray;
-        }
-      }
-    }
+  span {
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    font-weight: 600;
+    font-size: 1.5rem;
+    top: 1rem;
+    right: 2rem;
   }
+}
+#chat-wrap2 {
+  background-color: rgba(99, 95, 95, 0.8);
+  width: 100%;
+  height: 100vh;
+  // display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
 
   span {
     color: white;
