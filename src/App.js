@@ -13,7 +13,9 @@ import Member from "./pages/Member/Index";
 import Backend from "./pages/Backend/Index";
 import Error from "./components/Error";
 import Header from "./components/Header";
-import WishProduct from "./pages/Wish/WishProduct"
+
+import WishProduct from "./pages/Wish/WishProduct";
+
 
 import Checkout from "./pages/Cart/checkout/Checkout";
 
@@ -39,6 +41,7 @@ class App extends Component {
             <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
+
             <Route path="/selectgo/Wish/:id" component={Wish} />
             <Route path="/selectgo/Cart" component={Cart} exact />
             <Route path="/selectgo/Cart/checkout" component={Checkout} exact />
