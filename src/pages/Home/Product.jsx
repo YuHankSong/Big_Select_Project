@@ -16,6 +16,7 @@ const Product = () => {
             </div>
 
             <button><Link to={"/selectgo/product/Productup"}>我是上架按鈕</Link></button>
+            <button><Link to={"/selectgo/product/ProductList"}>我是編輯商品按鈕</Link></button>
             {/* events news1 */}
             <div class="container">
             <div class="row hot-post-row">

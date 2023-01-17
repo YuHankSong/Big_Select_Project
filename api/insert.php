@@ -1,6 +1,8 @@
 <?php
-// 跨域資源共享
-header('Access-Control-Allow-Origin: *');
+  // 跨域資源共享
+  header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: *');
+  header("Access-Control-Allow-Headers: Origin, Methods, Content-Type");
 	
 	$conn = new mysqli("127.0.0.1","root","root","selectGo",8889);
 	
@@ -55,6 +57,8 @@ header('Access-Control-Allow-Origin: *');
 		$productText = $_POST['productText'];
 		$productPrice = $_POST['productPrice'];
 		$productqty = $_POST['productqty'];
+    $psts = $_POST['pstatus'];
+    
     $ppic_main = '';
     if (array_key_exists(0,$imgNames)){
       $ppic_main = $imgNames[0];
@@ -76,26 +80,23 @@ header('Access-Control-Allow-Origin: *');
       $ppic_4 = $imgNames[4];
     }
 
-		$sql = "INSERT INTO products(pstyle,pname,pinfo,pprice,pqty,ppic_main,ppic_1,ppic_2,ppic_3,ppic_4,created_at,updated_at) 
-    VALUES('$productType','$productName','$productText','$productPrice','$productqty','$ppic_main','$ppic_1','$ppic_2','$ppic_3','$ppic_4',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);";
+		$sql = "INSERT INTO products(pname,pinfo,pprice,pqty,ppic_main,ppic_1,ppic_2,ppic_3,ppic_4,created_at,updated_at) 
+    VALUES('$productName','$productText','$productPrice','$productqty','$ppic_main','$ppic_1','$ppic_2','$ppic_3','$ppic_4',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);";
 		$res = mysqli_query($conn, $sql);
-
+    $pid = mysqli_insert_id($conn);
+    $sql2 = "INSERT INTO product_status(pid, ptype, pstatus, iswish) VALUES ('$pid','$productType',$psts,2)";
+    $res2 = mysqli_query($conn, $sql2);
     // 圖片上傳後的狀態訊息提示
     echo $statusMsg;
 
-    // 是否成功寫入資料庫
-		if($res){
+    // 是否成功寫入資料庫a
+		if($res && $res2){
 			echo "\nSuccess!";
 		}
 		else{
 			echo "\nError!";
 		}
+  echo $pid;
     // 關閉與資料庫的連結
 		$conn->close();
 	}
-
-
-
-
-
- ?>

@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Index from "./pages/Home/Index";
 import Product from "./pages/Home/Product";
 import ProductUp from "./pages/Home/ProductUp";
+import ProductList from "./pages/Home/ProductList";
 import ProductDetail from "./pages/Home/ProductDetail";
 import Wish from "./pages/Wish/Index";
 import Cart from "./pages/Cart/Index";
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/selectgo/" component={Index} exact />
             <Route path="/selectgo/product" component={Product} exact />
             <Route path="/selectgo/product/Productup" component={ProductUp} exact />
+            <Route path="/selectgo/product/ProductList" component={ProductList} exact />
             <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
