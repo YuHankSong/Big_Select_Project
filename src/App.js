@@ -17,7 +17,6 @@ import Header from "./components/Header";
 import WishProduct from "./pages/Wish/WishProduct";
 
 import Checkout from "./pages/Cart/checkout/Checkout";
-import Testphp from "./pages/testphp/php";
 import Upload from "./pages/Cart/upload";
 import Success from "./pages/Cart/checkout/Success";
 import Fail from "./pages/Cart/checkout/fail";
