@@ -16,15 +16,14 @@ import Header from "./components/Header";
 
 import WishProduct from "./pages/Wish/WishProduct";
 
-
 import Checkout from "./pages/Cart/checkout/Checkout";
-
-import "./styles/Cart.scss";
+import Upload from "./pages/Cart/upload";
+import Success from "./pages/Cart/checkout/Success";
+import Fail from "./pages/Cart/checkout/fail";
+// import "./styles/Cart.scss";
 // import "./styles/Header.scss";
-import "./styles/Checkout.scss";
+// import "./styles/Checkout.scss";
 import Footer from "./components/Footer";
-
-
 
 class App extends Component {
   render() {
@@ -36,19 +35,34 @@ class App extends Component {
             <Route path="/" component={Index} exact />
             <Route path="/selectgo/" component={Index} exact />
             <Route path="/selectgo/product" component={Product} exact />
-            <Route path="/selectgo/product/Productup" component={ProductUp} exact />
-            <Route path="/selectgo/product/ProductList" component={ProductList} exact />
-            <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
+            <Route
+              path="/selectgo/product/Productup"
+              component={ProductUp}
+              exact
+            />
+            <Route
+              path="/selectgo/product/ProductList"
+              component={ProductList}
+              exact
+            />
+            <Route
+              path="/selectgo/product/ProductDetail"
+              component={ProductDetail}
+              exact
+            />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
 
             <Route path="/selectgo/Wish/:id" component={Wish} />
             <Route path="/selectgo/Cart" component={Cart} exact />
-            <Route path="/selectgo/Cart/checkout" component={Checkout} exact />
+            <Route path="/selectgo/checkout" component={Checkout} exact />
+            <Route path="/selectgo/Success" component={Success} exact />
+            <Route path="/selectgo/Fail" component={Fail} exact />
 
             <Route path="/selectgo/Member" component={Member} />
             <Route path="/selectgo/Backend" component={Backend} />
-            <Route component={Error} />
+            <Route path="/upload" component={Upload} />
+            <Route path="/" component={Error} />
           </Switch>
           <Footer />
         </div>
