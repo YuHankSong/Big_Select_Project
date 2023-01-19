@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Styles from "../../styles/Cart.module.scss";
-import { confirmAlert } from "react-confirm-alert";
+import { CSSTransition } from "react-transition-group";
 const Cart = () => {
+  const nodeRef = useRef(null);
   const [productlist, setProductList] = useState([]);
   const [ttresault, setResult] = useState(0);
+  const [chrst, setChrst] = useState(0);
+  const [adds, setAdds] = useState("none");
+  const [rscolor, setRscolor] = useState("");
+
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
@@ -15,28 +20,53 @@ const Cart = () => {
       body: JSON.stringify({ uid: "4" }),
     });
     let data = await response.json();
+    setProductList(data);
     let mylo = 0;
     data.map((val) => {
       return (mylo += val.pprice * val.qty);
     });
     setResult(mylo);
-    setProductList(data);
   };
 
-  function gett() {
-    let mylo = 0;
-    productlist.map((val) => {
-      return (mylo += val.pprice * val.qty);
-    });
-    setResult(mylo);
+  function mysetrst(price) {
+    // getalldata();
+    setResult(ttresault + price);
+    setRscolor("var(--btn-green)");
+    setChrst(price);
+    setAdds("inline");
   }
-
+  function restrst(price) {
+    setResult(ttresault - price);
+    getalldata();
+    setChrst(0);
+    setAdds("none");
+    setRscolor("");
+  }
+  function myles(price) {
+    setResult(ttresault - price);
+    setRscolor("var(--btn-red)");
+    setChrst(price);
+    setAdds("inline");
+  }
+  function restrst2(price) {
+    if (price) {
+      setResult(ttresault + price);
+      getalldata();
+      setChrst(0);
+      setAdds("none");
+      setRscolor("");
+    } else {
+      getalldata();
+      setAdds("none");
+      setRscolor("");
+    }
+  }
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
   }, []);
 
-  const handleAdd = async (p) => {
+  const handleAdd = async (p, pq, price) => {
     try {
       let response = await fetch("http://localhost:8888/myapi/handleAdd.php", {
         method: "POST",
@@ -44,15 +74,16 @@ const Cart = () => {
       });
       await response;
       if (response.status === 200) {
-        getalldata();
+        await getalldata();
+        await setResult(ttresault + price);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubtract = async (p, pq) => {
-    if (pq > 1) {
+  const handleSubtract = async (p, pq, price) => {
+    if (pq > 2) {
       try {
         let response = await fetch(
           "http://localhost:8888/myapi/handleSubtract.php",
@@ -64,14 +95,29 @@ const Cart = () => {
         await response;
         if (response.status === 200) {
           await getalldata();
-          console.log("ok");
+          await setResult(ttresault - price);
         }
       } catch (error) {
         console.log(error);
       }
-    } else if (pq == 1) {
-      if (confirmAlert("移除購物車？")) {
-        handleRemove(p);
+    }
+    if (pq === 2) {
+      try {
+        let response = await fetch(
+          "http://localhost:8888/myapi/handleSubtract.php",
+          {
+            method: "POST",
+            body: JSON.stringify({ uid: "4", pid: p }),
+          }
+        );
+        await response;
+        if (response.status === 200) {
+          await getalldata();
+          // setResult(ttresault - price);
+          restrst2(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -147,13 +193,24 @@ const Cart = () => {
 
                             <div className={Styles["itemcount"]}>
                               {product.qty <= 1 ? (
-                                <></>
+                                <div
+                                  className={Styles["lesitm"]}
+                                  style={{ opacity: 0, cursor: "default" }}
+                                >
+                                  -
+                                </div>
                               ) : (
                                 <div
                                   className={Styles["lesitm"]}
                                   onClick={() =>
-                                    handleSubtract(product.pid, product.qty)
+                                    handleSubtract(
+                                      product.pid,
+                                      product.qty,
+                                      product.pprice
+                                    )
                                   }
+                                  onMouseEnter={() => myles(product.pprice)}
+                                  onMouseLeave={() => restrst2(product.pprice)}
                                 >
                                   -
                                 </div>
@@ -168,10 +225,15 @@ const Cart = () => {
                               />
                               <div
                                 className={Styles["additm"]}
-                                onClick={() => handleAdd(product.pid)}
-                                // style={{
-                                //   visibility: count >= 10 && "hidden",
-                                // }}
+                                onClick={() =>
+                                  handleAdd(
+                                    product.pid,
+                                    product.qty,
+                                    product.pprice
+                                  )
+                                }
+                                onMouseEnter={() => mysetrst(product.pprice)}
+                                onMouseLeave={() => restrst(product.pprice)}
                               >
                                 +
                               </div>
@@ -205,7 +267,38 @@ const Cart = () => {
                 <div className={Styles["total"]}>
                   <div>
                     <p>商品小計</p>
-                    <p>NT${ttresault}</p>
+                    <p>
+                      {adds == "none" ? (
+                        <span>NT${ttresault}</span>
+                      ) : (
+                        <span
+                          className={Styles.myaddsrt}
+                          style={{
+                            display: adds,
+                            color: rscolor,
+                          }}
+                        >
+                          NT${ttresault}
+                        </span>
+                      )}
+                      {rscolor == "var(--btn-green)" ? (
+                        <span
+                          className={Styles.myaddsrt}
+                          style={{
+                            display: adds,
+                            color: rscolor,
+                          }}
+                        >{`   (+${chrst})`}</span>
+                      ) : (
+                        <span
+                          className={Styles.myaddsrt}
+                          style={{
+                            display: adds,
+                            color: rscolor,
+                          }}
+                        >{`   (-${chrst})`}</span>
+                      )}
+                    </p>
                   </div>
                   <div>
                     <p>運費</p>
@@ -213,7 +306,25 @@ const Cart = () => {
                   </div>
                   <div>
                     <p>結帳總金額</p>
-                    <p>NT${ttresault + delprice}</p>
+                    <p>
+                      {adds == "none" ? (
+                        <span>NT${ttresault + delprice}</span>
+                      ) : (
+                        <span
+                          className={Styles.myaddsrt}
+                          style={{
+                            display: adds,
+                            color: rscolor,
+                          }}
+                        >
+                          NT${ttresault + delprice}
+                        </span>
+                      )}
+                      {/* <span
+                        className={Styles.myaddsrt}
+                        style={{ display: adds }}
+                      >{` + ${chrst}`}</span> */}
+                    </p>
                   </div>
                 </div>
 
