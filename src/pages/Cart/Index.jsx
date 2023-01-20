@@ -3,17 +3,15 @@ import { Link } from "react-router-dom";
 import Styles from "../../styles/Cart.module.scss";
 import { CSSTransition } from "react-transition-group";
 const Cart = () => {
-  const nodeRef = useRef(null);
+  const [show, setShow] = useState(false);
   const [productlist, setProductList] = useState([]);
   const [ttresault, setResult] = useState(0);
   const [chrst, setChrst] = useState(0);
   const [adds, setAdds] = useState("none");
   const [rscolor, setRscolor] = useState("");
-
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
-
   const getalldata = async () => {
     let response = await fetch("http://localhost:8888/myapi/get.php", {
       method: "POST",
@@ -171,19 +169,6 @@ const Cart = () => {
                         <div className={Styles["item-info"]}>
                           <div className={Styles["item-title"]}>
                             <p>{product.pname}</p>
-                            <svg
-                              onClick={() => {
-                                handleRemove(product.pid);
-                              }}
-                              viewBox="0 0 20 20"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="m10.884 10 3.933-3.932a.625.625 0 1 0-.885-.885L10 9.116 6.068 5.183a.625.625 0 1 0-.885.885L9.116 10l-3.933 3.932a.625.625 0 1 0 .885.884L10 10.884l3.932 3.932a.623.623 0 0 0 .885 0 .625.625 0 0 0 0-.884L10.884 10z"
-                                fill="#B3B3B3"
-                              ></path>
-                            </svg>
                           </div>
                           <div className={Styles["item-qty"]}>
                             {/* 增減商品數量 */}
@@ -248,6 +233,19 @@ const Cart = () => {
                             <p>{product.pstyle}</p>
                           </div>
                         </div>
+                        <svg
+                          onClick={() => {
+                            handleRemove(product.pid);
+                          }}
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="m10.884 10 3.933-3.932a.625.625 0 1 0-.885-.885L10 9.116 6.068 5.183a.625.625 0 1 0-.885.885L9.116 10l-3.933 3.932a.625.625 0 1 0 .885.884L10 10.884l3.932 3.932a.623.623 0 0 0 .885 0 .625.625 0 0 0 0-.884L10.884 10z"
+                            fill="#B3B3B3"
+                          ></path>
+                        </svg>
                       </div>
                     ))}
                   </div>
