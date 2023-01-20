@@ -9,6 +9,7 @@ const Cart = () => {
   const [chrst, setChrst] = useState(0);
   const [adds, setAdds] = useState("none");
   const [rscolor, setRscolor] = useState("");
+  const itemref = useRef([]);
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
@@ -120,23 +121,26 @@ const Cart = () => {
     }
   };
 
-  const handleRemove = async (p) => {
-    try {
-      let response = await fetch(
-        "http://localhost:8888/myapi/handleRemove.php",
-        {
-          method: "POST",
-          body: JSON.stringify({ uid: "4", pid: p }),
+  const handleRemove = async (p, mykey) => {
+    itemref.current[mykey].style.opacity = 0;
+    setTimeout(async () => {
+      try {
+        let response = await fetch(
+          "http://localhost:8888/myapi/handleRemove.php",
+          {
+            method: "POST",
+            body: JSON.stringify({ uid: "4", pid: p }),
+          }
+        );
+        await response;
+        if (response.status === 200) {
+          await getalldata();
+          console.log("ok");
         }
-      );
-      await response;
-      if (response.status === 200) {
-        await getalldata();
-        console.log("ok");
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    }, 500);
   };
 
   return (
@@ -162,7 +166,13 @@ const Cart = () => {
                   <h1>購物車</h1>
                   <div>
                     {productlist.map((product, index) => (
-                      <div className={Styles["item"]} key={product.pid}>
+                      <div
+                        ref={(el) => {
+                          itemref.current[index] = el;
+                        }}
+                        className={Styles["item"]}
+                        key={product.pid}
+                      >
                         <div className={Styles["item-pic"]}>
                           <img src={product.ppic_main} alt="" />
                         </div>
@@ -214,7 +224,8 @@ const Cart = () => {
                                   handleAdd(
                                     product.pid,
                                     product.qty,
-                                    product.pprice
+                                    product.pprice,
+                                    index
                                   )
                                 }
                                 onMouseEnter={() => mysetrst(product.pprice)}
@@ -235,7 +246,7 @@ const Cart = () => {
                         </div>
                         <svg
                           onClick={() => {
-                            handleRemove(product.pid);
+                            handleRemove(product.pid, index);
                           }}
                           viewBox="0 0 20 20"
                           fill="none"
