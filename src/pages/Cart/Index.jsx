@@ -1,15 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Styles from "../../styles/Cart.module.scss";
+import axios from "axios";
 import { CSSTransition } from "react-transition-group";
 const Cart = () => {
-  const [show, setShow] = useState(false);
+  const NT$ = "NT$";
+  const USD$ = "USD$";
   const [productlist, setProductList] = useState([]);
   const [ttresault, setResult] = useState(0);
   const [chrst, setChrst] = useState(0);
   const [adds, setAdds] = useState("none");
   const [rscolor, setRscolor] = useState("");
+  const [myusd, setUsd] = useState(1);
+  const [mymoney, setMoney] = useState("TWD");
   const itemref = useRef([]);
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   //總額total price
   const delprice = 80;
   //使用fetch抓取資料庫
@@ -27,6 +34,15 @@ const Cart = () => {
     setResult(mylo);
   };
 
+  //抓取匯率資料
+  const getusd = async () => {
+    let response = await fetch("https://tw.rter.info/capi.php", {
+      method: "POST",
+      body: JSON.stringify({ uid: "4" }),
+    });
+    let data = await response.json();
+    setUsd(data.USDTWD.Exrate);
+  };
   function mysetrst(price) {
     // getalldata();
     setResult(ttresault + price);
@@ -63,6 +79,7 @@ const Cart = () => {
   // 載入網頁時執行抓取資料庫回傳值
   useEffect(() => {
     getalldata();
+    getusd();
   }, []);
 
   const handleAdd = async (p, pq, price) => {
@@ -160,6 +177,7 @@ const Cart = () => {
                   </p>
                   <p>預購品：21~30 個工作天內出貨 現貨：2 個工作天內出貨</p>
                 </div>
+
                 {/* 購物車 */}
                 {/* <Cartitm /> */}
                 <div className={Styles["order"]}>
@@ -234,7 +252,16 @@ const Cart = () => {
                                 +
                               </div>
                             </div>
-                            <label htmlFor="">NT${product.totalprice}</label>
+                            <label htmlFor="">
+                              {mymoney === "TWD"
+                                ? NT$ + numberWithCommas(product.totalprice)
+                                : USD$ +
+                                  (
+                                    Math.round(
+                                      (product.totalprice / myusd) * 100
+                                    ) / 100
+                                  ).toFixed(2)}
+                            </label>
                           </div>
                           <div className={Styles["more-info"]}>
                             <p>此商品包含以下商品</p>
@@ -274,11 +301,23 @@ const Cart = () => {
                 {/* 商品小計 */}
                 {/* <Price /> */}
                 <div className={Styles["total"]}>
+                  <select
+                    value={mymoney}
+                    onChange={(event) => setMoney(event.target.value)}
+                  >
+                    <option value="TWD">TWD</option>
+                    <option value="USD">USD</option>
+                  </select>
                   <div>
                     <p>商品小計</p>
                     <p>
                       {adds == "none" ? (
-                        <span>NT${ttresault}</span>
+                        <span>
+                          {mymoney === "TWD"
+                            ? NT$ + numberWithCommas(ttresault)
+                            : USD$ +
+                              numberWithCommas((ttresault / myusd).toFixed(2))}
+                        </span>
                       ) : (
                         <span
                           className={Styles.myaddsrt}
@@ -287,7 +326,10 @@ const Cart = () => {
                             color: rscolor,
                           }}
                         >
-                          NT${ttresault}
+                          {mymoney === "TWD"
+                            ? NT$ + numberWithCommas(ttresault)
+                            : USD$ +
+                              numberWithCommas((ttresault / myusd).toFixed(2))}
                         </span>
                       )}
                       {rscolor == "var(--btn-green)" ? (
@@ -297,27 +339,11 @@ const Cart = () => {
                             display: adds,
                             color: rscolor,
                           }}
-                        >{`   (+${chrst})`}</span>
-                      ) : (
-                        <span
-                          className={Styles.myaddsrt}
-                          style={{
-                            display: adds,
-                            color: rscolor,
-                          }}
-                        >{`   (-${chrst})`}</span>
-                      )}
-                    </p>
-                  </div>
-                  <div>
-                    <p>運費</p>
-                    <p>NT${delprice}</p>
-                  </div>
-                  <div>
-                    <p>結帳總金額</p>
-                    <p>
-                      {adds == "none" ? (
-                        <span>NT${ttresault + delprice}</span>
+                        >
+                          {mymoney === "TWD"
+                            ? `+${chrst}`
+                            : `+${(chrst / myusd).toFixed(2)}`}
+                        </span>
                       ) : (
                         <span
                           className={Styles.myaddsrt}
@@ -326,7 +352,47 @@ const Cart = () => {
                             color: rscolor,
                           }}
                         >
-                          NT${ttresault + delprice}
+                          {mymoney === "TWD"
+                            ? `-${chrst}`
+                            : `-${(chrst / myusd).toFixed(2)}`}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div>
+                    <p>運費</p>
+                    <p>
+                      {mymoney === "TWD"
+                        ? NT$ + delprice
+                        : USD$ + (delprice / myusd).toFixed(2)}
+                    </p>
+                  </div>
+                  <div>
+                    <p>結帳總金額</p>
+                    <p>
+                      {adds == "none" ? (
+                        <span>
+                          {mymoney === "TWD"
+                            ? NT$ + numberWithCommas(ttresault + delprice)
+                            : USD$ +
+                              numberWithCommas(
+                                ((ttresault + delprice) / myusd).toFixed(2)
+                              )}
+                        </span>
+                      ) : (
+                        <span
+                          className={Styles.myaddsrt}
+                          style={{
+                            display: adds,
+                            color: rscolor,
+                          }}
+                        >
+                          {mymoney === "TWD"
+                            ? NT$ + numberWithCommas(ttresault + delprice)
+                            : USD$ +
+                              numberWithCommas(
+                                ((ttresault + delprice) / myusd).toFixed(2)
+                              )}
                         </span>
                       )}
                       {/* <span
