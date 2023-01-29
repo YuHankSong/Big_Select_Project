@@ -99,6 +99,7 @@ function Wish() {
                   Author={i.wname}
                   Content={i.winfo}
                   Title={i.wname}
+                  Status={i.wstatus}
                   Wweb={i.wweb}
                 />
               );
@@ -161,6 +162,7 @@ const param = {
   Img: "",
   Content: "",
   Wweb: "",
+  Status: "",
   Collect: "",
   ChatNum: "",
 };
@@ -187,7 +189,7 @@ const ChildComponent = (props = param) => {
             <h2 className="chat-title">{props.Title}</h2>
             <p className="chat-txt">{props.Content}</p>
             <div className="chat-state">
-              <div>集資中</div>
+              <div>{props.Status}</div>
               <p>。49人集氣。2人留言</p>
             </div>
           </div>
@@ -204,6 +206,7 @@ const ChildComponent = (props = param) => {
           author={props.Author}
           title={props.Title}
           content={props.Content}
+          status={props.Status}
           wweb={props.Wweb}
         />
         <span onClick={togleModal2}>X</span>

@@ -35,6 +35,7 @@ const WishProduct = () => {
       Name: "即將售完",
     },
   ];
+
   return (
     <div>
       {/* products banner */}

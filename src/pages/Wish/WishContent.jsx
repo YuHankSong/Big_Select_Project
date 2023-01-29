@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function WishContent(props) {
+  //商品的狀態  集資中 準備中 已流標 販賣中
+  const [wstatus, setwStatus] = useState(props.status);
+  //已流標的狀態
+  const [shame, setShame] = useState(false);
+  //準備中的狀態
+  const [ready, setReady] = useState(false);
+  //販賣中的狀態
+  const [sell, setSell] = useState(false);
+  // useEffect = () => {
+  //   if (wstatus === "已流標") {
+  //     setShame(true);
+  //   } else if (wstatus === "準備中") {
+  //     setReady(true);
+  //   } else if (wstatus === "準備中") {
+  //     setSell(true);
+  //   }
+  // };
+  let showShame = shame ? "flex" : "none";
+  let showReady = ready ? "flex" : "none";
+  let showSell = sell ? "flex" : "none";
   return (
     <>
       <div id="chat-container2">
@@ -24,7 +44,7 @@ function WishContent(props) {
           {/* <!-- #region 聊天室可以下滑的內容 --> */}
           <div className="right-container">
             <div className="chat-state">
-              <div>集資中</div>
+              <div>{wstatus}</div>
               <h6>12月23日截止</h6>
               <a href="">什麼是許願＆集氣？</a>
             </div>
