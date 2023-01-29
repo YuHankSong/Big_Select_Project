@@ -99,6 +99,7 @@ function Wish() {
                   Author={i.wname}
                   Content={i.winfo}
                   Title={i.wname}
+                  Wdate={i.created_at}
                   Status={i.wstatus}
                   Wweb={i.wweb}
                 />
@@ -163,6 +164,7 @@ const param = {
   Content: "",
   Wweb: "",
   Status: "",
+  Wdate: "",
   Collect: "",
   ChatNum: "",
 };
@@ -206,6 +208,7 @@ const ChildComponent = (props = param) => {
           author={props.Author}
           title={props.Title}
           content={props.Content}
+          date={props.Wdate}
           status={props.Status}
           wweb={props.Wweb}
         />

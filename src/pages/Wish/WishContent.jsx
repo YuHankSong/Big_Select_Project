@@ -21,6 +21,15 @@ function WishContent(props) {
   let showShame = shame ? "flex" : "none";
   let showReady = ready ? "flex" : "none";
   let showSell = sell ? "flex" : "none";
+
+  //發文的時間 要往後十四天去計算
+  const [date, setDate] = useState(new Date(props.date));
+  useEffect(() => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 14);
+    setDate(newDate);
+  }, []);
+
   return (
     <>
       <div id="chat-container2">
@@ -45,7 +54,7 @@ function WishContent(props) {
           <div className="right-container">
             <div className="chat-state">
               <div>{wstatus}</div>
-              <h6>12月23日截止</h6>
+              <h6>{`${date.getMonth() + 1}月${date.getDate()}號截止`}</h6>
               <a href="">什麼是許願＆集氣？</a>
             </div>
             {/* <!-- 集氣截止 流標訊息 --> */}
@@ -122,12 +131,16 @@ function WishContent(props) {
               </div>
               <div>集氣</div>
             </a>
-            <a href="" className="state-btn-container">
+            <label
+              htmlFor="sendText"
+              style={{ cursor: "pointer" }}
+              className="state-btn-container"
+            >
               <div>
                 <i className="fa-thin fa-thumbs-up"></i>
               </div>
               <div>留言</div>
-            </a>
+            </label>
             <a href="" className="state-btn-container">
               <div>
                 <i className="fa-thin fa-thumbs-up"></i>
@@ -142,7 +155,7 @@ function WishContent(props) {
                 <img src="./img/馬里歐.webp" alt="" />
               </div>
             </div>
-            <input type="text" />
+            <input id="sendText" type="text" />
             <a href="">發送</a>
           </div>
         </div>
