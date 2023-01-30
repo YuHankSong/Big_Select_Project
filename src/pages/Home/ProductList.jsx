@@ -8,7 +8,6 @@ import 'bootstrap';
 let owl_carousel = require('owl.carousel');
 window.fn = owl_carousel;
 
-
 const ProductList = () => {
 
   const dataFetchedRef = useRef(false);

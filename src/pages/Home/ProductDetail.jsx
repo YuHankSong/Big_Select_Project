@@ -1,39 +1,61 @@
-import { Carousel } from "./lib";
+import { Carousel } from 'react-responsive-carousel';
+import React, { useEffect, useRef, useState } from 'react';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import axios from 'axios';
+import $ from 'jquery';
 
 function App() {
-  const data = [
-    // caption
-    {
-      image:
-        "/imgs/product/療癒小物/紅包袋-0.jpeg",
-    },
-    {
-      image:
-        "/imgs/product/療癒小物/紅包袋-1.jpeg",
-    },
-    {
-      image:
-        "/imgs/product/療癒小物/紅包袋-2.jpeg",
-    },
-    {
-      image:
-        "/imgs/product/療癒小物/紅包袋-3.jpeg",
-    },
-    // {
-    //   image:
-    //     "https://i.natgeofe.com/n/f7732389-a045-402c-bf39-cb4eda39e786/scotland_travel_4x3.jpg",
-    //   caption: "<div>San Francisco</div>",
-    // }
-  ];
+  const dataFetchedRef = useRef(false);
+  const [data, setData] = useState([]);
+  function getProductDetail() {
+    let fData = new FormData();
+    fData.append('pid', window.sessionStorage.getItem("pid"));
+    const url = 'http://localhost:8000/api/queryProducts.php';
+    axios.post(url, fData)
+      .then((response) => {
+        var inseertHtml = '';
+        var d = response.data[0];
 
-  const captionStyle = {
-    fontSize: "2em",
-    fontWeight: "bold",
-  };
-  const slideNumberStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-  };
+        var tmp = [];
+        if (d['ppic_main'] != null && d['ppic_main'] != '') {
+          tmp.push("/uploads/" + d['ppic_main'])
+        }
+        if (d['ppic_1'] != null && d['ppic_1'] != '') {
+          tmp.push("/uploads/" + d['ppic_1'])
+        }
+        if (d['ppic_2'] != null && d['ppic_2'] != '') {
+          tmp.push("/uploads/" + d['ppic_2'])
+        }
+        if (d['ppic_3'] != null && d['ppic_3'] != '') {
+          tmp.push("/uploads/" + d['ppic_3'])
+        }
+        if (d['ppic_4'] != null && d['ppic_4'] != '') {
+          tmp.push("/uploads/" + d['ppic_4'])
+        }
+        console.log(tmp)
+        setData(tmp);
+        inseertHtml
+          += '<h3>'+ d['pname'] +'</h3>'
+          + '<p>'+ (d['pinfo'].replaceAll('\r\n','</br>')) +'</p>'
+          + '<span className="product-one-sold">已售出 ' + d['psold'] + '</span>'
+          + '<input type="hidden" id="pid" value="' + d['pid'] + '"/>'
+          + '&emsp;購買數量 <input id="amount" type="number" value="1" max="' + (d['pqty'] - d['psold']) + '" min="1"/>'
+        $("#pList").html(inseertHtml);
+
+        $("a.next").trigger('click');
+        $("a.prev").trigger('click');
+      });
+  }
+
+  useEffect(() => {
+    if (dataFetchedRef.current) {
+      return;
+    } else {
+      dataFetchedRef.current = true;
+      getProductDetail();
+    }
+  }, []);
+
   return (
     <div className="App">
       <div style={{ textAlign: "center" }}>
@@ -44,93 +66,25 @@ function App() {
         >
           <div className="row">
             <div className="col">
-              <Carousel
-                data={data}
-                time={2000}
-                width="480px"
-                height="480px"
-                captionStyle={captionStyle}
-                radius="10px"
-                slideNumber={false}
-                slideNumberStyle={slideNumberStyle}
-                captionPosition="bottom"
-                automatic={false}
-                dots={true}
-                pauseIconColor="white"
-                pauseIconSize="40px"
-                slideBackgroundColor="darkgrey"
-                slideImageFit="cover"
-                thumbnails={true}
-                thumbnailWidth="100px"
-                showNavBtn={true}
-                style={{
-                  // textAlign: "center",
-                  maxWidth: "480px",
-                  margin: "40px auto",
-                }}
-              />
+              <Carousel>
+                {data.map((image) => {
+                  return <div><img src={image} /></div>
+                })
+                }
+              </Carousel>
             </div>
-
             <div className="col apple">
-
-            <div class="product-one-p">
-              <h3>
-                【2023 謹賀新年】 讓祝福長久保存的可愛小心機~ 大成製紙
-                兔年紅包筒 & 紅包袋
-              </h3>
-              <span>
-                ◆
-                大阪百年造紙廠出品，打破傳統紅包「袋」平面限制，以「紙筒」傳遞心意{" "}
-                <br />
-                ◆ 設計精巧可愛，保存更長久 <br />
-                ◆ 也可以作為收納筒存放小物 <br />
-                ◆內容物： <br />
-                - 喜迎福兔 紅包紙筒三入組 淺藍 <br />
-                - 福兔賀歲 紅包紙筒三入組 正紅 <br />
-                - 松竹梅 紅包紙筒三入組 <br />
-                - 招財猫 紅包紙筒三入組 <br />
-                - 日式傳統 紅包紙筒三入組 <br />
-                - 櫻花限定 紅包紙筒三入組 <br />
-                - EMBOSS POCHI 櫻花兔兔紅包袋 三入/袋 <br />
-              </span>
-              <br />
-              <br />
-              <p>
-                ＊【日本百貨店專屬拼拼樂】凡購買日本百貨店品項滿 1000
-                元，結帳輸入代碼 HAPPYBOX ，現折 80 元！
-              </p>
-              <select>
-                <option selected>喜迎福兔 紅包紙筒三入組 淺藍</option>
-                <option>福兔賀歲 紅包紙筒三入組 正紅</option>
-                <option>松竹梅 紅包紙筒三入組</option>
-                <option>招財猫 紅包紙筒三入組</option>
-                <option>日式傳統 紅包紙筒三入組</option>
-                <option>EMBOSS POCHI 櫻花兔兔紅包袋 三入/袋</option>
-              </select>
-              <span class="product-one-sold">已售出 10</span>
+              <div className="product-one-p" id="pList" ß>
+                {/* 放拼接的資料 */}
+              </div>
+              <div className="row add-to-cart-div">
+                <button className="add-to-cart">加入購物車</button>
+              </div>
             </div>
-
-            <div class="row add-to-cart-div">
-              <button class="add-to-cart">加入購物車</button>
-            </div>
-
-            <div class="row add-to-cart-div editproduct">
-              <button class="add-to-cart">編輯商品</button>
-            </div>
-
-
-            </div>
-
-
-
-
-            {/* row的 */}
           </div>
-
         </div>
       </div>
     </div>
   );
 }
-
 export default App;

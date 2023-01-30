@@ -8,11 +8,13 @@ import { Link } from "react-router-dom";
 function ProductUp() {
   const dataFetchedRef = useRef(false);
 
-  useEffect(() => {//載入畫面先做的事：判斷有沒有決定是新增頁還是修改頁，如果是修改頁要用pid撈出資料放到畫面
+  useEffect(() => {//載入畫面先做的事：判斷有沒有決定是新增頁還是修改頁
+    // 如果sessionStorage找到的pid是空或null就停止動作(保持上架頁面)
     if ("pid" in sessionStorage && window.sessionStorage.getItem("pid") != null && window.sessionStorage.getItem("pid") != undefined && window.sessionStorage.getItem("pid") != "") {
       if (dataFetchedRef.current) {
-        //做過了不要再撈，滾
         return;
+        // 如果不是，把dataFetchedRef變成true
+        //然後執行getProductList把撈到的pid資料對應的商品其他資料 顯示在input裏
       } else {
         dataFetchedRef.current = true;
         getProductList();

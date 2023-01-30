@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swipe from "react-easy-swipe";
 import "./styles/index.css";
+import $ from 'jquery';
 
 function Carousel({
   data,
@@ -57,24 +58,26 @@ function Carousel({
   }, [isPaused, change]);
 
   function scrollTo(el) {
-    const elLeft = el.offsetLeft + el.offsetWidth;
-    const elParentLeft = el.parentNode.offsetLeft + el.parentNode.offsetWidth;
-
-    // check if element not in view
-    if (elLeft >= elParentLeft + el.parentNode.scrollLeft) {
-      el.parentNode.scroll({ left: elLeft - elParentLeft, behavior: "smooth" });
-    } else if (elLeft <= el.parentNode.offsetLeft + el.parentNode.scrollLeft) {
-      el.parentNode.scroll({
-        left: el.offsetLeft - el.parentNode.offsetLeft,
-        behavior: "smooth",
-      });
+    if(el != null && el != undefined){
+      const elLeft = el.offsetLeft + el.offsetWidth;
+      const elParentLeft = el.parentNode.offsetLeft + el.parentNode.offsetWidth;
+  
+      // check if element not in view
+      if (elLeft >= elParentLeft + el.parentNode.scrollLeft) {
+        el.parentNode.scroll({ left: elLeft - elParentLeft, behavior: "smooth" });
+      } else if (elLeft <= el.parentNode.offsetLeft + el.parentNode.scrollLeft) {
+        el.parentNode.scroll({
+          left: el.offsetLeft - el.parentNode.offsetLeft,
+          behavior: "smooth",
+        });
+      }
     }
   }
 
   //Listens to slide state changes
   useEffect(() => {
-    var slides = document.getElementsByClassName("carousel-item");
-    var dots = document.getElementsByClassName("dot");
+    var slides = $(".carousel-item");
+    var dots = $(".dot");
 
     var slideIndex = slide;
     var i;
@@ -86,20 +89,22 @@ function Carousel({
     }
     //If thumbnails are enabled
     if (thumbnails) {
-      var thumbnailsArray = document.getElementsByClassName("thumbnail");
+      var thumbnailsArray = $(".thumbnail");
       for (i = 0; i < thumbnailsArray.length; i++) {
         thumbnailsArray[i].className = thumbnailsArray[i].className.replace(
           " active-thumbnail",
           ""
         );
       }
-      if (thumbnailsArray[slideIndex] !== undefined)
+      if (thumbnailsArray[slideIndex] !== undefined){
         thumbnailsArray[slideIndex].className += " active-thumbnail";
+      }
       scrollTo(document.getElementById(`thumbnail-${slideIndex}`));
     }
-
-    if (slides[slideIndex] !== undefined)
+    
+    if (slides[slideIndex] !== undefined){
       slides[slideIndex].style.display = "block";
+    }
     if (dots[slideIndex] !== undefined) dots[slideIndex].className += " active";
   }, [slide, isPaused]);
 

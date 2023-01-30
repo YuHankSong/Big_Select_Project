@@ -18,8 +18,10 @@
     "react-carousel-minimal": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-owl-carousel-autoheight": "^1.0.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
+    "rerousel": "^0.1.9",
     "sass": "^1.57.1",
     "web-vitals": "^2.1.4"
   },

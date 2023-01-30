@@ -337,6 +337,13 @@ button.owl-next {
   background-color:#bcbcbc;
   color: #000000;
 }
+.carousel-root{
+    padding: 2.3rem;
+}
+#root > div > div.App > div > div > div > div:nth-child(1) > div > div.carousel.carousel-slider{
+left: 10%;
+  width: 80% !important;
+}
 /* footer */
 /* ========================================================================= */
 footer {
