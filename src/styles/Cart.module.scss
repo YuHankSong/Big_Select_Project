@@ -201,10 +201,14 @@
                     }
                 }
                 .top-right {
+                    position: sticky;
+                    top: 0;
+                    // outline: #166c42 1px solid;
                     width: 50%;
+                    height: max-content;
                     display: flex;
                     flex-direction: column;
-                    margin: 16.3rem 1rem 1rem 1rem;
+                    margin: 15rem 1rem 1rem 1rem;
                     padding: 1rem;
                     .coupon {
                         display: flex;

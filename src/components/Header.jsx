@@ -7,7 +7,7 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
-import 'jquery';
+import "jquery";
 
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
@@ -46,7 +46,7 @@ const Header = () => {
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
-              <a onClick={() => {}}>{element1}</a>
+              <Link to="/selectgo/cart">{element1}</Link>
               <input type="button" src="" name="" id="" value="登入/註冊" />
             </div>
             {/* #endregion */}

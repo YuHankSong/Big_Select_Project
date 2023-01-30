@@ -30,6 +30,7 @@ const Cart = () => {
       return (mylo += val.pprice * val.qty);
     });
     setResult(mylo);
+    console.log(productlist.length);
   };
 
   //抓取匯率資料
