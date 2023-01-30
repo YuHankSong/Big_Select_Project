@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Styles from "../../styles/Cart.module.scss";
-import axios from "axios";
-import { CSSTransition } from "react-transition-group";
 const Cart = () => {
   const NT$ = "NT$";
   const USD$ = "USD$";
