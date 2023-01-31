@@ -43,8 +43,8 @@ const Helper = () => {
                         options: [
                             { value: 1, label: '許願？', trigger: 'wish' },
                             { value: 2, label: '集氣？', trigger: 'collect' },
-                            { value: 2, label: '開賣？', trigger: 'sell' },
-                            { value: 3, label: '沒問題了！', trigger: 'bye' },
+                            { value: 3, label: '開賣？', trigger: 'sell' },
+                            { value: 4, label: '沒問題了！', trigger: 'bye' },
                         ],
                     },
                     {
