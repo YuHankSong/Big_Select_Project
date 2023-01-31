@@ -36,7 +36,7 @@ const Cart = () => {
   };
   const useCoupon = () => {
     SetCoupons(!Coupons);
-    setResult(ttresault * 0.8 * 100);
+    setResult(Math.round(ttresault * 0.8));
   };
   //抓取匯率資料
   const getusd = async () => {
