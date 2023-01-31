@@ -8,11 +8,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "jquery";
+// import global state
+import { LoginContext } from "../Global_State/Context";
+import { useContext } from "react";
 
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
 const Header = () => {
+  // use the global state isLoggedIn to decide which navbar to show
+  const { isLoggedIn } = useContext(LoginContext);
+  // access user info for user icon
+  let user = JSON.parse(localStorage.getItem('user'));
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -41,13 +48,42 @@ const Header = () => {
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
               <input type="text" />
-              <a onClick={() => {}}>{element}</a>
+              <a onClick={() => { }}>{element}</a>
             </div>
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
-              <a onClick={() => {}}>{element1}</a>
-              <input type="button" src="" name="" id="" value="登入/註冊" />
+              <a onClick={() => { }}>{element1}</a>
+              {/* ============================ */}
+              {/* interchangable part */}
+              {/* ============================ */}
+              {isLoggedIn ?
+                <>
+                  <div className="dropdown">
+                    <div id="member-icon">
+                      <Link to="/member">
+                        <img src={user && user.photoURL ? user.photoURL : '/imgs/avatar.png'}
+                          referrerPolicy="no-referrer"
+                          className="dropbtn border border-warning"
+                          style={{ 'backgroundColor': 'white' }}
+                          alt='user icon' />
+                      </Link>
+
+                      <div className="dropmenu">
+                        <Link to={"/member"}>訂單查詢</Link>
+                        <Link to={"/member/Wish"}>許願紀錄</Link>
+                        <Link to={"/member/Info"}>帳戶資料</Link>
+                        <Link to={"/member/Coupon"}>我的折價卷</Link>
+                      </div>
+                    </div>
+                  </div>
+                </>
+                :
+                <>
+                  <Link to='/login' className="nav-login-btn btn btn-sm bg-light ml-3">登入／註冊</Link>
+                </>
+              }
+              {/* <input type="button" src="" name="" id="" value="登入/註冊" /> */}
             </div>
             {/* #endregion */}
           </div>

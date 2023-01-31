@@ -65,11 +65,6 @@ const Register = () => {
     }
 
     // submit form
-    const handleErrorReset = () => {
-        setErrorType({ email: false, password: false, phone: false });
-
-    }
-
     async function handleSubmit(e) {
         e.preventDefault();
         let isValid = true;
