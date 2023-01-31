@@ -123,7 +123,7 @@ function Wish() {
       </div>
       {/* 許願彈窗 */}
       <div id="chat-wrap1" style={{ display: showPlz }}>
-        <WishTalk />
+        <WishTalk togleModal={togleModal} />
 
         <span onClick={togleModal}>X</span>
       </div>
@@ -219,7 +219,7 @@ const ChildComponent = (props = param) => {
 };
 
 //接上傳許願到資料庫API
-const WishTalk = () => {
+const WishTalk = (e) => {
   const url = "http://localhost:8000/api/wish/add";
   const [formValue, setFormValue] = useState({
     wname: "",
@@ -266,15 +266,16 @@ const WishTalk = () => {
         wstyle: formValue.wstyle,
         wweb: formValue.wweb,
       });
+      setFormValue("");
       console.log(res);
       // 這邊用for迴圈 來跑一張一張進去資料庫
-      // for (let file of files) {
-      //   const pic = await Axios.post(urlPic, {
-      //     id: res.id,
-      //     wpic_main: file,
-      //   });
-      // }
-      window.location.href = "http://localhost:3000/selectgo/Wish";
+      for (let file of files) {
+        // const pic = await Axios.post(urlPic, {
+        //   id: res.id,
+        //   wpic_main: file,
+        // });
+        console.log(file);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -285,7 +286,7 @@ const WishTalk = () => {
     const newdata = { ...formValue };
     newdata[e.target.name] = e.target.value;
     setFormValue(newdata);
-    console.log(newdata);
+    // console.log(newdata);
   };
 
   //刪除按鈕 可以讓預覽 上傳 跟被刪除的不會顯示出來
@@ -440,7 +441,7 @@ const WishTalk = () => {
               ></input>
             </div>
             <div>
-              <button>發起14天集氣之旅</button>
+              <button onClick={e.togleModal}>發起14天集氣之旅</button>
             </div>
           </div>
         </div>

@@ -9,15 +9,17 @@ function WishContent(props) {
   const [ready, setReady] = useState(false);
   //販賣中的狀態
   const [sell, setSell] = useState(false);
-  // useEffect = () => {
-  //   if (wstatus === "已流標") {
-  //     setShame(true);
-  //   } else if (wstatus === "準備中") {
-  //     setReady(true);
-  //   } else if (wstatus === "準備中") {
-  //     setSell(true);
-  //   }
-  // };
+
+  useEffect(() => {
+    if (wstatus === "已流標") {
+      setShame(true);
+    } else if (wstatus === "準備中") {
+      setReady(true);
+    } else if (wstatus === "販售中") {
+      setSell(true);
+    }
+  }, [wstatus]);
+
   let showShame = shame ? "flex" : "none";
   let showReady = ready ? "flex" : "none";
   let showSell = sell ? "flex" : "none";
@@ -28,6 +30,7 @@ function WishContent(props) {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + 14);
     setDate(newDate);
+    // console.log(new Date(props.date));
   }, []);
 
   return (
@@ -53,29 +56,43 @@ function WishContent(props) {
           {/* <!-- #region 聊天室可以下滑的內容 --> */}
           <div className="right-container">
             <div className="chat-state">
-              <div>{wstatus}</div>
-              <h6>{`${date.getMonth() + 1}月${date.getDate()}號截止`}</h6>
+              {wstatus === "販售中" ? (
+                <div style={{ backgroundColor: "pink" }}>{wstatus}</div>
+              ) : wstatus === "已流標" ? (
+                <div style={{ backgroundColor: "gray" }}>{wstatus}</div>
+              ) : wstatus === "準備中" ? (
+                <div style={{ backgroundColor: "pink" }}>{wstatus}</div>
+              ) : (
+                <div>{wstatus}</div>
+              )}
+              {wstatus === "販售中" ? (
+                <h6 style={{ color: "pink" }}>限時販售中</h6>
+              ) : wstatus === "準備中" ? (
+                <h6 style={{ color: "pink" }}>商品準備中～請稍等～</h6>
+              ) : wstatus === "已流標" ? (
+                <h6 style={{ color: "gray" }}>好可惜～殘念～</h6>
+              ) : (
+                <h6>{`${date.getMonth() + 1}月${date.getDate()}號截止`}</h6>
+              )}
               <a href="">什麼是許願＆集氣？</a>
             </div>
             {/* <!-- 集氣截止 流標訊息 --> */}
-            <div className="unsold">
+            <div className="unsold" style={{ display: showShame }}>
               <p>
                 殘念～集氣數未達標。記得多分享給親友幫你集氣，過50集氣數的話調查局就會進一步評估唷！
               </p>
             </div>
             {/* <!-- 商品準備中 訊息 --> */}
-            <div className="sold">
-              <p>
-                恭喜願望成真！好物即將販售，趕緊點擊下方按鈕，開賣時馬上通知你
-              </p>
-              <button>訂閱開賣通知</button>
+            <div className="sold" style={{ display: showReady }}>
+              <p>恭喜願望成真！好物即將販售，會盡快將商品上架販售</p>
+              {/* <button>訂閱開賣通知</button> */}
             </div>
             <h2>{props.title}</h2>
             <p>{props.content}</p>
             <h4>圖片來源：</h4>
             <h5>{props.wweb}</h5>
             {/* <!-- 商品販賣 入口  --> */}
-            <div className="p-entrance">
+            <div className="p-entrance" style={{ display: showSell }}>
               <div className="p-container">
                 <div>
                   <h5>限時販賣</h5>
@@ -155,8 +172,10 @@ function WishContent(props) {
                 <img src="./img/馬里歐.webp" alt="" />
               </div>
             </div>
-            <input id="sendText" type="text" />
-            <a href="">發送</a>
+            <div className="chat-chat-text">
+              <input id="sendText" type="text" />
+              <a href="">發送</a>
+            </div>
           </div>
         </div>
       </div>

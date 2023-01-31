@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,12 +7,21 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
-import 'jquery';
+import "jquery";
 
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
 const Header = () => {
+  const [selectedLink, setSelectedLink] = useState("/selectgo/");
+
+  useEffect(() => {
+    setSelectedLink((prev) => {
+      return prev === selectedLink ? selectedLink : prev;
+    });
+    console.log(window.location.pathname);
+  }, [selectedLink]);
+
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -32,10 +41,46 @@ const Header = () => {
             {/* #endregion  */}
             {/* #region 導覽頁 */}
             <div className="nav_bar2">
-              <Link to="/selectgo/">熱門動態</Link>
-              <Link to="/selectgo/wishproduct">限時發售</Link>
-              <Link to="/selectgo/Wish">許願池</Link>
-              <Link to="/selectgo/Product">百貨商場</Link>
+              <Link
+                onClick={() => {
+                  setSelectedLink(window.location.pathname);
+                }}
+                to="/selectgo/"
+                className={selectedLink === "/selectgo/" ? "selected" : ""}
+              >
+                熱門動態
+              </Link>
+              <Link
+                onClick={() => {
+                  setSelectedLink(window.location.pathname);
+                }}
+                to="/selectgo/wishproduct"
+                className={
+                  selectedLink === "/selectgo/wishproduct" ? "selected" : ""
+                }
+              >
+                限時發售
+              </Link>
+              <Link
+                onClick={() => {
+                  setSelectedLink(window.location.pathname);
+                }}
+                to="/selectgo/Wish"
+                className={selectedLink === "/selectgo/Wish" ? "selected" : ""}
+              >
+                許願池
+              </Link>
+              <Link
+                onClick={() => {
+                  setSelectedLink(window.location.pathname);
+                }}
+                to="/selectgo/Product"
+                className={
+                  selectedLink === "/selectgo/Product" ? "selected" : ""
+                }
+              >
+                百貨商場
+              </Link>
             </div>
             {/* #endregion  */}
             {/*  #region 搜尋欄  */}

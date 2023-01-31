@@ -59,7 +59,7 @@
         align-items: center;
         justify-content: space-around;
 
-        a:nth-of-type(1) {
+        .selected {
           border-bottom: 2px solid #f38243;
         }
 
