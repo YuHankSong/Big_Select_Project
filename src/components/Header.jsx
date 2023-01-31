@@ -14,13 +14,7 @@ const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
 const Header = () => {
   const [selectedLink, setSelectedLink] = useState("/selectgo/");
-
-  useEffect(() => {
-    setSelectedLink((prev) => {
-      return prev === selectedLink ? selectedLink : prev;
-    });
-    console.log(window.location.pathname);
-  }, [selectedLink]);
+  const [currentPage, setCurrentPage] = useState("Popular");
 
   return (
     <React.Fragment>
@@ -44,40 +38,40 @@ const Header = () => {
               <Link
                 onClick={() => {
                   setSelectedLink(window.location.pathname);
+                  setCurrentPage("Popular");
                 }}
                 to="/selectgo/"
-                className={selectedLink === "/selectgo/" ? "selected" : ""}
+                className={currentPage === "Popular" ? "selected" : ""}
               >
                 熱門動態
               </Link>
               <Link
                 onClick={() => {
                   setSelectedLink(window.location.pathname);
+                  setCurrentPage("Limit");
                 }}
                 to="/selectgo/wishproduct"
-                className={
-                  selectedLink === "/selectgo/wishproduct" ? "selected" : ""
-                }
+                className={currentPage === "Limit" ? "selected" : ""}
               >
                 限時發售
               </Link>
               <Link
                 onClick={() => {
                   setSelectedLink(window.location.pathname);
+                  setCurrentPage("Wish");
                 }}
                 to="/selectgo/Wish"
-                className={selectedLink === "/selectgo/Wish" ? "selected" : ""}
+                className={currentPage === "Wish" ? "selected" : ""}
               >
                 許願池
               </Link>
               <Link
                 onClick={() => {
                   setSelectedLink(window.location.pathname);
+                  setCurrentPage("Product");
                 }}
                 to="/selectgo/Product"
-                className={
-                  selectedLink === "/selectgo/Product" ? "selected" : ""
-                }
+                className={currentPage === "Product" ? "selected" : ""}
               >
                 百貨商場
               </Link>
