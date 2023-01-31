@@ -8,8 +8,10 @@ const Member = () => {
   const [nickname, setNickName] = useState('');
   const [gender, setGender] = useState('');
   const [city, setCity] = useState('');
-  const handleSubmit = () => {
-    console.log(phone, name, nickname, gender)
+  const handleSubmit = (e) => {
+    // console.log(phone, name, nickname, gender)
+    e.preventDefault();
+    localStorage.setItem('phone', JSON.stringify(phone));
   }
 
   return (
@@ -58,6 +60,7 @@ const Member = () => {
               </div>
               <input id="form-phonenum" name="form-phonenum" placeholder="請輸入手機號碼" type="text"
                 required="required" className="form-control" onChange={e => setPhone(e.target.value)}
+                defaultValue={JSON.parse(localStorage.getItem('phone'))}
               />
             </div>
           </div>
@@ -114,9 +117,6 @@ const Member = () => {
               <div>
                 <select id="form-city" name="form-city" className="custom-select"
                   value={city} onChange={e => setCity(e.target.value)}>
-                  let twCity = [臺北市,,桃園市,臺中市,臺南市,高雄市,新竹縣,苗栗縣,彰化縣,南投縣,雲林縣,嘉義縣,屏東縣,
-                  宜蘭縣,花蓮縣,臺東縣,澎湖縣,金門縣,連江縣,基隆市,新竹市,嘉義市]
-
                   <option value="臺北市">臺北市</option>
                   <option value="新北市">新北市</option>
                   <option value="桃園市">桃園市</option>

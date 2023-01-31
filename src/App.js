@@ -8,6 +8,7 @@ import Footer from "./components/Footer.jsx";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import Protected from "./components/Protected.jsx";
+import Helper from "./Helper.jsx";
 // set global state and make sure it doesn't change on refresh
 import { LoginContext } from "./Global_State/Context.js";
 
@@ -52,6 +53,7 @@ const App = () => {
       <BrowserRouter>
         <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <div>
+            <Helper />
             <Header />
             <Switch>
               <Route path="/" component={Index} exact />
