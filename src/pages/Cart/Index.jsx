@@ -11,6 +11,8 @@ const Cart = () => {
   const [rscolor, setRscolor] = useState("");
   const [myusd, setUsd] = useState(1);
   const [mymoney, setMoney] = useState("TWD");
+  const [myCoupon, setCoupon] = useState("");
+  const [Coupons, SetCoupons] = useState(false);
   const itemref = useRef([]);
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -32,7 +34,10 @@ const Cart = () => {
     setResult(mylo);
     console.log(productlist.length);
   };
-
+  const useCoupon = () => {
+    SetCoupons(!Coupons);
+    setResult(ttresault * 0.8 * 100);
+  };
   //抓取匯率資料
   const getusd = async () => {
     let response = await fetch("https://tw.rter.info/capi.php", {
@@ -293,9 +298,19 @@ const Cart = () => {
               <div className={Styles["top-right"]}>
                 {/* 優惠券 */}
                 <div className={Styles["coupon"]}>
-                  <input type="text" placeholder="輸入折扣碼" />
-                  <button>使用</button>
+                  <input
+                    type="text"
+                    placeholder="輸入折扣碼"
+                    value={myCoupon}
+                    onChange={(e) => setCoupon(e.target.value)}
+                  />
+                  <button onClick={useCoupon}>使用</button>
                 </div>
+                {Coupons && (
+                  <div className={Styles["coupon-success"]}>
+                    成功套用優惠券{myCoupon} 8折優惠
+                  </div>
+                )}
                 {/*--------------------*/}
                 {/* 商品小計 */}
                 {/* <Price /> */}
