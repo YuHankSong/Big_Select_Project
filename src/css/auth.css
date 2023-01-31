@@ -227,6 +227,10 @@ select:focus {
     color: rgba(0, 0, 0, 0.5);
 }
 
+.third-party-login {
+    background-color: black;
+}
+
 .third-party-login-btn {
     padding: 15px 130px;
     background-color: #F38243;

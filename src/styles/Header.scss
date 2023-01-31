@@ -93,14 +93,12 @@
       .nav_bar3 {
         width: 11%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         /* background-color: aqua; */
-
-        a {
+        a{
           color: black;
-          font-size: 1.5em;
+          text-decoration: none;
         }
-
         input {
           background-color: white;
           border-radius: 6px;

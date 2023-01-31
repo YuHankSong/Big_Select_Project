@@ -180,8 +180,9 @@ header {
     background-color: #3e8e41;
 }
 
-.nav-login-btn{
-    outline: 1px solid black;
+.nav-login-btn {
+    color: white;
+    border: 1px solid black;
 }
 
 /* =============================================================== */

@@ -8,6 +8,8 @@ import App from "./App";
 import "jquery";
 import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
+import "./css/style.css";
+import "./css/style2.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

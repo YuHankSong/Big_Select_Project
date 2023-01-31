@@ -20,7 +20,6 @@ const Login = () => {
     const { setIsLoggedIn } = useContext(LoginContext);
     // useHistory to redirect
     const history = useHistory();
-    // 在 React 中 value 若是 undefined，等同於沒有傳 value
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -43,10 +42,6 @@ const Login = () => {
                 history.push('/member');
                 setError(false);
             })
-            // * localStorage.setItem(key, value):save key-value pair in the browser's localStorage
-            // * when we store the user information in localStorage using localStorage.setItem('user', JSON.stringify(user)), 
-            // * we stringify the user object to store it as a string in localStorage. 
-            // * To use the user object in our application, we need to parse it back to an object using JSON.parse(userString).
             .catch((err) => {
                 console.log(err);
                 setError(true);
@@ -66,7 +61,6 @@ const Login = () => {
                 localStorage.setItem('user', JSON.stringify(res.user));
                 setIsLoggedIn(true);
                 history.push('/member')
-                // window.location.reload(false);
             })
             .catch((err) => {
                 alert(err)
@@ -106,55 +100,14 @@ const Login = () => {
                         >
                             {/* step 1 */}
                             <div>
-                                {/* <div className='howTo-bg'>
-                                    <div className='howTo-corner'>
-                                        <div className='corner-num'>1</div>
-                                        <div className='corner-txt'>許願！</div>
-                                    </div>
-                                    <div className='d-flex flex-column align-items-center'>
-                                        <div className='howTo-icon'>
-                                            <i className="fa-solid fa-star"></i>
-                                        </div>
-                                        <div className='w-75'>
-                                            登入後進入「許願池」，點擊「發起許願」。只要你有想要的日本好物，都可以許願哦！
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <img src="/imgs/steps/step1.png" alt="step1" />
                             </div>
                             {/* step 2 */}
                             <div>
-                                {/* <div className='howTo-bg'>
-                                    <div className='howTo-corner'>
-                                        <div className='corner-num'>2</div>
-                                        <div className='corner-txt'>集氣！</div>
-                                    </div>
-                                    <div className='d-flex flex-column align-items-center'>
-                                        <div className='howTo-icon'>
-                                            <i className="fa-solid fa-hands-clapping"></i>
-                                        </div>
-                                        <div className='w-75'>
-                                            許願完成後將會有 14 天時間讓大家集氣，集氣結束後，只要集氣數超過 50 的願望，我們就會進行評估，並找相關原廠商洽談！</div>
-                                    </div>
-                                </div> */}
                                 <img src="/imgs/steps/step2.png" alt="step2" />
                             </div>
                             {/* step 3 */}
                             <div>
-                                {/* <div className='howTo-bg'>
-                                    <div className='howTo-corner'>
-                                        <div className='corner-num'>3</div>
-                                        <div className='corner-txt'>開賣！</div>
-                                    </div>
-                                    <div className='d-flex flex-column align-items-center'>
-                                        <div className='howTo-icon'>
-                                            <i className="fa-solid fa-cart-shopping"></i>
-                                        </div>
-                                        <div className='w-75'>
-                                            Select Go 會收集這些高人氣願望逐一向日本原廠商洽談採購，確認過後許願就能成真，大家就可以購入想要的願望商品了！
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <img src="/imgs/steps/step3.png" alt="step3" />
                             </div>
                         </Carousel>
@@ -232,7 +185,8 @@ const Login = () => {
                             </div>
                             <div className='third-party-text mt-3 small' >或使用Select Go帳號</div>
                             <div>
-                                <input className='btn third-party-login-btn' onClick={showAuth} type="button" value="登入" />
+                                {/* <input className='btn third-party-login-btn' onClick={showAuth} type="button" value="登入" /> */}
+                                <button className='third-party-login-btn' onClick={showAuth}>登入</button>
                             </div>
                             <div className='login-options'>
                                 <div>

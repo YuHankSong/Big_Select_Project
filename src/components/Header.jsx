@@ -1,3 +1,4 @@
+
 import React from "react";
 // import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -53,7 +54,10 @@ const Header = () => {
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
-              <a onClick={() => { }}>{element1}</a>
+              {/* <a onClick={() => { }}>{element1}</a> */}
+              <a href="/">
+                <i className="nav-icon fas fa-shopping-cart"></i>
+              </a>
               {/* ============================ */}
               {/* interchangable part */}
               {/* ============================ */}
@@ -80,10 +84,9 @@ const Header = () => {
                 </>
                 :
                 <>
-                  <Link to='/login' className="nav-login-btn btn btn-sm bg-light ml-3">登入／註冊</Link>
+                  <Link to='/login'><input type="button" value="登入/註冊" className="ml-4" /></Link>
                 </>
               }
-              {/* <input type="button" src="" name="" id="" value="登入/註冊" /> */}
             </div>
             {/* #endregion */}
           </div>
