@@ -114,8 +114,9 @@ const Product = () => {
                 <img src="/imgs/活動b1.jpg" />
             </div>
 
-            <button><Link to={"/selectgo/product/Productup"}>我是上架按鈕</Link></button>
-            <button><Link to={"/selectgo/product/ProductList"}>我是編輯商品按鈕</Link></button>
+            <button className="adminqq"><Link to={"/selectgo/product/Productup"} style={{color:'white'}}>上架商品</Link></button>
+            <button className="adminqq"><Link to={"/selectgo/product/ProductList"}style={{color:'white'}}>商品管理</Link></button>
+            
             {/* events news1 */}
             <div class="container">
             <div class="row hot-post-row">
