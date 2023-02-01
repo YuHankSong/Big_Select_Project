@@ -6,6 +6,7 @@ import "bootstrap";
 import { Link } from "react-router-dom";
 
 function ProductUp() {
+  
   const dataFetchedRef = useRef(false);
 
   useEffect(() => {//載入畫面先做的事：判斷有沒有決定是新增頁還是修改頁
@@ -108,6 +109,9 @@ function ProductUp() {
   function readURLe(idx) {
     document.getElementsByName('preview_imgs')[idx].innerHTML = ""; // 清除預覽
     var input = document.getElementsByName('productMImg')[idx];
+    // 如果檔案數量大於等於0 依照數量跑迴圈
+    // 暫時命名一個參數img1 讓我放等等跑出來的檔案
+    // beforeend在第一個子元素前插入資料
     if (input.files && input.files.length >= 0) {
       for (var i = 0; i < input.files.length; i++) {
         var reader = new FileReader();

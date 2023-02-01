@@ -5,10 +5,13 @@ import axios from 'axios';
 import $ from 'jquery';
 
 function App() {
+  // 設定一個參數 初始資料是false 不會因為資料更新而而重新創造一次
   const dataFetchedRef = useRef(false);
+  // 設定data是變數,setData是是改變變數的函式
   const [data, setData] = useState([]);
   function getProductDetail() {
     let fData = new FormData();
+    // 在新資料後面增加一個欄位叫做pid ,值從sessionStorage裡面存的拿
     fData.append('pid', window.sessionStorage.getItem("pid"));
     const url = 'http://localhost:8000/api/queryProducts.php';
     axios.post(url, fData)

@@ -1,20 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 import 'owl.carousel';
 import './style/all.css';
 import 'bootstrap';
-import { Link } from "react-router-dom";
+
 let owl_carousel = require('owl.carousel');
 window.fn = owl_carousel;
 
-const Product = () => {
+const SearchResults = () => {
 
   const dataFetchedRef = useRef(false);
   function getProductList() {
-    const url = 'http://localhost:8000/api/queryProducts.php';
-    axios.post(url,)
+    let fData = new FormData();
+    fData.append('searchid', window.sessionStorage.getItem("searchid"));
+    const url = 'http://localhost:8000/api/search.php';
+    axios.post(url, fData)
       .then((response) => {
         var inseertHtml = '';
         for(var x = 0 ; x < response.data.length ; x++){
@@ -108,33 +110,7 @@ const Product = () => {
 
 
     return (
-        <div>
-            {/* products banner */}
-            <div className="active123">
-                <img src="/imgs/活動b1.jpg" />
-            </div>
-
-            <button><Link to={"/selectgo/product/Productup"}>我是上架按鈕</Link></button>
-            <button><Link to={"/selectgo/product/ProductList"}>我是編輯商品按鈕</Link></button>
-            {/* events news1 */}
-            <div class="container">
-            <div class="row hot-post-row">
-                <div class="col hot-post-col">
-                    <img src="/imgs/新年拼拼樂.jpeg" alt=""/>
-                </div>
-                <div class="col hot-post-col">
-                   <img src="/imgs/暖冬吃好_商品頁用拼拼樂.jpeg" alt=""/>
-                </div>
-            </div>
-        </div>
-
-        {/* events news2 */}
-        <div class="group-pic">
-            <img src="/imgs/Group_227.jpeg" alt=""/>
-        </div>
-
-{/* ===================================================================== */}
-
+       
 <div className="wrapper">
         <div id="pList" className="container">
 
@@ -145,16 +121,7 @@ const Product = () => {
 
 
       
-
-
-
-
-
-
-
-
-        </div>
     );
 };
 
-export default Product;
+export default SearchResults;

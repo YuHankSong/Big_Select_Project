@@ -7,6 +7,7 @@ import Product from "./pages/Home/Product";
 import ProductUp from "./pages/Home/ProductUp";
 import ProductList from "./pages/Home/ProductList";
 import ProductDetail from "./pages/Home/ProductDetail";
+import SearchResults from "./pages/Home/SearchResults";
 import Wish from "./pages/Wish/Index";
 import Cart from "./pages/Cart/Index";
 import Member from "./pages/Member/Index";
@@ -39,6 +40,7 @@ class App extends Component {
             <Route path="/selectgo/product/Productup" component={ProductUp} exact />
             <Route path="/selectgo/product/ProductList" component={ProductList} exact />
             <Route path="/selectgo/product/ProductDetail" component={ProductDetail} exact />
+            <Route path="/selectgo/product/SearchResults" component={SearchResults} exact />
             <Route path="/selectgo/wishproduct" component={WishProduct} />
             <Route path="/selectgo/Wish" component={Wish} />
 

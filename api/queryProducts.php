@@ -12,7 +12,8 @@
 	}
     // 有連接到資料庫做以下的事
     // 如果有取得資料並且資料不是空的
-    // 把剛剛合併的資料表的pid欄位填上抓到的pid值
+    // 如果傳入的參數是pid,把這個當作值填入剛剛合併的表的pid欄位
+
 	else{
         $sql = 
         "SELECT p.*, ps.ptype, ps.pstatus, ps.iswish 
@@ -28,6 +29,7 @@
                 ON p.pid = ps.pid
                 WHERE p.pid = '$pid'
                 ORDER BY p.created_at DESC";
+                // 以下目前沒用到
             } else if (isset($_POST['iswish'])) {
                 $iswish = $_POST['iswish'];
                 $sql = 

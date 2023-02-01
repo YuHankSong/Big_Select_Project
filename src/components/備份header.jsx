@@ -13,20 +13,6 @@ const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
 const Header = () => {
-
-
-  var searchInput = document.getElementById("searchid");
-  var searchGo = document.querySelector(".searchgoid");
-
-  function searchvalue(value) {
-    var str = "";
-    var submitValue = searchInput.value;
-    str = submitValue;
-  }
-
-
-
-
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -52,21 +38,15 @@ const Header = () => {
               <Link to="/selectgo/Product">百貨商場</Link>
             </div>
             {/* #endregion  */}
-
-
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
-              <input type="text" id="searchid" />
-              <a id="searchgoid" onClick={() => {
-                window.sessionStorage.setItem('searchid', document.getElementById("searchid").value); window.location.href = "http://localhost:3000/selectgo/product/SearchResults";
-              }}>{element}</a>
+              <input type="text" />
+              <a onClick={() => {}}>{element}</a>
             </div>
             {/*  #endregion  */}
-
-
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
-              <a onClick={() => { }}>{element1}</a>
+              <a onClick={() => {}}>{element1}</a>
               <input type="button" src="" name="" id="" value="登入/註冊" />
             </div>
             {/* #endregion */}
