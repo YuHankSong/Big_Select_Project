@@ -1,4 +1,3 @@
-
 import React from "react";
 // import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -20,7 +19,7 @@ const Header = () => {
   // use the global state isLoggedIn to decide which navbar to show
   const { isLoggedIn } = useContext(LoginContext);
   // access user info for user icon
-  let user = JSON.parse(localStorage.getItem('user'));
+  let user = JSON.parse(localStorage.getItem("user"));
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -49,28 +48,35 @@ const Header = () => {
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
               <input type="text" />
-              <a onClick={() => { }}>{element}</a>
+              <a onClick={() => {}}>{element}</a>
             </div>
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
               {/* <a onClick={() => { }}>{element1}</a> */}
-              <a href="/">
+
+              <a href="/selectgo/cart">
                 <i className="nav-icon fas fa-shopping-cart"></i>
               </a>
               {/* ============================ */}
               {/* interchangable part */}
               {/* ============================ */}
-              {isLoggedIn ?
+              {isLoggedIn ? (
                 <>
                   <div className="dropdown">
                     <div id="member-icon">
                       <Link to="/member">
-                        <img src={user && user.photoURL ? user.photoURL : '/imgs/avatar.png'}
+                        <img
+                          src={
+                            user && user.photoURL
+                              ? user.photoURL
+                              : "/imgs/avatar.png"
+                          }
                           referrerPolicy="no-referrer"
                           className="dropbtn border border-warning"
-                          style={{ 'backgroundColor': 'white' }}
-                          alt='user icon' />
+                          style={{ backgroundColor: "white" }}
+                          alt="user icon"
+                        />
                       </Link>
 
                       <div className="dropmenu">
@@ -82,11 +88,13 @@ const Header = () => {
                     </div>
                   </div>
                 </>
-                :
+              ) : (
                 <>
-                  <Link to='/login'><input type="button" value="登入/註冊" className="ml-4" /></Link>
+                  <Link to="/login">
+                    <input type="button" value="登入/註冊" className="ml-4" />
+                  </Link>
                 </>
-              }
+              )}
             </div>
             {/* #endregion */}
           </div>
