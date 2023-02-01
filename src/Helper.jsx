@@ -25,7 +25,7 @@ const Helper = () => {
                 steps={[
                     {
                         id: 'greeting',
-                        message: '哈囉！如何稱呼您？',
+                        message: '請問如何稱呼您？',
                         trigger: 'username'
                     },
                     {
@@ -35,15 +35,15 @@ const Helper = () => {
                     },
                     {
                         id: 'greetName',
-                        message: '哈囉 {previousValue}! 以下這些問題能幫助你嗎？',
+                        message: '哈囉 {previousValue} ! 以下這些問題能幫助你嗎？',
                         trigger: 'questionOptions',
                     },
                     {
                         id: 'questionOptions',
                         options: [
-                            { value: 1, label: '許願？', trigger: 'wish' },
-                            { value: 2, label: '集氣？', trigger: 'collect' },
-                            { value: 3, label: '開賣？', trigger: 'sell' },
+                            { value: 1, label: '許願是什麼？', trigger: 'wish' },
+                            { value: 2, label: '集氣是什麼？', trigger: 'collect' },
+                            { value: 3, label: '什麼時候開賣？', trigger: 'sell' },
                             { value: 4, label: '沒問題了！', trigger: 'bye' },
                         ],
                     },
