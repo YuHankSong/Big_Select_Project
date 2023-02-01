@@ -72,7 +72,7 @@ const Helper = () => {
                         component: (
                             <div>
                                 <a href="/" className='mr-5'>繼續逛逛</a>
-                                <a href="/member">加入我們</a>
+                                <a href="/member">馬上加入</a>
                             </div>
                         ),
                         end: true,

@@ -17,7 +17,7 @@ const Content = () => {
     const history = useHistory();
     // access the data inside our local storage
     let user = JSON.parse(localStorage.getItem('user'));
-    // console.log(user);
+    console.log(user);
 
     const logOut = () => {
         localStorage.clear();
