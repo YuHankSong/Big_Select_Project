@@ -184,8 +184,8 @@ const ChildComponent = (props = param) => {
     const wdate = new Date(props.Wdate);
     const date = new Date(Date.parse(wdate) - 8 * 60 * 60 * 1000);
     const difference = now - date;
-    console.log(now);
-    console.log(date);
+    // console.log(now);
+    // console.log(date);
     const minutes = Math.floor(difference / 1000 / 60);
     if (minutes < 60) {
       setWDate(`${minutes} 分鐘前`);
