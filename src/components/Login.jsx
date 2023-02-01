@@ -27,10 +27,12 @@ const Login = () => {
     // login form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
         await axios.post('http://localhost:8000/api/login', { email: email, password: password },
             {
                 headers: {
                     'Content-type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
                 }
             }
         )

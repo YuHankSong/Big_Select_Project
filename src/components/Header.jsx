@@ -48,21 +48,24 @@ const Header = () => {
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
               <input type="text" />
-              <a onClick={() => {}}>{element}</a>
+              <a onClick={() => { }}>{element}</a>
             </div>
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
               {/* <a onClick={() => { }}>{element1}</a> */}
 
-              <a href="/selectgo/cart">
+              {/* <a href="/selectgo/cart">
                 <i className="nav-icon fas fa-shopping-cart"></i>
-              </a>
+              </a> */}
               {/* ============================ */}
               {/* interchangable part */}
               {/* ============================ */}
               {isLoggedIn ? (
                 <>
+                  <a href="/selectgo/cart">
+                    <i className="nav-icon fas fa-shopping-cart"></i>
+                  </a>
                   <div className="dropdown">
                     <div id="member-icon">
                       <Link to="/member">
@@ -91,7 +94,7 @@ const Header = () => {
               ) : (
                 <>
                   <Link to="/login">
-                    <input type="button" value="登入/註冊" className="ml-4" />
+                    <input type="button" value="登入/註冊" className="" />
                   </Link>
                 </>
               )}
