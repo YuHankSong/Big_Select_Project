@@ -17,16 +17,16 @@ import Axios from "axios";
 const wishArticle = [{}, {}];
 
 function Wish() {
-  const history = useHistory();
   //輸出 許願欄位API 的狀態
   const [fake, setFake] = useState([]);
   useEffect(() => {
     QueryFakeData().then((res) => {
+      console.log(fake);
       setFake(res);
     });
   }, []);
 
-  // 改變顯示彈窗的狀態 利用true跟false來控制display 這裡有夠難～ 需要理解一下 跟好好運用三元判斷
+  // 改變顯示彈窗的狀態 利用true跟false來控制display  需要理解一下 跟好好運用三元判斷
   const [isPlzShow, setisPlzShow] = useState(false);
   const togleModal = () => {
     setisPlzShow(!isPlzShow);
@@ -44,7 +44,11 @@ function Wish() {
         return fake.filter((i) => i.brand === "Samsung");
       // 1 找蘋果
       case 2:
-        return fake.filter((i) => i.brand === "Apple");
+        return fake.sort((rowA, rowB) => {
+          const b = rowA.created_at;
+          const a = rowB.created_at;
+          return a > b ? 1 : b > a ? -1 : 0;
+        });
       // 2
       case 3:
         return fake.filter((i) => i.brand === "OPPO");
@@ -55,8 +59,8 @@ function Wish() {
 
       default:
         return fake.sort((rowA, rowB) => {
-          const a = rowA.price;
-          const b = rowB.price;
+          const a = rowA.winfo.length;
+          const b = rowB.winfo.length;
           return a > b ? 1 : b > a ? -1 : 0;
         });
     }
@@ -95,6 +99,9 @@ function Wish() {
                   Author={i.wname}
                   Content={i.winfo}
                   Title={i.wname}
+                  Wdate={i.created_at}
+                  Status={i.wstatus}
+                  Wweb={i.wweb}
                 />
               );
             })}
@@ -116,7 +123,7 @@ function Wish() {
       </div>
       {/* 許願彈窗 */}
       <div id="chat-wrap1" style={{ display: showPlz }}>
-        <WishTalk />
+        <WishTalk togleModal={togleModal} />
 
         <span onClick={togleModal}>X</span>
       </div>
@@ -155,6 +162,11 @@ const param = {
   Title: "",
   Img: "",
   Content: "",
+  Wweb: "",
+  Status: "",
+  Wdate: "",
+  Collect: "",
+  ChatNum: "",
 };
 // 許願欄位每一個區塊 再利用map方式去印出每格
 const ChildComponent = (props = param) => {
@@ -164,6 +176,29 @@ const ChildComponent = (props = param) => {
     setisContentShow(!isContentShow);
   };
   let showContent = isContentShow ? "flex" : "none";
+
+  //時間幾天前發文的
+  const [Wdate, setWDate] = useState("");
+  useEffect(() => {
+    const now = new Date();
+    const wdate = new Date(props.Wdate);
+    const date = new Date(Date.parse(wdate) - 8 * 60 * 60 * 1000);
+    const difference = now - date;
+    console.log(now);
+    console.log(date);
+    const minutes = Math.floor(difference / 1000 / 60);
+    if (minutes < 60) {
+      setWDate(`${minutes} 分鐘前`);
+    } else {
+      const hours = Math.floor(difference / 1000 / 60 / 60);
+      if (hours < 24) {
+        setWDate(`${hours} 小時前`);
+      } else {
+        const days = Math.floor(difference / 1000 / 60 / 60 / 24);
+        setWDate(`${days} 天前`);
+      }
+    }
+  }, []);
   return (
     <>
       <button className="wish-a" onClick={togleModal2}>
@@ -174,12 +209,12 @@ const ChildComponent = (props = param) => {
                 <img src={props.Img} alt="" />
               </div>
               <h3>{props.Title}</h3>
-              <p>。1天前</p>
+              <p>。{`${Wdate}`}</p>
             </div>
             <h2 className="chat-title">{props.Title}</h2>
             <p className="chat-txt">{props.Content}</p>
             <div className="chat-state">
-              <div>集資中</div>
+              <div>{props.Status}</div>
               <p>。49人集氣。2人留言</p>
             </div>
           </div>
@@ -196,6 +231,9 @@ const ChildComponent = (props = param) => {
           author={props.Author}
           title={props.Title}
           content={props.Content}
+          date={props.Wdate}
+          status={props.Status}
+          wweb={props.Wweb}
         />
         <span onClick={togleModal2}>X</span>
       </div>
@@ -204,18 +242,18 @@ const ChildComponent = (props = param) => {
 };
 
 //接上傳許願到資料庫API
-const WishTalk = () => {
+const WishTalk = (e) => {
   const url = "http://localhost:8000/api/wish/add";
   const [formValue, setFormValue] = useState({
     wname: "",
     winfo: "",
     wstyle: "",
     wweb: "",
-    // wpic_main: "",
+    wpic_main: "",
   });
 
+  //準備要送出去照片檔案的狀態
   const [files, setFiles] = useState([]);
-
   //立即預覽圖片 多張
   const [preViewUrls, setPreViewUrls] = useState([]);
   // 上傳圖片 >1 的時候， 需要可以做換頁的功能
@@ -251,7 +289,16 @@ const WishTalk = () => {
         wstyle: formValue.wstyle,
         wweb: formValue.wweb,
       });
+      setFormValue("");
       console.log(res);
+      // 這邊用for迴圈 來跑一張一張進去資料庫
+      for (let file of files) {
+        // const pic = await Axios.post(urlPic, {
+        //   id: res.id,
+        //   wpic_main: file,
+        // });
+        console.log(file);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -262,7 +309,7 @@ const WishTalk = () => {
     const newdata = { ...formValue };
     newdata[e.target.name] = e.target.value;
     setFormValue(newdata);
-    console.log(newdata);
+    // console.log(newdata);
   };
 
   //刪除按鈕 可以讓預覽 上傳 跟被刪除的不會顯示出來
@@ -299,6 +346,7 @@ const WishTalk = () => {
             {preViewUrls.length > 1 && (
               <>
                 <button
+                  id="prev2"
                   onClick={() => {
                     // 如果檔案上傳的陣列長度等於0，就設定回讚後一張，不然就 - 1就好
                     setFilePage((prev) => {
@@ -306,33 +354,45 @@ const WishTalk = () => {
                     });
                   }}
                 >
-                  上一頁
+                  &lt;
                 </button>
                 <button
+                  id="next2"
                   onClick={() => {
                     // 如果超過檔案上傳的陣列長度，就設定回第一張，不然就 + 1就好
-                    setFilePage((prev) => {
-                      return prev + 1 === files.length ? 0 : prev + 1;
+                    setFilePage((next) => {
+                      return next + 1 === files.length ? 0 : next + 1;
                     });
                   }}
                 >
-                  下一頁
+                  &gt;
                 </button>
               </>
             )}
             {preViewUrls.length > 0 && (
               <>
-                <button onClick={() => handleDelete(filePage)}>刪除</button>
+                <button id="del" onClick={() => handleDelete(filePage)}>
+                  X刪除此照片
+                </button>
                 <img src={preViewUrls[filePage]} alt="" />
               </>
             )}
           </div>
+
+          <label htmlFor="wpic_main" className="custom-file-upload">
+            上傳圖片
+          </label>
           <input
             type="file"
             name="wpic_main"
             id="wpic_main"
             onChange={handlePicView}
           ></input>
+          {preViewUrls.length > 0 && (
+            <div className="picNumber">
+              {filePage + 1}/{preViewUrls.length}
+            </div>
+          )}
         </div>
         {/* <!-- 右邊聊天室框框 --> */}
         <div className="chat-right">
@@ -404,7 +464,7 @@ const WishTalk = () => {
               ></input>
             </div>
             <div>
-              <button>發起14天集氣之旅</button>
+              <button onClick={e.togleModal}>發起14天集氣之旅</button>
             </div>
           </div>
         </div>
