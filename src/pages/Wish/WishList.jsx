@@ -9,7 +9,7 @@ function WishList(props) {
           <div className="chat-left">
             <div className="user-container">
               <div className="user-icon">
-                <img src="/imgs/馬里歐.webp" alt="" />
+                <img src={require("../../Imgs/馬里歐.webp")} alt="" />
               </div>
               <h3>Fanny Lin</h3>
               <p>。1天前</p>
@@ -27,7 +27,7 @@ function WishList(props) {
             </div>
           </div>
           <div className="chat-right">
-            <img src="/imgs/馬里歐.webp" alt="" />
+            <img src={require("../../Imgs/馬里歐.webp")} alt="" />
           </div>
         </div>
       </button>

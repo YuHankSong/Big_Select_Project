@@ -8,13 +8,15 @@ import App from "./App";
 import "jquery";
 import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
-import "./css/style.css";
-import "./css/style2.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // React StrictMode runs render twice, so useEffect [] won't work sometimes
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
