@@ -79,7 +79,7 @@ const Order = () => {
               :
               (
                 <div className="d-flex flex-column align-items-center p-5 mt-5">
-                  <img src="imgs/others/emptybox.png" alt="pic" style={{ 'width': `100px` }} />
+                  <img src="/imgs/others/emptybox.png" alt="pic" style={{ 'width': `100px` }} />
                   <p className="mt-3 ml-3 font-weight-bold text-dark">空空如也，快去逛逛吧！</p>
                 </div>
               )

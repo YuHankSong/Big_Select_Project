@@ -1,6 +1,9 @@
+import userEvent from "@testing-library/user-event";
 import { Link } from "react-router-dom";
 
 const OrderFinished = () => {
+  let user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <main>
       {/* =============================================== */}
@@ -19,33 +22,45 @@ const OrderFinished = () => {
       <div className="order-section">
         <div className="order-item-container">
 
+
           {/* each item here */}
-          <div className="order-item">
-            <div className="order-item-pic">
-              <div>
-                <img src="/imgs/product.jpg" alt="product" />
+          {user.id === 1 ?
+            <>
+              <div className="order-item">
+                <div className="order-item-pic">
+                  <div>
+                    <img src="/imgs/product.jpg" alt="product" />
+                  </div>
+                </div>
+                <div className="order-item-info">
+                  <div className="bg-danger">完成</div>
+                  <div>
+                    購買日期:<span>2022-12-23</span>
+                  </div>
+                  <div>
+                    訂單金額:＄<span>250</span>
+                  </div>
+                </div>
+                <div className="order-item-details">
+                  <Link to={"/member/OrderDetails"}>
+                    <div>查看明細</div>
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="order-item-info">
-              <div className="bg-danger">完成</div>
-              <div>
-                購買日期:<span>2022-12-23</span>
+            </>
+            :
+            <>
+              <div className="d-flex flex-column align-items-center p-5 mt-5">
+                <img src="/imgs/others/emptybox.png" alt="pic" style={{ 'width': `100px` }} />
+                <p className="mt-3 ml-3 font-weight-bold text-dark">空空如也，快去逛逛吧！</p>
               </div>
-              <div>
-                訂單金額:＄<span>250</span>
-              </div>
-            </div>
-            <div className="order-item-details">
-              <Link to={"/member/OrderDetails"}>
-                <div>查看明細</div>
-              </Link>
-            </div>
-          </div>
+            </>
+          }
 
         </div>
       </div>
 
-    </main>
+    </main >
   );
 };
 
