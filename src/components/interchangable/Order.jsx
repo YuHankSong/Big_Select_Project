@@ -9,11 +9,11 @@ import { useContext } from "react";
 
 const Order = () => {
   const { isLoggedIn } = useContext(LoginContext);
-  const history = useHistory();
   const [products, setProducts] = useState([]);
   let user = JSON.parse(localStorage.getItem('user'));
   let uid = user.id;
   // console.log(uid)
+  
 
   const fetchUserProducts = async () => {
     try {

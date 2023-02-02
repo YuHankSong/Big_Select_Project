@@ -1,6 +1,6 @@
 import React from "react";
 // import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -15,11 +15,19 @@ import { useContext } from "react";
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
+
 const Header = () => {
+  const history = useHistory();
   // use the global state isLoggedIn to decide which navbar to show
-  const { isLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   // access user info for user icon
   let user = JSON.parse(localStorage.getItem("user"));
+  const logOut = () => {
+    localStorage.clear();
+    setIsLoggedIn(false)
+    history.push('/');
+    // window.location.reload(false);
+  }
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -87,6 +95,7 @@ const Header = () => {
                         <Link to={"/member/Wish"}>許願紀錄</Link>
                         <Link to={"/member/Info"}>帳戶資料</Link>
                         <Link to={"/member/Coupon"}>我的折價卷</Link>
+                        <Link to="#" onClick={logOut}>登出</Link>
                       </div>
                     </div>
                   </div>
@@ -94,7 +103,10 @@ const Header = () => {
               ) : (
                 <>
                   <Link to="/login">
-                    <input type="button" value="登入/註冊" className="" />
+                    <i className="nav-icon fas fa-shopping-cart"></i>
+                  </Link>
+                  <Link to="/login">
+                    <input type="button" value="登入 / 註冊" className="ml-4" />
                   </Link>
                 </>
               )}
@@ -106,7 +118,7 @@ const Header = () => {
       {/* #endregion */}
 
       {/* -#endregion 頁首-------------------------- */}
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
