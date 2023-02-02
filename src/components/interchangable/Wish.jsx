@@ -18,7 +18,7 @@ const Wish = () => {
       <h5>許願紀錄</h5>
       <div className="wish-section">
         <div className="wish-item-container">
-          <div className="mt-2" style={{'width':`88%`,'height':`1px`,'backgroundColor':'black'}}></div>
+          <div className="mt-2" style={{'width':`88%`,'height':`1px`,'backgroundColor':`rgba(0,0,0,0.20)`}}></div>
 
           {user.id === 1 ?
             <>

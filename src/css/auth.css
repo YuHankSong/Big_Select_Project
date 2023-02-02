@@ -471,3 +471,24 @@ input[type=password]::placeholder {
     margin-top: 6.5rem;
     margin-bottom: 3rem;
 }
+
+.register-form .text-muted:before,
+.register-form .text-muted::after {
+    background-color: rgba(0,0,0,0.15);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 23%;
+}
+
+.register-form .text-muted:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.register-form .text-muted:after {
+    left: 0.5em;
+    margin-right: -50%;
+}

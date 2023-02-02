@@ -36,6 +36,7 @@ const Helper = () => {
                     {
                         id: 'greetName',
                         message: '哈囉 {previousValue} ! 以下這些問題能幫助你嗎？',
+                        // message: `哈囉 ${user ? user.displayName : ''} ! 以下這些問題能幫助你嗎？`,
                         trigger: 'questionOptions',
                     },
                     {

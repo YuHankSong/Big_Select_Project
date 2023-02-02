@@ -12,6 +12,8 @@ import { signInWithGoogle } from '../Firebase';
 import { useContext } from 'react';
 import { LoginContext } from '../Global_State/Context';
 
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+
 const Register = () => {
     const history = useHistory();
     // runs only once, if localstorage contains user-info, it'll redirect to /member
@@ -196,10 +198,27 @@ const Register = () => {
                     {/* ===== right side ===== */}
                     <div className="register-form">
                         <p>註冊新帳號</p>
-                        <div className='d-flex justify-content-between'>
-                            <div className='rlogin btn btn-light' onClick={facebookLogin}><i className="fa-brands fa-facebook-f">註冊</i></div>
-                            <div className='rlogin btn btn-light' onClick={googleLogin}><i className="fa-brands fa-google">註冊</i></div>
+                        <small className="text-muted mb-2 mt-1"
+                            style={{ 'marginTop': `-10px`, 'width': `450px`, 'textAlign': 'center' }}
+                        >使用社群帳號</small>
+
+                        <div className='d-flex'>
+                            <div className='mr-4'>
+                                <FacebookLoginButton onClick={facebookLogin}
+                                    style={{ 'border': `1px solid rgba(0,0,0,0.25)` }}>
+                                    <span className='m-3'>註冊</span>
+                                </FacebookLoginButton>
+                            </div>
+                            <div>
+                                <GoogleLoginButton onClick={googleLogin}
+                                    style={{ 'border': `1px solid rgba(0,0,0,0.25)` }}>
+                                    <span className='m-3'>註冊</span>
+                                </GoogleLoginButton>
+                            </div>
                         </div>
+                        <small className="text-muted mt-2 mb-2"
+                            style={{ 'width': `600px`, 'textAlign': 'center' }}
+                        >或</small>
                         {/* error message */}
                         <div ref={buttonRef}></div>
                         <div className={`${!error ? "hidden" : ""}`}>
@@ -227,6 +246,7 @@ const Register = () => {
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="register-pwd" placeholder="請輸入密碼"
                                     required className={`${error && errorType.password ? "highlight" : ""}`} />
                             </div>
+                            {/* {password.length<8 && <small>密碼長度至少需要 8 碼！</small> } */}
                             {/* ============ phone ============= */}
                             <label>手機號碼</label>
                             <div>
