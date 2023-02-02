@@ -49,10 +49,42 @@ const Header = () => {
             {/* #endregion  */}
             {/* #region 導覽頁 */}
             <div className="nav_bar2">
-              <Link to="/selectgo/">熱門動態</Link>
-              <Link to="/selectgo/wishproduct">限時發售</Link>
-              <Link to="/selectgo/Wish">許願池</Link>
-              <Link to="/selectgo/Product">百貨商場</Link>
+              <Link
+                onClick={() => {
+                  setCurrentPage("Popular");
+                }}
+                to="/selectgo/"
+                className={currentPage === "Popular" ? "selected" : ""}
+              >
+                熱門動態
+              </Link>
+              <Link
+                onClick={() => {
+                  setCurrentPage("Limit");
+                }}
+                to="/selectgo/wishproduct"
+                className={currentPage === "Limit" ? "selected" : ""}
+              >
+                限時發售
+              </Link>
+              <Link
+                onClick={() => {
+                  setCurrentPage("Wish");
+                }}
+                to="/selectgo/Wish"
+                className={currentPage === "Wish" ? "selected" : ""}
+              >
+                許願池
+              </Link>
+              <Link
+                onClick={() => {
+                  setCurrentPage("Product");
+                }}
+                to="/selectgo/Product"
+                className={currentPage === "Product" ? "selected" : ""}
+              >
+                百貨商場
+              </Link>
             </div>
             {/* #endregion  */}
             {/*  #region 搜尋欄  */}
