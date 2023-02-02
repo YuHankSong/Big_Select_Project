@@ -1,5 +1,5 @@
 import React from "react";
-// import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,7 +15,6 @@ import { useContext } from "react";
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
-
 const Header = () => {
   const history = useHistory();
   // use the global state isLoggedIn to decide which navbar to show
@@ -24,10 +23,13 @@ const Header = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   const logOut = () => {
     localStorage.clear();
-    setIsLoggedIn(false)
-    history.push('/');
+    setIsLoggedIn(false);
+    history.push("/");
     // window.location.reload(false);
-  }
+  };
+
+  const [currentPage, setCurrentPage] = useState("Popular");
+
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -56,7 +58,7 @@ const Header = () => {
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
               <input type="text" />
-              <a onClick={() => { }}>{element}</a>
+              <a onClick={() => {}}>{element}</a>
             </div>
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
@@ -95,7 +97,9 @@ const Header = () => {
                         <Link to={"/member/Wish"}>許願紀錄</Link>
                         <Link to={"/member/Info"}>帳戶資料</Link>
                         <Link to={"/member/Coupon"}>我的折價卷</Link>
-                        <Link to="#" onClick={logOut}>登出</Link>
+                        <Link to="#" onClick={logOut}>
+                          登出
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -118,7 +122,7 @@ const Header = () => {
       {/* #endregion */}
 
       {/* -#endregion 頁首-------------------------- */}
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 
