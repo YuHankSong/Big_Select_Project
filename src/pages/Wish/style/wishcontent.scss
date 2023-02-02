@@ -7,7 +7,7 @@
 
   /* 左邊照片 -------------------------*/
   .chat-left {
-    background-color: brown;
+    // background-color: brown;
     width: 60%;
     border: none;
     position: relative;
@@ -29,7 +29,7 @@
       border-radius: 100px;
       border: none;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      top: 19rem;
+      top: 20.5rem;
       left: 2rem;
       cursor: pointer;
     }
@@ -41,7 +41,7 @@
       border-radius: 100px;
       border: none;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      top: 19rem;
+      top: 20.5rem;
       right: 2rem;
       cursor: pointer;
     }
@@ -49,7 +49,7 @@
 
   /* 右邊聊天室 --------------------------*/
   .chat-right {
-    background-color: aqua;
+    // background-color: aqua;
     width: 40%;
     height: 100%;
     border-top-right-radius: 15px;
@@ -98,14 +98,14 @@
 
     /* 聊天中間下滑視窗 */
     .right-container {
-      background-color: coral;
+      // background-color: coral;
       width: 100%;
-      height: 70%;
+      height: 75%;
       overflow: scroll;
 
       /* 集資狀態 --------------------*/
       .chat-state {
-        background-color: aquamarine;
+        // background-color: aquamarine;
         display: flex;
         height: 10%;
         margin: 1rem 0;
@@ -259,7 +259,7 @@
           .chatroom-container-c {
             border-radius: 10px;
             padding: 0.25rem 0.5rem;
-            background-color: rgb(188, 188, 187);
+            background-color: rgb(234, 234, 231);
           }
 
           h3 {
@@ -278,7 +278,7 @@
       border-bottom: 1px solid gray;
       display: flex;
       justify-content: space-around;
-      background-color: rgb(120, 188, 56);
+      // background-color: rgb(120, 188, 56);
 
       .state-btn-container {
         text-decoration: none;
@@ -288,7 +288,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: antiquewhite;
+        // background-color: antiquewhite;
       }
     }
 
@@ -298,9 +298,9 @@
       height: 10%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
       position: relative;
-      background-color: rgb(107, 219, 63);
+      // background-color: rgb(107, 219, 63);
 
       .chat-chat-pic {
         width: 10%;
@@ -317,23 +317,31 @@
             object-fit: cover;
           }
         }
+      }
 
-        input {
-          width: 85%;
-          border-radius: 5px;
-          border: none;
-          background-color: #e9dede;
-          height: 2rem;
-          font-size: 1rem;
-          padding-left: 0.5rem;
-        }
+      .chat-chat-text {
+        width: 80%;
+        // background-color: aquamarine;
+        display: flex;
+        align-items: center;
+      }
 
-        a {
-          position: absolute;
-          right: 1.5rem;
-          text-decoration: none;
-          color: black;
-        }
+      input {
+        width: 95%;
+        border-radius: 5px;
+        border: none;
+        background-color: #e9dede;
+        height: 2.5rem;
+        font-size: 1rem;
+        padding-left: 0.5rem;
+        position: relative;
+      }
+
+      a {
+        position: absolute;
+        right: 2.5rem;
+        text-decoration: none;
+        color: black;
       }
     }
   }
