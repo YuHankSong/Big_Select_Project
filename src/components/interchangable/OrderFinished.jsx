@@ -27,7 +27,7 @@ const OrderFinished = () => {
               </div>
             </div>
             <div className="order-item-info">
-              <div>未出貨</div>
+              <div className="bg-danger">完成</div>
               <div>
                 購買日期:<span>2022-12-23</span>
               </div>

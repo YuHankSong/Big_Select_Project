@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import OrderDetails from "./OrderDetails";
 import { Route } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { LoginContext } from "../../Global_State/Context";
+import { useContext } from "react";
 
 
 const Order = () => {
+  const { isLoggedIn } = useContext(LoginContext);
+  const history = useHistory();
   const [products, setProducts] = useState([]);
   let user = JSON.parse(localStorage.getItem('user'));
-  let uid = user.id
+  let uid = user.id;
+  // console.log(uid)
+
   const fetchUserProducts = async () => {
     try {
       await axios.get(`http://localhost:8000/api/findUserProduct/${uid}`)
@@ -20,11 +26,14 @@ const Order = () => {
       alert('error')
     }
   }
+
   // run the fetchUserProducts function to get data array
   useEffect(() => {
-    if (products.length === 0) return;
-    fetchUserProducts();
-  }, []);
+    if (user) {
+      if (products === []) return;
+      fetchUserProducts();
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -54,7 +63,7 @@ const Order = () => {
                       </div>
                       <div className="order-item-info">
                         <div>未出貨</div>
-                        <div>購買日期:<span>2022-12-23</span></div>
+                        <div>購買日期:<span> {product.order_date}</span></div>
                         <div>訂單金額:＄<span>{product.pprice}</span></div>
                       </div>
                       <div className="order-item-details">

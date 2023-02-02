@@ -11,7 +11,6 @@ const Member = () => {
   const handleSubmit = (e) => {
     // console.log(phone, name, nickname, gender)
     e.preventDefault();
-    localStorage.setItem('phone', JSON.stringify(phone));
   }
 
   return (
@@ -22,7 +21,7 @@ const Member = () => {
 
       <h5>帳戶資料</h5>
       <div className="member-section">
-        <p>
+        <p className="small">
           以下資訊僅用於結帳時自動填寫您的個人資料，您的資料會被安全的保存且不會公開
         </p>
 
@@ -147,6 +146,7 @@ const Member = () => {
 
           {/* Submit button */}
           <button name="submit" type="button" className="btn btn-primary submit-button"
+          style={{'float':'left'}}
             onClick={handleSubmit}>
             更新</button>
         </form>

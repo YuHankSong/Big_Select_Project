@@ -345,3 +345,9 @@
     position: absolute;
     z-index: 2;
 }
+
+
+/* fixing errors */
+.input-group-text{
+    font-size: 5px;
+}
