@@ -1,15 +1,11 @@
 import React, { Component, useState } from "react";
 
 function Upload() {
-  const [Img, setImg] = useState([]);
+  const [Img, setImg] = useState("https://picsum.photos/200");
 
   const handleChange = (e) => {
-    console.log(e.target.files.length);
-    let newImgs = [...Img];
-    for (let i = 0; i < e.target.files.length; i++) {
-      newImgs.push(e.target.files[i]);
-    }
-    setImg(newImgs);
+    console.log(e.target.files);
+    setImg(e.target.files[0]);
     console.log(Img);
   };
 
@@ -23,33 +19,30 @@ function Upload() {
       Authorization: auth,
       Accept: "application/json",
     };
+    // Creating an object of formData
+    const formData = new FormData();
 
-    Img.map(async (img) => {
-      // Creating an object of formData
-      const formData = new FormData();
-
-      // Adding our image to formData
-      formData.append("image", img);
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formData,
-        redirect: "follow",
-      };
-      // Making the post request
-      await fetch("https://api.imgur.com/3/image/", requestOptions)
-        .then((response) => response.json()) // Handling success
-        .then((data) => {
-          console.log(data.data.link);
-        })
-        .catch((err) => alert("Failed") && console.log(err)); // Handling error\
-    });
+    // Adding our image to formData
+    formData.append("image", Img);
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formData,
+      redirect: "follow",
+    };
+    // Making the post request
+    await fetch("https://api.imgur.com/3/image/", requestOptions)
+      .then((response) => response.json()) // Handling success
+      .then((data) => {
+        setImg(data.data.link);
+      })
+      .catch((err) => alert("Failed") && console.log(err)); // Handling error\
   };
 
   return (
     <div>
       imageupload
-      <input type="file" onChange={handleChange} multiple />
+      <input type="file" onChange={handleChange} />
       <button onClick={onFileUpload}>submit</button>
       <img src={Img} />
     </div>

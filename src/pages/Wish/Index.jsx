@@ -95,13 +95,10 @@ function Wish() {
                 <ChildComponent
                   key={i.id}
                   id={index}
-                  Img={i.user_pic}
-                  wImg={i.wpic_main}
-                  Author={i.user_info}
+                  Img={i.wpic_main}
+                  Author={i.wname}
                   Content={i.winfo}
                   Title={i.wname}
-                  Wdate={i.created_at}
-                  Status={i.wstatus}
                   Wweb={i.wweb}
                 />
               );
@@ -124,7 +121,7 @@ function Wish() {
       </div>
       {/* 許願彈窗 */}
       <div id="chat-wrap1" style={{ display: showPlz }}>
-        <WishTalk togleModal={togleModal} />
+        <WishTalk />
 
         <span onClick={togleModal}>X</span>
       </div>
@@ -162,11 +159,8 @@ const param = {
   Author: "",
   Title: "",
   Img: "",
-  wImg: "",
   Content: "",
   Wweb: "",
-  Status: "",
-  Wdate: "",
   Collect: "",
   ChatNum: "",
 };
@@ -178,29 +172,6 @@ const ChildComponent = (props = param) => {
     setisContentShow(!isContentShow);
   };
   let showContent = isContentShow ? "flex" : "none";
-
-  //時間幾天前發文的
-  const [Wdate, setWDate] = useState("");
-  useEffect(() => {
-    const now = new Date();
-    const wdate = new Date(props.Wdate);
-    const date = new Date(Date.parse(wdate) - 8 * 60 * 60 * 1000);
-    const difference = now - date;
-    // console.log(now);
-    // console.log(date);
-    const minutes = Math.floor(difference / 1000 / 60);
-    if (minutes < 60) {
-      setWDate(`${minutes} 分鐘前`);
-    } else {
-      const hours = Math.floor(difference / 1000 / 60 / 60);
-      if (hours < 24) {
-        setWDate(`${hours} 小時前`);
-      } else {
-        const days = Math.floor(difference / 1000 / 60 / 60 / 24);
-        setWDate(`${days} 天前`);
-      }
-    }
-  }, []);
   return (
     <>
       <button className="wish-a" onClick={togleModal2}>
@@ -210,18 +181,18 @@ const ChildComponent = (props = param) => {
               <div className="user-icon">
                 <img src={props.Img} alt="" />
               </div>
-              <h3>{props.Author}</h3>
-              <p>。{`${Wdate}`}</p>
+              <h3>{props.Title}</h3>
+              <p>。1天前</p>
             </div>
             <h2 className="chat-title">{props.Title}</h2>
             <p className="chat-txt">{props.Content}</p>
             <div className="chat-state">
-              <div>{props.Status}</div>
-              <p>。0人集氣。2人留言</p>
+              <div>集資中</div>
+              <p>。49人集氣。2人留言</p>
             </div>
           </div>
           <div className="chat-right">
-            <img src={props.wImg} alt="" />
+            <img src={props.Img} alt="" />
           </div>
         </div>
       </button>
@@ -230,13 +201,9 @@ const ChildComponent = (props = param) => {
         <WishContent
           id={props.Id}
           imges={props.Img}
-          wimges={props.wImg}
           author={props.Author}
           title={props.Title}
           content={props.Content}
-          date={props.Wdate}
-          wdate={`${Wdate}`}
-          status={props.Status}
           wweb={props.Wweb}
         />
         <span onClick={togleModal2}>X</span>
@@ -246,7 +213,7 @@ const ChildComponent = (props = param) => {
 };
 
 //接上傳許願到資料庫API
-const WishTalk = (e) => {
+const WishTalk = () => {
   const url = "http://localhost:8000/api/wish/add";
   const [formValue, setFormValue] = useState({
     wname: "",
@@ -293,16 +260,15 @@ const WishTalk = (e) => {
         wstyle: formValue.wstyle,
         wweb: formValue.wweb,
       });
-      setFormValue("");
       console.log(res);
       // 這邊用for迴圈 來跑一張一張進去資料庫
-      for (let file of files) {
-        // const pic = await Axios.post(urlPic, {
-        //   id: res.id,
-        //   wpic_main: file,
-        // });
-        console.log(file);
-      }
+      // for (let file of files) {
+      //   const pic = await Axios.post(urlPic, {
+      //     id: res.id,
+      //     wpic_main: file,
+      //   });
+      // }
+      window.location.href = "http://localhost:3000/selectgo/Wish";
     } catch (err) {
       console.log(err);
     }
@@ -313,7 +279,7 @@ const WishTalk = (e) => {
     const newdata = { ...formValue };
     newdata[e.target.name] = e.target.value;
     setFormValue(newdata);
-    // console.log(newdata);
+    console.log(newdata);
   };
 
   //刪除按鈕 可以讓預覽 上傳 跟被刪除的不會顯示出來
@@ -403,12 +369,9 @@ const WishTalk = (e) => {
           {/* <!-- #region 右邊照片 會員 發起許願 時間 上面那一欄 --> */}
           <div className="right-user">
             <div className="right-user-icon">
-              <img
-                src="https://sites.google.com/site/s10511135/_/rsrc/1495466027439/research/na-mei/%E9%8C%A2.png?height=224&width=400"
-                alt=""
-              />
+              {preViewUrls && <img src={preViewUrls} alt="" />}
             </div>
-            <h3>娜美</h3>
+            <h3>Fanny Lin</h3>
             <h2>發起許願</h2>
           </div>
           {/* <!-- #endregion --> */}
@@ -471,7 +434,7 @@ const WishTalk = (e) => {
               ></input>
             </div>
             <div>
-              <button onClick={e.togleModal}>發起14天集氣之旅</button>
+              <button>發起14天集氣之旅</button>
             </div>
           </div>
         </div>

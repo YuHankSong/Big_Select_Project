@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -8,14 +8,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "jquery";
+// import global state
+import { LoginContext } from "../Global_State/Context";
+import { useContext } from "react";
 
 const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
-const Header = () => {
-  const [selectedLink, setSelectedLink] = useState("/selectgo/");
-  const [currentPage, setCurrentPage] = useState("Popular");
 
+const Header = () => {
+  const history = useHistory();
+  // use the global state isLoggedIn to decide which navbar to show
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  // access user info for user icon
+  let user = JSON.parse(localStorage.getItem("user"));
+  const logOut = () => {
+    localStorage.clear();
+    setIsLoggedIn(false)
+    history.push('/');
+    // window.location.reload(false);
+  }
   return (
     <React.Fragment>
       {/* #region 頁首*/}
@@ -29,64 +41,75 @@ const Header = () => {
             {/*  #region LOGO  */}
             <div className="nav_bar1">
               <Link to="/selectgo/">
-                <img src={require("../Imgs/select go_logo.png")} alt="" />
+                <img src="/imgs/logo.png" alt="" />
               </Link>
             </div>
             {/* #endregion  */}
             {/* #region 導覽頁 */}
             <div className="nav_bar2">
-              <Link
-                onClick={() => {
-                  setSelectedLink(window.location.pathname);
-                  setCurrentPage("Popular");
-                }}
-                to="/selectgo/"
-                className={currentPage === "Popular" ? "selected" : ""}
-              >
-                熱門動態
-              </Link>
-              <Link
-                onClick={() => {
-                  setSelectedLink(window.location.pathname);
-                  setCurrentPage("Limit");
-                }}
-                to="/selectgo/wishproduct"
-                className={currentPage === "Limit" ? "selected" : ""}
-              >
-                限時發售
-              </Link>
-              <Link
-                onClick={() => {
-                  setSelectedLink(window.location.pathname);
-                  setCurrentPage("Wish");
-                }}
-                to="/selectgo/Wish"
-                className={currentPage === "Wish" ? "selected" : ""}
-              >
-                許願池
-              </Link>
-              <Link
-                onClick={() => {
-                  setSelectedLink(window.location.pathname);
-                  setCurrentPage("Product");
-                }}
-                to="/selectgo/Product"
-                className={currentPage === "Product" ? "selected" : ""}
-              >
-                百貨商場
-              </Link>
+              <Link to="/selectgo/">熱門動態</Link>
+              <Link to="/selectgo/wishproduct">限時發售</Link>
+              <Link to="/selectgo/Wish">許願池</Link>
+              <Link to="/selectgo/Product">百貨商場</Link>
             </div>
             {/* #endregion  */}
             {/*  #region 搜尋欄  */}
             <div className="searchdiv">
               <input type="text" />
-              <a onClick={() => {}}>{element}</a>
+              <a onClick={() => { }}>{element}</a>
             </div>
             {/*  #endregion  */}
             {/*  #region 購物車及登入註冊按鈕 */}
             <div className="nav_bar3">
-              <a onClick={() => {}}>{element1}</a>
-              <input type="button" src="" name="" id="" value="登入/註冊" />
+              {/* <a onClick={() => { }}>{element1}</a> */}
+
+              {/* <a href="/selectgo/cart">
+                <i className="nav-icon fas fa-shopping-cart"></i>
+              </a> */}
+              {/* ============================ */}
+              {/* interchangable part */}
+              {/* ============================ */}
+              {isLoggedIn ? (
+                <>
+                  <a href="/selectgo/cart">
+                    <i className="nav-icon fas fa-shopping-cart"></i>
+                  </a>
+                  <div className="dropdown">
+                    <div id="member-icon">
+                      <Link to="/member">
+                        <img
+                          src={
+                            user && user.photoURL
+                              ? user.photoURL
+                              : "/imgs/avatar.png"
+                          }
+                          referrerPolicy="no-referrer"
+                          className="dropbtn border border-warning"
+                          style={{ backgroundColor: "white" }}
+                          alt="user icon"
+                        />
+                      </Link>
+
+                      <div className="dropmenu">
+                        <Link to={"/member"}>訂單查詢</Link>
+                        <Link to={"/member/Wish"}>許願紀錄</Link>
+                        <Link to={"/member/Info"}>帳戶資料</Link>
+                        <Link to={"/member/Coupon"}>我的折價卷</Link>
+                        <Link to="#" onClick={logOut}>登出</Link>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <i className="nav-icon fas fa-shopping-cart"></i>
+                  </Link>
+                  <Link to="/login">
+                    <input type="button" value="登入 / 註冊" className="ml-4" />
+                  </Link>
+                </>
+              )}
             </div>
             {/* #endregion */}
           </div>
@@ -95,7 +118,7 @@ const Header = () => {
       {/* #endregion */}
 
       {/* -#endregion 頁首-------------------------- */}
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
