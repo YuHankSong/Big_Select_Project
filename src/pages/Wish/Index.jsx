@@ -95,8 +95,9 @@ function Wish() {
                 <ChildComponent
                   key={i.id}
                   id={index}
-                  Img={i.wpic_main}
-                  Author={i.wname}
+                  Img={i.user_pic}
+                  wImg={i.wpic_main}
+                  Author={i.user_info}
                   Content={i.winfo}
                   Title={i.wname}
                   Wdate={i.created_at}
@@ -161,6 +162,7 @@ const param = {
   Author: "",
   Title: "",
   Img: "",
+  wImg: "",
   Content: "",
   Wweb: "",
   Status: "",
@@ -208,18 +210,18 @@ const ChildComponent = (props = param) => {
               <div className="user-icon">
                 <img src={props.Img} alt="" />
               </div>
-              <h3>{props.Title}</h3>
+              <h3>{props.Author}</h3>
               <p>。{`${Wdate}`}</p>
             </div>
             <h2 className="chat-title">{props.Title}</h2>
             <p className="chat-txt">{props.Content}</p>
             <div className="chat-state">
               <div>{props.Status}</div>
-              <p>。49人集氣。2人留言</p>
+              <p>。0人集氣。2人留言</p>
             </div>
           </div>
           <div className="chat-right">
-            <img src={props.Img} alt="" />
+            <img src={props.wImg} alt="" />
           </div>
         </div>
       </button>
@@ -228,10 +230,12 @@ const ChildComponent = (props = param) => {
         <WishContent
           id={props.Id}
           imges={props.Img}
+          wimges={props.wImg}
           author={props.Author}
           title={props.Title}
           content={props.Content}
           date={props.Wdate}
+          wdate={`${Wdate}`}
           status={props.Status}
           wweb={props.Wweb}
         />
@@ -259,52 +263,6 @@ const WishTalk = (e) => {
   // 上傳圖片 >1 的時候， 需要可以做換頁的功能
   const [filePage, setFilePage] = useState(0);
 
-  // 上傳IMGUr
-  const [myimg, setImg] = useState([]);
-
-  const handleChange = (e) => {
-    console.log(e.target.files.length);
-    let newImgs = [...myimg];
-    for (let i = 0; i < e.target.files.length; i++) {
-      newImgs.push(e.target.files[i]);
-    }
-    setImg(newImgs);
-    console.log(myimg);
-  };
-
-  const onFileUpload = async () => {
-    // Client ID
-    const clientId = "e0266d9857a9290",
-      auth = "Client-ID " + clientId;
-    var myHeaders = {
-      // Setting header
-      Authorization: auth,
-      Accept: "application/json",
-    };
-
-    myimg.map(async (img) => {
-      // Creating an object of formData
-      const formData = new FormData();
-
-      // Adding our image to formData
-      formData.append("image", img);
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formData,
-        redirect: "follow",
-      };
-      // Making the post request
-      await fetch("https://api.imgur.com/3/image/", requestOptions)
-        .then((response) => response.json()) // Handling success
-        .then((data) => {
-          console.log(data.data.link);
-        })
-        .catch((err) => alert("Failed") && console.log(err)); // Handling error\
-    });
-    setImg([]);
-  };
-
   //立即預覽事件 多張
   const handlePicView = (e) => {
     const selectedFiles = e.target.files;
@@ -327,7 +285,6 @@ const WishTalk = (e) => {
 
   // 上傳許願資料到資料庫 axios
   async function submit(e) {
-    onFileUpload();
     e.preventDefault();
     try {
       const res = await Axios.post(url, {
@@ -433,7 +390,7 @@ const WishTalk = (e) => {
             type="file"
             name="wpic_main"
             id="wpic_main"
-            onChange={handleChange}
+            onChange={handlePicView}
           ></input>
           {preViewUrls.length > 0 && (
             <div className="picNumber">
@@ -446,9 +403,12 @@ const WishTalk = (e) => {
           {/* <!-- #region 右邊照片 會員 發起許願 時間 上面那一欄 --> */}
           <div className="right-user">
             <div className="right-user-icon">
-              {preViewUrls && <img src={preViewUrls} alt="" />}
+              <img
+                src="https://sites.google.com/site/s10511135/_/rsrc/1495466027439/research/na-mei/%E9%8C%A2.png?height=224&width=400"
+                alt=""
+              />
             </div>
-            <h3>Fanny Lin</h3>
+            <h3>娜美</h3>
             <h2>發起許願</h2>
           </div>
           {/* <!-- #endregion --> */}

@@ -30,7 +30,7 @@ function WishContent(props) {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + 14);
     setDate(newDate);
-    // console.log(new Date(props.date));
+    // console.log(props.date);
   }, []);
 
   return (
@@ -39,18 +39,18 @@ function WishContent(props) {
         <div className="chat-left">
           <button id="prev">&lt;</button>
           <button id="next">&gt;</button>
-          <img id="chat-img" src={props.imges} alt="" />
+          <img id="chat-img" src={props.wimges} alt="" />
         </div>
         {/* <!-- 右邊聊天室框框 --> */}
         <div className="chat-right">
           {/* <!-- #region 右邊照片 會員 發起許願 時間 上面那一欄 --> */}
           <div className="right-user">
             <div className="right-user-icon">
-              <img src="./img/馬里歐.webp" alt="" />
+              <img src={props.imges} alt="" />
             </div>
             <h3>{props.author}</h3>
             <h2>發起許願</h2>
-            <p>。1天前</p>
+            <p>。{props.wdate}</p>
           </div>
           {/* <!-- #endregion --> */}
           {/* <!-- #region 聊天室可以下滑的內容 --> */}
@@ -96,18 +96,18 @@ function WishContent(props) {
               <div className="p-container">
                 <div>
                   <h5>限時販賣</h5>
-                  <h4>大阪環球影城限量爆米花桶</h4>
-                  <button>前往賣場-&gt;</button>
+                  <h4>{props.title}</h4>
+                  <a href="/selectgo/product/ProductDetail">前往賣場-&gt;</a>
                 </div>
                 <div className="p-pic">
-                  <img src="./img/馬里歐.webp" alt="" />
+                  <img src={props.wimges} alt="" />
                 </div>
               </div>
             </div>
             {/* <!-- 人數及留言數 --> */}
             <div className="state-count">
-              <p>60人集氣</p>
-              <p>。3則留言</p>
+              <p>0人集氣</p>
+              <p>。2則留言</p>
             </div>
             {/* <!-- 第一個聊天室 --> */}
             <div className="chatroom">
