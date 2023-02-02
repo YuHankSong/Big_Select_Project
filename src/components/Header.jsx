@@ -13,7 +13,6 @@ const element = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const element1 = <FontAwesomeIcon icon={faCartShopping} />;
 
 const Header = () => {
-  const [selectedLink, setSelectedLink] = useState("/selectgo/");
   const [currentPage, setCurrentPage] = useState("Popular");
 
   return (
@@ -37,7 +36,6 @@ const Header = () => {
             <div className="nav_bar2">
               <Link
                 onClick={() => {
-                  setSelectedLink(window.location.pathname);
                   setCurrentPage("Popular");
                 }}
                 to="/selectgo/"
@@ -47,7 +45,6 @@ const Header = () => {
               </Link>
               <Link
                 onClick={() => {
-                  setSelectedLink(window.location.pathname);
                   setCurrentPage("Limit");
                 }}
                 to="/selectgo/wishproduct"
@@ -57,7 +54,6 @@ const Header = () => {
               </Link>
               <Link
                 onClick={() => {
-                  setSelectedLink(window.location.pathname);
                   setCurrentPage("Wish");
                 }}
                 to="/selectgo/Wish"
@@ -67,7 +63,6 @@ const Header = () => {
               </Link>
               <Link
                 onClick={() => {
-                  setSelectedLink(window.location.pathname);
                   setCurrentPage("Product");
                 }}
                 to="/selectgo/Product"
