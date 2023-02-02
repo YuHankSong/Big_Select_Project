@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 function WishContent(props) {
   //商品的狀態  集資中 準備中 已流標 販賣中

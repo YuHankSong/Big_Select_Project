@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Router,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+
 import { Link } from "react-router-dom";
 // import WishList from "./WishList";
 // import WishTalk from "./WishTalk";
