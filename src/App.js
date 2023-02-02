@@ -26,7 +26,7 @@ import Header from "./components/Header";
 import WishProduct from "./pages/Wish/WishProduct";
 
 import Checkout from "./pages/Cart/checkout/Checkout";
-import Upload from "./pages/Cart/upload";
+import Upload from "./pages/Wish/img";
 import Success from "./pages/Cart/checkout/Success";
 import Fail from "./pages/Cart/checkout/fail";
 // import "./styles/Cart.scss";
