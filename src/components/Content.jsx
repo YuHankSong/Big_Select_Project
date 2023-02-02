@@ -17,13 +17,11 @@ const Content = () => {
     const history = useHistory();
     // access the data inside our local storage
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
-
+    // console.log(user);
     const logOut = () => {
         localStorage.clear();
         setIsLoggedIn(false)
         history.push('/');
-        // window.location.reload(false);
     }
 
     return (
@@ -63,12 +61,6 @@ const Content = () => {
                                     &nbsp;&nbsp;&nbsp;&nbsp;我的折價卷
                                 </Link>
                             </li>
-                            {/* <li>
-                                <i className="fas fa-question"></i>
-                                <Link to={"/member/Coupon"}>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;常見問題
-                                </Link>
-                            </li> */}
                         </ul>
                     </div>
 

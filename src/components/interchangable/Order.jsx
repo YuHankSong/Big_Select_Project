@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import OrderDetails from "./OrderDetails";
 import { Route } from "react-router-dom";
 import axios from "axios";
@@ -11,25 +11,22 @@ const Order = () => {
   const { isLoggedIn } = useContext(LoginContext);
   const [products, setProducts] = useState([]);
   let user = JSON.parse(localStorage.getItem('user'));
-  let uid = user.id;
-  // console.log(uid)
-  
 
   const fetchUserProducts = async () => {
     try {
-      await axios.get(`http://localhost:8000/api/findUserProduct/${uid}`)
+      await axios.get(`http://localhost:8000/api/findUserProduct/${user.id}`)
         .then((res) => {
           // console.log(res.data)
           setProducts(res.data)
         })
     } catch (error) {
-      alert('error')
+      alert('error');
     }
   }
 
   // run the fetchUserProducts function to get data array
   useEffect(() => {
-    if (user) {
+    if (isLoggedIn) {
       if (products === []) return;
       fetchUserProducts();
     }
