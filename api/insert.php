@@ -15,13 +15,14 @@
     $statusMsg = '';
     $imgNames = [];
     
-    // 算fileToUpload裡面有幾個檔案(用name算的))
+    // 算fileToUpload(前端傳過來的那坨資料的名字)裡面有幾個檔案(用name算的))
     $count = count($_FILES['fileToUpload']['name']);
     //用迴圈存每一張圖
     for ($i = 0; $i < $count; $i++) {
         //宣告存圖片路徑
         $targetDir = '../public/uploads/';
         //路徑不存在時就新增
+        // file_exists检查文件或目录是否存在
         if (!file_exists($targetDir)) {
             mkdir($targetDir);
         }

@@ -31,12 +31,17 @@ function ProductUp() {
   }, []);
 
   function getProductList() {
+    // FormData 可以把表單的資料轉換成可以透過 AJAX 傳送到後端的資料形式
     let fData = new FormData();
+    // 在 pid欄位 加上從sessionStorage取出的pid值
     fData.append('pid', window.sessionStorage.getItem("pid"));
     const url = 'http://localhost:8000/api/queryProducts.php';
+    // 透過POST向url請求資料
     axios.post(url,fData)
       .then((response) => {
+        // d是從後端撈到全部資料的第0筆
         var d = response.data[0];
+        // 在id是pid的欄位 填上值 是d的pid值
         document.getElementById('pid').value = d['pid'];
         document.getElementById('productType').value = d['ptype'];
         document.getElementById('productName').value = d['pname'];
@@ -44,12 +49,14 @@ function ProductUp() {
         document.getElementById('productPrice').value = d['pprice'];
         document.getElementById('productqty').value = d['pqty'];
         document.getElementById('pstatus').value = d['pstatus'];
-        //圖片的部分
+        // 圖片的部分
         document.getElementById('oriName1').value = d['ppic_main'];
+        // 清空預留的圖片預覽區域 避免上一張圖片殘留
         document.getElementById("preview_imgs1").innerHTML = "";
+        // 設定第一張圖片路徑 (因為第一張圖片一定不會是空的
         var img1 = '<img id="ori_ppic_1" src="/uploads/' + d['ppic_main'] + '" style="width:120px; height:120px;">';
+        // 把第一張圖片顯示在預覽區最後
         document.getElementById("preview_imgs1").insertAdjacentHTML( 'beforeend', img1 );
-
         if(d['ppic_1'] != null && d['ppic_1'] != ''){
           document.getElementById('oriName2').value = d['ppic_1'];
           document.getElementById("preview_imgs2").innerHTML = "";
@@ -74,24 +81,30 @@ function ProductUp() {
           var img5 = '<img id="ori_ppic_5" src="/uploads/' + d['ppic_4'] + '" style="width:120px; height:120px;">';
           document.getElementById("preview_imgs5").insertAdjacentHTML( 'beforeend', img5 );
         }
-
+        // 做完一切後移除pid的存在
         window.sessionStorage.removeItem("pid");
       })
+      // 如果出現錯誤 跳通知
       .catch(error => alert(error));
   }
 
+  // 上架商品用的
   function readURL() {
     // alert("圖片選擇成功，可供預覽");
     document.getElementById("preview_imgs").innerHTML = ""; // 清除預覽
     var input = document.getElementById("progressbarTWInput");
+    // 如果上傳照片的id裡面有照片
     if (input.files && input.files.length >= 0) {
+      // 按照設定的方式顯示
       for (var i = 0; i < input.files.length; i++) {
+        // FileReader可以讀取本地的檔案
         var reader = new FileReader();
         reader.onload = function (e) {
           //#function 1//
           var img1 = document.createElement("img");
           img1.width = "150";
           img1.height = "150";
+          // e.target.files 可以取得 FileList 物件
           img1.src = e.target.result;
           document.getElementById("preview_imgs").append(img1);
 
@@ -99,6 +112,7 @@ function ProductUp() {
           // var img1 = '<img src="' + e.target.result + '" style="width:120px; height:120px;">';
           // document.getElementById("preview_imgs").insertAdjacentHTML( 'beforeend', img1 );
         };
+        // readAsDataURL將圖片編碼後讀取並顯示在id是input那
         reader.readAsDataURL(input.files[i]);
       }
     } else {
@@ -106,12 +120,11 @@ function ProductUp() {
     }
   }
 
+  // 編輯商品用的
+  // idx 是一個參數 代表第幾張圖 叫他的時候再給數字就好
   function readURLe(idx) {
     document.getElementsByName('preview_imgs')[idx].innerHTML = ""; // 清除預覽
     var input = document.getElementsByName('productMImg')[idx];
-    // 如果檔案數量大於等於0 依照數量跑迴圈
-    // 暫時命名一個參數img1 讓我放等等跑出來的檔案
-    // beforeend在第一個子元素前插入資料
     if (input.files && input.files.length >= 0) {
       for (var i = 0; i < input.files.length; i++) {
         var reader = new FileReader();
@@ -150,8 +163,6 @@ function ProductUp() {
     else {
       const url = 'http://localhost:8000/api/insert.php';
       let fData = new FormData();
-      // 'productType'是我幫這個value取的名字 方便後端取資料的時候用它來取值
-      // productType是value
       fData.append('productType', document.getElementById('productType').value);
       fData.append('productName', document.getElementById('productName').value);
       fData.append('productText', document.getElementById('productText').value);

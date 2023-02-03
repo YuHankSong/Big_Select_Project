@@ -11,16 +11,16 @@
 		exit();
 	}
     // 有連接到資料庫做以下的事
-    // 如果有取得資料並且資料不是空的
-    // 如果傳入的參數是pid,把這個當作值填入剛剛合併的表的pid欄位
-
 	else{
         $sql = 
         "SELECT p.*, ps.ptype, ps.pstatus, ps.iswish 
         FROM products AS p LEFT JOIN product_status AS ps 
         ON p.pid = ps.pid
         ORDER BY p.created_at DESC";
+        //如果前端傳來的參數不是空的
         if (!empty($_POST)) {
+            // isset檢查後端pid是不是有資料
+            // 如果傳入的參數是pid,把這個當作值填入剛剛合併的表的pid欄位
             if (isset($_POST['pid'])) {
                 $pid = $_POST['pid'];
                 $sql = 
@@ -49,6 +49,7 @@
         } else {
             $res = $conn->query($sql);
             $rows = [];
+            // 將讀出的資料Key值設定為該欄位的欄位名稱。
             while($row = $res->fetch_assoc()){
                 $rows[] = $row;
             }
