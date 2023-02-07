@@ -46,7 +46,7 @@ const Register = () => {
                 localStorage.setItem('user', JSON.stringify(res.user));
                 setIsLoggedIn(true);
                 history.push('/member')
-                // window.location.reload(false);
+                window.location.reload(false);
             })
             .catch((err) => {
                 alert(err)
@@ -230,23 +230,34 @@ const Register = () => {
 
                         <form>
                             {/* ============ name ============= */}
-                            <label>姓名*</label>
+                            {name.length < 1 ?
+                                <label><i className="fa-solid fa-circle-xmark text-danger" style={{ 'fontSize': `13px` }}></i> 姓名</label>
+                                :
+                                <label><i class="fa-solid fa-circle-check text-success" style={{ 'fontSize': `13px` }}></i> 姓名</label>
+                            }
                             <div >
                                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="register-name" placeholder="請輸入姓名" required />
                             </div>
                             {/* ============ email ============= */}
-                            <label>Email*</label>
+                            {email.length < 1 ?
+                                <label><i className="fa-solid fa-circle-xmark text-danger" style={{ 'fontSize': `13px` }}></i> Email</label>
+                                :
+                                <label><i class="fa-solid fa-circle-check text-success" style={{ 'fontSize': `13px` }}></i> Email</label>
+                            }
                             <div>
                                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} id="register-email" placeholder="請輸入Email"
                                     required className={`${error && errorType.email ? "highlight" : ""}`} />
                             </div>
                             {/* ============ password ============= */}
-                            <label>密碼*</label>
+                            {password.length < 8 ?
+                                <label><i className="fa-solid fa-circle-xmark text-danger" style={{ 'fontSize': `13px` }}></i> 密碼長度至少需要 8 碼</label>
+                                :
+                                <label><i class="fa-solid fa-circle-check text-success" style={{ 'fontSize': `13px` }}></i> 密碼</label>
+                            }
                             <div>
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="register-pwd" placeholder="請輸入密碼"
                                     required className={`${error && errorType.password ? "highlight" : ""}`} />
                             </div>
-                            {/* {password.length<8 && <small>密碼長度至少需要 8 碼！</small> } */}
                             {/* ============ phone ============= */}
                             <label>手機號碼</label>
                             <div>
