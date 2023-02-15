@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Big Select Project - 購物車
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## 頁面
 
-### `npm start`
+![image-20230215202713702](https://i.imgur.com/Q6FbCXv.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## CRUD 資料
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+React 使用 useEffect 串接 php DB
 
-### `npm run build`
+```jsx
+  const getalldata = async () => {
+    let response = await fetch("http://localhost:8888/myapi/get.php", {
+      method: "POST",
+      body: JSON.stringify({ uid: "4" }),
+    });
+    let data = await response.json();
+    setProductList(data);
+    let mylo = 0;
+    data.map((val) => {
+      return (mylo += val.pprice * val.qty);
+    });
+    setResult(mylo);
+    console.log(productlist.length);
+  };
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```php
+<?php 
+require_once('connect.php');
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
+$data = json_decode(file_get_contents("php://input"), true);
+$userId=$data['uid'];
+$stmt = $conn->prepare("SELECT *, (qty * pprice) AS totalprice
+FROM cart 
+JOIN products 
+  ON cart.pid = products.id 
+JOIN users 
+  ON cart.uid = users.id 
+WHERE uid = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+if(!$result){
+    die($conn->error);
+}
+$items = array();
+while ($row = $result->fetch_assoc()) {
+    array_push($items, $row);
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+echo json_encode($items);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+?>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 串接即時匯率 API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+使用 fetch 方式取得資料，並使用 useState 於前端處理資料
 
-## Learn More
+```jsx
+const getusd = async () => {
+    let response = await fetch("https://tw.rter.info/capi.php", {
+      method: "POST",
+      body: JSON.stringify({ uid: "4" }),
+    });
+    let data = await response.json();
+    setUsd(data.USDTWD.Exrate);
+  };
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## 串接第三方金流
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+於 php api 內使用 POST 接收資料並使用 for 迴圈將資料輸入到後端處理
 
-### Analyzing the Bundle Size
+```php
+        //訂單的商品資料
+        for ($i = 0; $i < $itemcount ;$i++) {
+            array_push($obj->Send['Items'], array('Name' => 
+            $pname[$i],'Price' => (int)$pprice[$i],
+            'Currency' => "元", 'Quantity' => (int) $pqty[$i], 'URL' => "dedwed")); 
+            echo $pname[$i];
+        }
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## How to use
 
-### Advanced Configuration
+1. clone project
+2. `npm i`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+2. `nmp start` 
